@@ -17,7 +17,7 @@ public class LogInControlNew {
             System.out.println("Tutto bene");
             return;
         }
-        System.out.println("Tutto male");
+        System.out.println("Tutto male!");
     }
 
     public static void main(String[] args){
