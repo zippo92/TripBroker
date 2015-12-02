@@ -1,7 +1,7 @@
 package Mvc.Control;
 
-import Mvc.Model.*;
-import Mvc.View.*;
+import Mvc.Model.LogInModel;
+import Mvc.View.LogInView;
 
 /**
  * Created by Simone on 01/12/2015.
