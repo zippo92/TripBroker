@@ -1,9 +1,19 @@
-package Mvc;
+package Mvc.Control;
+
+import Mvc.Model.LogInModelNew;
+import Mvc.View.LogInViewNew;
 
 /**
  * Created by Alessandro on 01/12/2015.
  */
 public class LogInControlNew {
+
+    public static void main(String[] args){
+        LogInControlNew licn = new LogInControlNew();
+        licn.LogIn();
+        LogInModelNew aa = new LogInModelNew();
+
+    }
 
     private String ProcessAuth(LogInViewNew livn){
             return livn.get_auth();
@@ -18,12 +28,5 @@ public class LogInControlNew {
             return;
         }
         System.out.println("Tutto male!");
-    }
-
-    public static void main(String[] args){
-        LogInControlNew licn = new LogInControlNew();
-        licn.LogIn();
-        LogInModelNew aa = new LogInModelNew();
-
     }
 }

@@ -1,4 +1,4 @@
-package Mvc;
+package Mvc.Model;
 
 /**
  * Created by Alessandro on 01/12/2015.
