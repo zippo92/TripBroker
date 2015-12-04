@@ -1,38 +1,72 @@
 package Mvc.View;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import Mvc.Model.*;
+import Mvc.Control.LogInControl;
+
+import javax.swing.*;
+
 /**
  * Created by Simone on 01/12/2015.
  */
 public class LogInView {
-    String nome;
-    LogInModel model;
+
+        private  JLabel userLabel;
+        private  JTextField userText;
+        private  JLabel passwordLabel;
+        private  JPasswordField passwordText;
+        private  JButton loginButton;
+
+
     public LogInView()
     {
+        JFrame frame = new JFrame("Trip Broker");
+        frame.setSize(300, 150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        System.out.println("ciao! questa è una LogInView");
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        placeComponents(panel);
+
+        frame.setVisible(true);
 
     }
 
+    public void addController(LogInControl controller){
+        System.out.println("View      : adding controller");
+        loginButton.addActionListener(controller);
+    } //addController()
 
-    public String LogIn()  {
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader myInput = new BufferedReader(reader);
-        System.out.println("inserisci nome");
-        try {
-            nome = myInput.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return nome;
+    private  void placeComponents(JPanel panel) {
+
+        panel.setLayout(null);
+
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10, 10, 80, 25);
+        panel.add(userLabel);
+
+        userText = new JTextField(20);
+        userText.setBounds(100, 10, 160, 25);
+        panel.add(userText);
+
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10, 40, 80, 25);
+        panel.add(passwordLabel);
+
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(100, 40, 160, 25);
+        panel.add(passwordText);
+
+        loginButton = new JButton("login");
+        loginButton.setBounds(10, 80, 80, 25);
+        panel.add(loginButton);
+
+
     }
 
-    public String mostranome()
+    public String getUsername()
     {
-        return nome;
+        return userText.getText().trim();
+
     }
+
 }

@@ -1,20 +1,31 @@
 package Mvc.Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Simone on 01/12/2015.
  */
 public class LogInModel {
 
-    private String nome;
+    List<String> names;
 
     public LogInModel()
-    {}
+    {
+        names = new ArrayList<String>();
 
-    public void SetNome(String nome) {
-        this.nome = nome;
+        names = Arrays.asList("pippo","paperino","pluto","John","antonio");
+
+
+
     }
 
-    public String GetNome() {
-        return this.nome;
+
+    public List<String> getNames()
+    {
+        return names;
     }
+
+
 }
