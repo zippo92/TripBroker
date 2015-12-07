@@ -2,64 +2,57 @@ package Mvc.Control;
 
 import Mvc.Model.LogInModel;
 import Mvc.View.LogInView;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Simone on 01/12/2015.
  */
-public class LogInControl implements ActionListener {
+public class LogInControl  extends Application {
 
-        private  LogInView logInView;
-        private LogInModel logInModel;
+    private LogInView logInView;
+    private LogInModel logInModel;
+    private SelectionControl selectionControl;
 
-
-
-
-
-        public LogInControl() {
-
-            logInView = new LogInView();
-            logInView.addController(this);
-            logInModel = new LogInModel();
-        }
-
-        boolean NamePresent(String nome)
-        {
-            boolean trovato = false;
-            List<String> names = logInModel.getNames();
-
-            Iterator itr= names.iterator();
-
-            while(itr.hasNext() && !trovato)
-            {
-                if((itr.next()).equals(nome))
-                    trovato = true;
-            }
-
-            return trovato;
-
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton source = (JButton) e.getSource();
-            String nome =logInView.getUsername();
-            if(NamePresent(nome))
-                JOptionPane.showMessageDialog(source,"ciao " + nome + " sei loggato");
-            else
-                JOptionPane.showMessageDialog(source,"ciao " + nome + " non sei loggato");
-
-        }
-
-
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        logInView = new LogInView(primaryStage);
+        //   logInModel = new LogInModel();
 
     }
 
+    boolean NamePresent(String nome) {
+        boolean trovato = false;
+        List<String> names = logInModel.getNames();
+
+        Iterator itr = names.iterator();
+
+        while (itr.hasNext() && !trovato) {
+            if ((itr.next()).equals(nome))
+                trovato = true;
+        }
+
+        return trovato;
+
+    }
+
+
+    @FXML
+        private void LogInAction(ActionEvent actionEvent) throws IOException {
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+        selectionControl = new SelectionControl();
+    }
+
+
+
+}
 
 
 
