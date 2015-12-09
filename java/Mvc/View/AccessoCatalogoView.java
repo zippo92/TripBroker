@@ -20,6 +20,8 @@ public class AccessoCatalogoView {
     BorderPane componentLayout;
     Scene scene;
     String dep;
+    int Dim_Butt=18;
+
 
     public AccessoCatalogoView(Stage primaryStage,String utente ) throws IOException {
         dep = utente;
@@ -102,7 +104,7 @@ public class AccessoCatalogoView {
         titleBox.setAlignment(Pos.TOP_CENTER);
         Label title = new Label();
         title.setText("TRIP BROKER");
-        title.setFont(new Font("Comic Sans MS",50));
+        title.setFont(new Font("Segoe Print",50));
 
         //Add Title label to titleBox
         titleBox.getChildren().add(title);
@@ -144,17 +146,19 @@ public class AccessoCatalogoView {
 
                     Button offerte = new Button() ;
                 offerte.setText("Inserimento offerte");
+                offerte.setFont(new Font(Dim_Butt));
                 offerte.setMaxWidth(Double.MAX_VALUE);
 
                 Button contratti = new Button();
                 contratti.setText("Gestione contratti");
+                contratti.setFont(new Font(Dim_Butt));
                 contratti.setMaxWidth(Double.MAX_VALUE);
 
 
                 Button ricerca = new Button();
                 ricerca.setText("Ricerca offerte");
+                ricerca.setFont(new Font(Dim_Butt));
                 ricerca.setMaxWidth(Double.MAX_VALUE);
-
                 buttonBox.getChildren().addAll(offerte, contratti, ricerca);
                 break;
 
@@ -162,11 +166,16 @@ public class AccessoCatalogoView {
 
                 Button aggrega = new Button() ;
                 aggrega.setText("Aggregazione Offerte");
-//                aggrega.setMaxWidth(Double.MAX_VALUE);
+                aggrega.setFont(new Font(Dim_Butt));
+                aggrega.setMaxWidth(Double.MAX_VALUE);
+
 
                 Button costi = new Button();
                 costi.setText("Aggiorna costi offerte");
-//                costi.setMaxWidth(Double.MAX_VALUE);
+                costi.setFont(new Font(Dim_Butt));
+                costi.setMaxWidth(Double.MAX_VALUE);
+
+
 
                 buttonBox.getChildren().addAll(aggrega, costi);
                 break;
@@ -174,16 +183,21 @@ public class AccessoCatalogoView {
             case "Admin":
                 Button aggiorna = new Button() ;
                 aggiorna.setText("Aggiorna offerte con criterio");
+                aggiorna.setFont(new Font(Dim_Butt));
                 aggiorna.setMaxWidth(Double.MAX_VALUE);
 
                 Button andamento = new Button();
                 andamento.setText("Visualizza andamento economico");
+                andamento.setFont(new Font(Dim_Butt));
                 andamento.setMaxWidth(Double.MAX_VALUE);
+
 
 
                 Button log = new Button();
                 log.setText("Visualizza log");
+                log.setFont(new Font(Dim_Butt));
                 log.setMaxWidth(Double.MAX_VALUE);
+
 
                 buttonBox.getChildren().addAll(aggiorna,andamento,log);
 
@@ -191,6 +205,7 @@ public class AccessoCatalogoView {
                 Button prenotazione = new Button() ;
                 prenotazione.setText("Prenotazione viaggio");
                 prenotazione.setMaxWidth(Double.MAX_VALUE);
+                prenotazione.setFont(new Font(20));
                 buttonBox.getChildren().addAll(prenotazione);
 
         }
