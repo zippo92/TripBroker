@@ -35,6 +35,7 @@ public class AccessoCatalogoView {
         this.scene = new Scene(componentLayout, percentageWidth, percentageHeight);
         buildLeft();
         buildCenter();
+        buildTop();
 
 
         primaryStage.setTitle("Hello World");
@@ -87,6 +88,36 @@ public class AccessoCatalogoView {
 
     }
 
+    private void buildTop() {
+
+        BorderPane topLayout = new BorderPane();
+
+        Label divider = new Label();
+        divider.setMaxHeight(1);
+        divider.setMinHeight(1);
+        divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+        topLayout.setBottom(divider);
+
+        HBox titleBox = new HBox();
+        titleBox.setAlignment(Pos.TOP_CENTER);
+        Label title = new Label();
+        title.setText("TRIP BROKER");
+        title.setFont(new Font("Comic Sans MS",50));
+
+        //Add Title label to titleBox
+        titleBox.getChildren().add(title);
+
+        //Add Title Box (with label) to topLayout
+        topLayout.setCenter(titleBox);
+        topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+
+
+        //Add topLayout (a BorderPane Manager) to App Layout.
+        componentLayout.setTop(topLayout);
+
+    }
+
+
     private VBox setButtonBox(String dep)
     {
         VBox buttonBox = new VBox();
@@ -131,11 +162,11 @@ public class AccessoCatalogoView {
 
                 Button aggrega = new Button() ;
                 aggrega.setText("Aggregazione Offerte");
-                aggrega.setMaxWidth(Double.MAX_VALUE);
+//                aggrega.setMaxWidth(Double.MAX_VALUE);
 
                 Button costi = new Button();
                 costi.setText("Aggiorna costi offerte");
-                costi.setMaxWidth(Double.MAX_VALUE);
+//                costi.setMaxWidth(Double.MAX_VALUE);
 
                 buttonBox.getChildren().addAll(aggrega, costi);
                 break;
