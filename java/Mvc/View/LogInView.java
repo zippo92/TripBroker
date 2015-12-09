@@ -18,7 +18,8 @@ public class LogInView{
     public LogInView(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("LogInView.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(root, 300, 275);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

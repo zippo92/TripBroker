@@ -19,7 +19,8 @@ public class LogInControl  extends Application {
 
     private LogInView logInView;
     private LogInModel logInModel;
-    private SelectionControl selectionControl;
+    private AccessoCatalogoControl accessoCatalogoControl;
+    private String utente;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -47,7 +48,13 @@ public class LogInControl  extends Application {
     @FXML
         private void LogInAction(ActionEvent actionEvent) throws IOException {
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        selectionControl = new SelectionControl();
+        accessoCatalogoControl = new AccessoCatalogoControl("Designer");
+
+        try {
+            accessoCatalogoControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
