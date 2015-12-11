@@ -16,8 +16,8 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField prefHeight="41.0" prefWidth="300.0" promptText="Nomr Utente" GridPane.rowIndex="1" />
-      <TextField prefHeight="37.0" prefWidth="300.0" promptText="Password" GridPane.rowIndex="2" />
+      <TextField fx:id="nameField" prefHeight="41.0" prefWidth="300.0" promptText="Nome Utente" GridPane.rowIndex="1" />
+      <TextField fx:id="passwordField" prefHeight="37.0" prefWidth="300.0" promptText="Password" GridPane.rowIndex="2" ></TextField>
       <TextArea prefHeight="200.0" prefWidth="200.0" text="TRIP BROKER LOG IN">
          <font>
             <Font name="Arial Bold" size="22.0" />

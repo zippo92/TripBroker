@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.daisy.libs:servlet-api:2.5.0" type="repository">
+    <properties maven-id="org.daisy.libs:servlet-api:2.5.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/daisy/libs/servlet-api/2.5.0/servlet-api-2.5.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

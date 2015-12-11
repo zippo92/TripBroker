@@ -1,11 +1,15 @@
 package Mvc.Control;
 
+import Mvc.Control.AccessoCatalogoControl;
 import Mvc.Model.LogInModel;
 import Mvc.View.LogInView;
+import entityPackage.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,34 +25,30 @@ public class LogInControl  extends Application {
     private LogInModel logInModel;
     private AccessoCatalogoControl accessoCatalogoControl;
     private String utente;
+    @FXML
+    TextField nameField;
+
+    @FXML
+    TextField passwordField;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         logInView = new LogInView(primaryStage);
-        //   logInModel = new LogInModel();
-
+        logInModel = new LogInModel();
     }
-
-    boolean NamePresent(String nome) {
-        boolean trovato = false;
-        List<String> names = logInModel.getNames();
-
-        Iterator itr = names.iterator();
-
-        while (itr.hasNext() && !trovato) {
-            if ((itr.next()).equals(nome))
-                trovato = true;
-        }
-
-        return trovato;
-
-    }
-
 
     @FXML
         private void LogInAction(ActionEvent actionEvent) throws IOException {
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        accessoCatalogoControl = new AccessoCatalogoControl("Designer");
+        String user = nameField.getText();
+        String pass = passwordField.getText();
+        List<User> users = logInModel.searchForName(user,pass);
+        if(users != null){
+            ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+            accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
+        }
+        else{
+            System.out.println("Errore in LogIn");
+        }
 
         try {
             accessoCatalogoControl.start(new Stage());
