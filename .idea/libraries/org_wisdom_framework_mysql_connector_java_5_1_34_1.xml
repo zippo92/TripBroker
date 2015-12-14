@@ -8,7 +8,11 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.ipojo.annotations/1.12.1/org.apache.felix.ipojo.annotations-1.12.1.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/wisdom-framework/abstract-jdbc-driver/0.5/abstract-jdbc-driver-0.5.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wisdom-framework/mysql-connector-java/5.1.34_1/mysql-connector-java-5.1.34_1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wisdom-framework/mysql-connector-java/5.1.34_1/mysql-connector-java-5.1.34_1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

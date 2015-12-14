@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="471276547">
+  <component name="DataSourceManagerImpl" format="xml" hash="2981273074">
     <data-source source="LOCAL" name="MySQL - myfirsthibernatedb@localhost" uuid="1de50313-d782-4d56-8811-d7b1c03d3e01">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

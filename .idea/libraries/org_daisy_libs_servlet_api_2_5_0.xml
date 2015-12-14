@@ -5,7 +5,11 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/daisy/libs/servlet-api/2.5.0/servlet-api-2.5.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/daisy/libs/servlet-api/2.5.0/servlet-api-2.5.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/daisy/libs/servlet-api/2.5.0/servlet-api-2.5.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

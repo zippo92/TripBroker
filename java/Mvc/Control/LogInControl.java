@@ -1,6 +1,5 @@
 package Mvc.Control;
 
-import Mvc.Control.AccessoCatalogoControl;
 import Mvc.Model.LogInModel;
 import Mvc.View.LogInView;
 import entityPackage.User;
@@ -8,12 +7,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,15 +18,14 @@ import java.util.List;
  */
 public class LogInControl  extends Application {
 
+    @FXML
+    TextField nameField;
+    @FXML
+    TextField passwordField;
     private LogInView logInView;
     private LogInModel logInModel;
     private AccessoCatalogoControl accessoCatalogoControl;
     private String utente;
-    @FXML
-    TextField nameField;
-
-    @FXML
-    TextField passwordField;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -41,7 +37,7 @@ public class LogInControl  extends Application {
         private void LogInAction(ActionEvent actionEvent) throws IOException {
         String user = nameField.getText();
         String pass = passwordField.getText();
-        List<User> users = logInModel.searchForName(user,pass);
+        List<User> users = LogInModel.searchForName(user,pass);
         if(users != null){
             ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
             accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
@@ -52,7 +48,7 @@ public class LogInControl  extends Application {
 
         try {
             accessoCatalogoControl.start(new Stage());
-        } catch (Exception e) {
+        }    catch (Exception e) {
             e.printStackTrace();
         }
     }

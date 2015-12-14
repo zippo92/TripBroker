@@ -1,5 +1,6 @@
 package Mvc.View;
 
+import Mvc.Control.AccessoCatalogoControl;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,10 +22,12 @@ public class AccessoCatalogoView {
     Scene scene;
     String dep;
     int Dim_Butt=18;
+    AccessoCatalogoControl accessoCatalogoControl;
 
 
-    public AccessoCatalogoView(Stage primaryStage,String utente ) throws IOException {
+    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control) throws IOException {
         dep = utente;
+        accessoCatalogoControl = control;
         double percentageWidth = 0.98;
         double percentageHeight = 0.90;
         componentLayout = new BorderPane();
@@ -148,6 +151,10 @@ public class AccessoCatalogoView {
                 offerte.setText("Inserimento offerte");
                 offerte.setFont(new Font(Dim_Butt));
                 offerte.setMaxWidth(Double.MAX_VALUE);
+                offerte.setOnAction(accessoCatalogoControl::inserimentoOfferte);
+
+
+
 
                 Button contratti = new Button();
                 contratti.setText("Gestione contratti");
@@ -201,7 +208,7 @@ public class AccessoCatalogoView {
 
                 buttonBox.getChildren().addAll(aggiorna,andamento,log);
 
-            case "agente":
+            case "Agente":
                 Button prenotazione = new Button() ;
                 prenotazione.setText("Prenotazione viaggio");
                 prenotazione.setMaxWidth(Double.MAX_VALUE);

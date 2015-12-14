@@ -2,7 +2,6 @@ package Mvc.Model; /**
  * Created by Alessandro on 09/12/2015.
  */
 
-import Mvc.Model.DBResourcesManager;
 import entityPackage.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -34,7 +33,8 @@ public class UserDAOHibernate {
     public static List<User> findSelectedUser(String name,String password) {
         Session s = DBResourcesManager.getSession();
 
-        String query = "from User user where user.usID = '" +name+"' and user.password = '"+password+"'";
+//        String query = "from User user where user.usID = '" + name + "' and user.password = '" + password + "'";
+        String query = "from User user where user.usID = '" + name + "'";
         System.out.println(query);
         @SuppressWarnings("unchecked")
         List<User> users = s.createQuery(query).list();
