@@ -1,5 +1,7 @@
 package Mvc.View;
 
+import Mvc.Control.InserimentoOfferteControl;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,11 +23,15 @@ import java.io.IOException;
  */
 public class InserimentoOfferteView {
 
-    SplitPane layout;
-    Scene scene;
+    private SplitPane layout;
+    private Scene scene;
+    private StackPane sp1;
+    private StackPane sp2;
+    private InserimentoOfferteControl inserimentoOfferteControl;
 
-    public InserimentoOfferteView(Stage stage) throws IOException {
+    public InserimentoOfferteView(Stage stage,InserimentoOfferteControl control) throws IOException {
 
+        inserimentoOfferteControl = control;
         double percentageWidth = 0.50;
         double percentageHeight = 0.50;
         layout = new SplitPane();
@@ -37,8 +43,8 @@ public class InserimentoOfferteView {
 
         this.scene = new Scene(layout, percentageWidth, percentageHeight);
 
-        final StackPane sp1 = buildLeft();
-        final StackPane sp2 = new StackPane();
+        sp1 = buildLeft();
+        sp2 = new StackPane();
         layout.getItems().addAll(sp1, sp2);
         layout.setDividerPositions(0.5f, 0.5f);
 
@@ -50,6 +56,72 @@ public class InserimentoOfferteView {
 
 
     }
+
+
+    public void buildRight(int val)
+    {
+        final GridPane gp = new GridPane();
+        sp2.getChildren().clear();
+        gp.setAlignment(Pos.TOP_LEFT);
+        ColumnConstraints cc = new ColumnConstraints(50, 50, Double.MAX_VALUE,
+                Priority.ALWAYS, HPos.LEFT, true);
+        gp.getColumnConstraints().addAll(cc, cc);
+
+        switch (val) {
+        case 0:
+            Label boh1 = new Label("Durata pernotto");
+            boh1.setFont(new Font("Arial",15));
+
+            TextField bohField = new TextField();
+
+
+            gp.add(boh1,0,0);
+            gp.add(bohField,1,0);
+            break;
+            case 1:
+                Label boh2 = new Label("Trenino ciuf ciuf");
+                boh2.setFont(new Font("Arial",15));
+
+                TextField boh2Field = new TextField();
+
+
+                gp.add(boh2,0,0);
+                gp.add(boh2Field,1,0);
+                break;
+            case 2:
+                Label boh3 = new Label("Museo");
+                boh3.setFont(new Font("Arial",15));
+
+                TextField boh3Field = new TextField();
+
+
+                gp.add(boh3,0,0);
+                gp.add(boh3Field,1,0);
+
+        }
+        sp2.getChildren().add(gp);
+    }
+
+
+    private void bottone1 (ActionEvent event)
+    {
+
+        this.buildRight(0);
+    }
+
+    private void bottone2 (ActionEvent event)
+    {
+
+        this.buildRight(1);
+    }
+
+    private void bottone3 (ActionEvent event)
+    {
+
+        this.buildRight(2);
+    }
+
+
 
     private StackPane buildLeft()
     {
@@ -92,6 +164,11 @@ public class InserimentoOfferteView {
         trasportoB.setToggleGroup(group);
         RadioButton eventiB = new RadioButton("Eventi");
         eventiB.setToggleGroup(group);
+
+        pernottoB.setOnAction(inserimentoOfferteControl::radioListener);
+        trasportoB.setOnAction(inserimentoOfferteControl::radioListener);
+        eventiB.setOnAction(inserimentoOfferteControl::radioListener);
+
 
 
         gp.add(name,0,0);
