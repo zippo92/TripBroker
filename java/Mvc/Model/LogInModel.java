@@ -19,7 +19,7 @@ public class LogInModel extends Application {
     }
 
     public static List<User> searchForName(String name,String password){
-        return UserDAOHibernate.findSelectedUser(name,password);
+        return UserDAO.findSelectedUser(name,password);
     }
 
     @Override

@@ -1,4 +1,5 @@
 import Mvc.Model.DBResourcesManager;
+import Mvc.Model.UserDAO;
 import entityPackage.User;
 
 import java.util.List;
@@ -22,17 +23,17 @@ public class TestMain{
         System.out.println("\nUtenti si registrano...");
         // create and store events
         User u1 = new User("agent","Agente");
-        Mvc.Model.UserDAOHibernate.store(u1);
+        UserDAO.store(u1);
         User u2 = new User("scout","Scout");
-        Mvc.Model.UserDAOHibernate.store(u2);
+        UserDAO.store(u2);
         User u3 = new User("design","Designer");
-        Mvc.Model.UserDAOHibernate.store(u3);
+        UserDAO.store(u3);
         User u4 = new User("admin","Amministratore");
-        Mvc.Model.UserDAOHibernate.store(u4);
+        UserDAO.store(u4);
 
 //        System.out.println("Login di ..."+u1.getRuolo());
 //        // retrieve events again
-//        selectedUser = UserDAOHibernate.findSelectedUser(u1);
+//        selectedUser = UserDAO.findSelectedUser(u1);
 //        if(selectedUser != null){
 //            System.out.println(u1.getUsID() + " è loggato");
 //        }
@@ -40,7 +41,7 @@ public class TestMain{
 //            System.out.println(u1.getUsID() + " deve registrarsi");
 //        }
 //
-//        selectedUser = UserDAOHibernate.findSelectedUser(u2);
+//        selectedUser = UserDAO.findSelectedUser(u2);
 //        if(selectedUser != null){
 //            System.out.println(u2.getUsID() + " è loggato");
 //        }

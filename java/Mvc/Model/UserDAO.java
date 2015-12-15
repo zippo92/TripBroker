@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class UserDAOHibernate {
+public class UserDAO {
 
     public static void store(User e) {
         // start a session

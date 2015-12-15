@@ -136,7 +136,7 @@ public class InserimentoOfferteView {
 
         gp.setAlignment(Pos.TOP_LEFT);
         ColumnConstraints cc = new ColumnConstraints(50,50, Double.MAX_VALUE,
-                Priority.ALWAYS, HPos.LEFT, true);
+                Priority.SOMETIMES, HPos.LEFT, true);
         gp.getColumnConstraints().addAll(cc, cc);
 
 //        RowConstraints rc = new RowConstraints(5, 5, Double.MAX_VALUE,
@@ -169,7 +169,7 @@ public class InserimentoOfferteView {
         trasportoB.setOnAction(inserimentoOfferteControl::radioListener);
         eventiB.setOnAction(inserimentoOfferteControl::radioListener);
 
-
+        Button okButton = new Button("OK");
 
         gp.add(name,0,0);
         gp.add(nameField,1,0);
@@ -183,6 +183,8 @@ public class InserimentoOfferteView {
         gp.add(pernottoB,0,3);
         gp.add(trasportoB,0,4);
         gp.add(eventiB,0,5);
+
+        gp.add(okButton,0,7);
 
         sp.getChildren().add(gp);
         return sp;
