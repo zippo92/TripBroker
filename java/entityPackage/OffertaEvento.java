@@ -1,34 +1,44 @@
 package entityPackage;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Simone on 15/12/2015.
  */
 @Entity
-public class OffertaEvento {
-    private String eveID;
-    private String Tipologia;
+public class OffertaEvento extends Offerta{
+    private String tipologia;
 
-    @GeneratedValue
     @Id
-    public String getEveID() {
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer eveID;
+
+   public OffertaEvento(){super();}
+
+    public Integer getEveID() {
         return eveID;
     }
 
-    public void setEveID(String eveID) {
+    public void setEveID(Integer eveID) {
         this.eveID = eveID;
     }
 
     @Basic
     public String getTipologia() {
-        return Tipologia;
+        return tipologia;
     }
 
+//    @ManyToOne
+//    public Offerta getOfferta() {
+//        return offerta;
+//    }
+//
+//    public void setOfferta(Offerta offerta) {
+//        this.offerta = offerta;
+//    }
+
     public void setTipologia(String tipologia) {
-        Tipologia = tipologia;
+        this.tipologia = tipologia;
     }
+
 }

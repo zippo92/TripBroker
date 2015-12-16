@@ -6,56 +6,59 @@ import javax.persistence.*;
  * Created by Simone on 15/12/2015.
  */
 @Entity
-public class OffertaPernotto {
-    private String PerID;
-    private Offerta offerta;
-    private Integer NumeroNotti;
-    private String Tipologia;
-    private Integer Stelle;
+public class OffertaPernotto extends Offerta{
+    private Integer numeroNotti;
+    private String tipologia;
+    private Integer stelle;
 
-    @GeneratedValue
     @Id
-    public String getPerID() {
-        return PerID;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer perID;
+
+    public OffertaPernotto(){super();}
+
+    public Integer getPerID() {
+        return perID;
     }
 
-    public void setPerID(String id) {
-        this.PerID = id;
-    }
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    public Offerta getOfferta() {
+//        return offerta;
+//    }
+//
+//    public void setOfferta(Offerta offerta) {
+//        this.offerta = offerta;
+//    }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    public Offerta getOfferta() {
-        return offerta;
-    }
-
-    public void setOfferta(Offerta offerta) {
-        this.offerta = offerta;
+    public void setPerID(Integer id) {
+        this.perID = id;
     }
 
     @Basic
     public Integer getNumeroNotti() {
-        return NumeroNotti;
+        return numeroNotti;
     }
 
     public void setNumeroNotti(Integer numeroNotti) {
-        NumeroNotti = numeroNotti;
+        this.numeroNotti = numeroNotti;
     }
 
     @Basic
     public String getTipologia() {
-        return Tipologia;
+        return tipologia;
     }
 
     public void setTipologia(String tipologia) {
-        Tipologia = tipologia;
+        this.tipologia = tipologia;
     }
 
     @Basic
     public Integer getStelle() {
-        return Stelle;
+        return stelle;
     }
 
     public void setStelle(Integer stelle) {
-        Stelle = stelle;
+        this.stelle = stelle;
     }
+
 }

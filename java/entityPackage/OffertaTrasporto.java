@@ -6,56 +6,60 @@ import javax.persistence.*;
  * Created by Simone on 15/12/2015.
  */
 @Entity
-public class OffertaTrasporto {
-    private String trasID;
-    private Offerta offerta;
-    private String CittàPartenza;
-    private String Tipologia;
-    private Double Durata;
+public class OffertaTrasporto extends Offerta{
+    private String cittàPartenza;
+    private String tipologia;
+    private Double durata;
 
-    @GeneratedValue
     @Id
-    public String getTrasID() {
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer trasID;
+
+
+    public OffertaTrasporto(){super();}
+
+    public Integer getTrasID() {
         return trasID;
     }
 
-    public void setTrasID(String trasID) {
+//    @ManyToOne
+//    public Offerta getOfferta() {
+//        return offerta;
+//    }
+//
+//    public void setOfferta(Offerta offerta) {
+//        this.offerta = offerta;
+//    }
+
+    public void setTrasID(Integer trasID) {
         this.trasID = trasID;
-    }
-
-    @ManyToOne
-    public Offerta getOfferta() {
-        return offerta;
-    }
-
-    public void setOfferta(Offerta offerta) {
-        this.offerta = offerta;
     }
 
     @Basic
     public String getCittàPartenza() {
-        return CittàPartenza;
+        return cittàPartenza;
     }
 
     public void setCittàPartenza(String cittàPartenza) {
-        CittàPartenza = cittàPartenza;
+        this.cittàPartenza = cittàPartenza;
     }
 
     @Basic
     public String getTipologia() {
-        return Tipologia;
+        return tipologia;
     }
 
     public void setTipologia(String tipologia) {
-        Tipologia = tipologia;
+        this.tipologia = tipologia;
     }
 
     @Basic
     public Double getDurata() {
-        return Durata;
+        return durata;
     }
 
     public void setDurata(Double durata) {
-        Durata = durata;
+        this.durata = durata;
     }
+
 }

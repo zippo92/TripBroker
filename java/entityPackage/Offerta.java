@@ -1,65 +1,68 @@
 package entityPackage;
 
 import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 /**
  * Created by Simone on 15/12/2015.
  */
-@Entity
+
+//@Entity
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public class Offerta {
     private String ofID;
-    private String Nome;
-    private Double Prezzo;
-    private Date DataScadenza;
-    private String Città;
+    private String nome;
+    private Double prezzo;
+    private Date dataScadenza;
+    private String città;
 
-    @GeneratedValue
-    @Id
-    public String getOfID() {
-        return ofID;
-    }
+//    @Id
+//    public String getOfID() {
+//        return ofID;
+//    }
+//
+//    public void setOfID(String id) {
+//        this.ofID = id;
+//    }
 
-    public void setOfID(String id) {
-        this.ofID = id;
-    }
+    public Offerta(){super();}
 
     @Basic
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        this.nome = nome;
     }
 
     @Basic
     public Double getPrezzo() {
-        return Prezzo;
+        return prezzo;
     }
 
     public void setPrezzo(Double prezzo) {
-        Prezzo = prezzo;
+        this.prezzo = prezzo;
     }
 
     @Basic
     public Date getDataScadenza() {
-        return DataScadenza;
+        return dataScadenza;
     }
 
     public void setDataScadenza(Date dataScadenza) {
-        DataScadenza = dataScadenza;
+        this.dataScadenza = dataScadenza;
     }
 
     @Basic
     public String getCittà() {
-        return Città;
+        return città;
     }
 
     public void setCittà(String città) {
-        Città = città;
+        this.città = città;
     }
+
 }

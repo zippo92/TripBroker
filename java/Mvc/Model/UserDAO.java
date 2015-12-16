@@ -20,7 +20,6 @@ public class UserDAO {
         try {
             s.save(e); //might throw exception
         } catch(HibernateException ex) {
-            System.out.println("Ciao");
         }
 
         // commit the current transaction of the session
