@@ -19,6 +19,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Created by Simone on 14/12/2015.
@@ -146,7 +147,7 @@ public class InserimentoOfferteView {
                 tipoEvento.setFont(new Font("Arial",15));
 
                 ObservableList<String> itemsEvent = FXCollections.observableArrayList (
-                        "Museo", "♫Concerto♪", "Visita guidata", "Cinema" , "Teatro");
+                        "Museo", "Concerto", "Visita guidata", "Cinema" , "Teatro");
 
                 final ComboBox comboBoxEventi = new ComboBox(itemsEvent);
 
@@ -158,6 +159,7 @@ public class InserimentoOfferteView {
 
         Button okButton = new Button("OK");
         okButton.setMaxWidth(100.0);
+        okButton.setOnAction(inserimentoOfferteControl::inserimentoListener);
 
         sp2.getChildren().add(gp);
         sp2.setAlignment(Pos.BOTTOM_RIGHT);
@@ -221,6 +223,7 @@ public class InserimentoOfferteView {
         data.setFont(new Font("Arial",15));
 
         DatePicker datePicker = new DatePicker();
+        datePicker.setValue(LocalDate.now());
 
 
 

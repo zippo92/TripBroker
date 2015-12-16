@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class OffertaTrasporto extends Offerta{
     private String cittàPartenza;
     private String tipologia;
-    private Double durata;
+    private int durata;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -54,11 +54,11 @@ public class OffertaTrasporto extends Offerta{
     }
 
     @Basic
-    public Double getDurata() {
+    public int getDurata() {
         return durata;
     }
 
-    public void setDurata(Double durata) {
+    public void setDurata(int durata) {
         this.durata = durata;
     }
 

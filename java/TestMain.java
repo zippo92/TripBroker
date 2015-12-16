@@ -28,7 +28,6 @@ public class TestMain{
         OffertaTrasporto offertaTrasporto = new OffertaTrasporto();
         offertaTrasporto.setCittà("Londra");
         offertaTrasporto.setNome("namo a Londra yeeee");
-        offertaTrasporto.setPrezzo(400.0);
 
 
 

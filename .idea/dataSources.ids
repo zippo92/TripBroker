@@ -2502,7 +2502,7 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="379" parent="9" name="dataScadenza">
-        <data-type>datetime</data-type>
+        <data-type>varchar(255)</data-type>
       </column>
       <column id="380" parent="9" name="nome">
         <data-type>varchar(255)</data-type>
@@ -2511,7 +2511,8 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="382" parent="9" name="prezzo">
-        <data-type>double</data-type>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
       </column>
       <column id="383" parent="9" name="tipologia">
         <data-type>varchar(255)</data-type>
@@ -2528,7 +2529,7 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="387" parent="10" name="dataScadenza">
-        <data-type>datetime</data-type>
+        <data-type>varchar(255)</data-type>
       </column>
       <column id="388" parent="10" name="nome">
         <data-type>varchar(255)</data-type>
@@ -2537,7 +2538,8 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="390" parent="10" name="prezzo">
-        <data-type>double</data-type>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
       </column>
       <column id="391" parent="10" name="numeroNotti">
         <data-type>int(11)</data-type>
@@ -2560,7 +2562,7 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="397" parent="11" name="dataScadenza">
-        <data-type>datetime</data-type>
+        <data-type>varchar(255)</data-type>
       </column>
       <column id="398" parent="11" name="nome">
         <data-type>varchar(255)</data-type>
@@ -2569,13 +2571,15 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="400" parent="11" name="prezzo">
-        <data-type>double</data-type>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
       </column>
       <column id="401" parent="11" name="cittàPartenza">
         <data-type>varchar(255)</data-type>
       </column>
       <column id="402" parent="11" name="durata">
-        <data-type>double</data-type>
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
       </column>
       <column id="403" parent="11" name="tipologia">
         <data-type>varchar(255)</data-type>
