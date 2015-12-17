@@ -1,20 +1,22 @@
 package Mvc.View;
 
 import Mvc.Control.AccessoCatalogoControl;
+import entityPackage.OffertaEvento;
+import entityPackage.OffertaPernotto;
+import entityPackage.OffertaTrasporto;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Simone on 07/12/2015.
@@ -32,6 +34,7 @@ public class AccessoCatalogoView {
     private StackPane of2;
     private StackPane of3;
     private StackPane pacPane;
+    private GridPane gpPern,gpTras,gpEve;
 
 
     public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control) throws IOException {
@@ -62,23 +65,15 @@ public class AccessoCatalogoView {
     private SplitPane buildOfferte(){
         SplitPane sp = new SplitPane();
 
-        Label label1 = new Label("label 1");
-        Label label2 = new Label("label 2");
-        Label label3 = new Label("label 3");
-        Label label4 = new Label("label 4");
 
 
+        of1 = BuildOffertePernotto();
 
-        of1 = new StackPane();
-        of1.getChildren().add(label1);
+        of2 =BuildOfferteTrasporto();
 
-        of2 = new StackPane();
-        of2.getChildren().add(label2);
+        of3 = BuildOfferteEventi();
 
-        of3 = new StackPane();
-        of3.getChildren().add(label3);
-
-        sp.setDividerPositions(0.3f, 0.6f, 0.9f);
+        sp.setDividerPositions(0.33f, 0.66f, 0.99f);
         sp.getItems().addAll(of1,of2,of3);
 
 
@@ -87,8 +82,178 @@ public class AccessoCatalogoView {
 
 
 
+    private StackPane BuildOfferteEventi()
+    {
+        StackPane sp = new StackPane();
+
+        Label evLabel = new Label("Offerte di eventi");
+        evLabel.setFont(new Font("Arial",20));
+        gpEve = new GridPane();
+
+        gpEve.setHgap(50);
 
 
+        gpEve.add(evLabel,1,0,3,1);
+
+        Label nome = new Label("Nome");
+        nome.setFont(new Font("Arial",15));
+
+        Label prezzo = new Label("Prezzo");
+        prezzo.setFont(new Font("Arial",15));
+
+        Label citta = new Label("Città");
+        citta.setFont(new Font("Arial",15));
+
+        Label tipo = new Label("Tipo");
+        tipo.setFont(new Font("Arial",15));
+
+        gpEve.add(nome,0,1);
+        gpEve.add(prezzo,1,1);
+        gpEve.add(citta,2,1);
+        gpEve.add(tipo,3,1);
+
+        List<OffertaEvento> offerte  = new ArrayList<OffertaEvento>();
+
+        offerte = accessoCatalogoControl.getOffEven();
+
+        int i=2;
+        int app;
+        if(offerte!=null)
+        for(OffertaEvento offertaEvento : offerte){
+            System.out.println(offertaEvento.getNome());
+            gpEve.add(new Label(offertaEvento.getNome()),0,i);
+            gpEve.add(new Label(Integer.toString(offertaEvento.getPrezzo())+"€"),1,i);
+            gpEve.add(new Label(offertaEvento.getCittà()),2,i);
+            gpEve.add(new Label(offertaEvento.getTipologia()),3,i);
+            i++;
+
+        }
+
+
+        sp.getChildren().add(gpEve);
+        return sp;
+    }
+
+    private StackPane BuildOfferteTrasporto()
+    {
+        StackPane sp = new StackPane();
+
+        Label trasLabel = new Label("Offerte di Trasporto");
+        trasLabel.setFont(new Font("Arial",20));
+
+
+        gpTras = new GridPane();
+
+        gpTras.setHgap(50);
+
+
+        gpTras.add(trasLabel,1,0,3,1);
+
+        Label nome = new Label("Nome");
+        nome.setFont(new Font("Arial",15));
+
+        Label prezzo = new Label("Prezzo");
+        prezzo.setFont(new Font("Arial",15));
+
+        Label citta = new Label("Città");
+        citta.setFont(new Font("Arial",15));
+
+        Label cittaP = new Label("Città Partenza");
+        citta.setFont(new Font("Arial",15));
+
+        Label tipo = new Label("Tipo");
+        tipo.setFont(new Font("Arial",15));
+
+        gpTras.add(nome,0,1);
+        gpTras.add(prezzo,1,1);
+        gpTras.add(citta,2,1);
+        gpTras.add(cittaP,3,1);
+        gpTras.add(tipo,4,1);
+
+        List<OffertaTrasporto> offerte  = new ArrayList<OffertaTrasporto>();
+
+        offerte = accessoCatalogoControl.getOffTras();
+
+        int i=2;
+        int app;
+        if(offerte!=null)
+            for(OffertaTrasporto offertaTrasporto : offerte){
+                System.out.println(offertaTrasporto.getNome());
+                gpTras.add(new Label(offertaTrasporto.getNome()),0,i);
+                gpTras.add(new Label(Integer.toString(offertaTrasporto.getPrezzo())+"€"),1,i);
+                gpTras.add(new Label(offertaTrasporto.getCittà()),2,i);
+                gpTras.add(new Label(offertaTrasporto.getCittàPartenza()),3,i);
+                gpTras.add(new Label(offertaTrasporto.getTipologia()),4,i);
+                i++;
+
+            }
+
+        sp.getChildren().add(gpTras);
+
+        return sp;
+    }
+
+    private StackPane BuildOffertePernotto()
+    {
+        StackPane sp = new StackPane();
+
+        Label pernLabel = new Label("Offerte di Pernotto");
+        pernLabel.setFont(new Font("Arial",20));
+
+
+        gpPern = new GridPane();
+
+        gpPern.setHgap(50);
+
+
+        gpPern.add(pernLabel,1,0,3,1);
+
+        Label nome = new Label("Nome");
+        nome.setFont(new Font("Arial",15));
+
+        Label prezzo = new Label("Prezzo");
+        prezzo.setFont(new Font("Arial",15));
+
+        Label citta = new Label("Città");
+        citta.setFont(new Font("Arial",15));
+
+        Label tipo = new Label("Tipo");
+        tipo.setFont(new Font("Arial",15));
+
+        Label notti = new Label("Notti");
+        notti.setFont(new Font("Arial",15));
+
+
+        gpPern.add(nome,0,1);
+        gpPern.add(prezzo,1,1);
+        gpPern.add(citta,2,1);
+        gpPern.add(tipo,3,1);
+        gpPern.add(notti,4,1);
+
+
+        List<OffertaPernotto> offerte  = new ArrayList<OffertaPernotto>();
+
+        offerte = accessoCatalogoControl.getOffPern();
+
+        int i=2;
+        int app;
+        if(offerte!=null)
+            for(OffertaPernotto offertaPernotto : offerte){
+                System.out.println(offertaPernotto.getNome());
+                gpPern.add(new Label(offertaPernotto.getNome()),0,i);
+                gpPern.add(new Label(Integer.toString(offertaPernotto.getPrezzo())+"€"),1,i);
+                gpPern.add(new Label(offertaPernotto.getCittà()),2,i);
+                gpPern.add(new Label(offertaPernotto.getTipologia()),3,i);
+                gpPern.add(new Label(Integer.toString(offertaPernotto.getNumeroNotti())),4,i);
+                i++;
+
+            }
+
+
+        sp.getChildren().add(gpPern);
+
+        return sp;
+    }
 
 
     private StackPane buildPacchetti(){

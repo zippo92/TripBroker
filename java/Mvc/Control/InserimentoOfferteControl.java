@@ -26,8 +26,8 @@ import java.util.Locale;
  */
 public class InserimentoOfferteControl extends Application implements GpColleague {
 
-    InserimentoOfferteView inserimentoOfferteView;
-    InserimentoOfferteModel inserimentoOfferteModel;
+    private InserimentoOfferteView inserimentoOfferteView;
+    private InserimentoOfferteModel inserimentoOfferteModel;
 
     private String nome ;
     private int prezzo;
