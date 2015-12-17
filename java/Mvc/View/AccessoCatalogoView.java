@@ -1,12 +1,15 @@
 package Mvc.View;
 
 import Mvc.Control.AccessoCatalogoControl;
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -18,11 +21,17 @@ import java.io.IOException;
  */
 public class AccessoCatalogoView {
 
-    BorderPane componentLayout;
-    Scene scene;
-    String dep;
-    int Dim_Butt=18;
-    AccessoCatalogoControl accessoCatalogoControl;
+    private BorderPane componentLayout;
+    private Scene scene;
+    private String dep;
+    private int Dim_Butt=18;
+    private AccessoCatalogoControl accessoCatalogoControl;
+    private TabPane tabPane;
+    private SplitPane splitOfferte;
+    private StackPane of1;
+    private StackPane of2;
+    private StackPane of3;
+    private StackPane pacPane;
 
 
     public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control) throws IOException {
@@ -50,44 +59,71 @@ public class AccessoCatalogoView {
     }
 
 
+    private SplitPane buildOfferte(){
+        SplitPane sp = new SplitPane();
+
+        Label label1 = new Label("label 1");
+        Label label2 = new Label("label 2");
+        Label label3 = new Label("label 3");
+        Label label4 = new Label("label 4");
+
+
+
+        of1 = new StackPane();
+        of1.getChildren().add(label1);
+
+        of2 = new StackPane();
+        of2.getChildren().add(label2);
+
+        of3 = new StackPane();
+        of3.getChildren().add(label3);
+
+        sp.setDividerPositions(0.3f, 0.6f, 0.9f);
+        sp.getItems().addAll(of1,of2,of3);
+
+
+        return sp;
+    }
+
+
+
+
+
+
+
+    private StackPane buildPacchetti(){
+        StackPane sp = new StackPane();
+        Label label1 = new Label("label gdsgsdg");
+        sp.getChildren().add(label1);
+
+
+
+        return sp;
+    }
+
 
     private void buildCenter()
     {
-        VBox exContainer = new VBox();
-        GridPane gridPane = new GridPane();
-        gridPane.setStyle("-fx-background-fill: black, white ;\n" +
-                "-fx-background-insets: 1, 1, 1;");
-        gridPane.setAlignment(Pos.TOP_CENTER);
-        ColumnConstraints cc = new ColumnConstraints(100, 100, Double.MAX_VALUE,
-                Priority.ALWAYS, HPos.CENTER, true);
-        gridPane.getColumnConstraints().addAll(cc, cc);
 
-        RowConstraints rc = new RowConstraints(20, 20, Double.MAX_VALUE,
-                Priority.ALWAYS, VPos.CENTER, true);
-        gridPane.getRowConstraints().addAll(rc, rc);
+        tabPane = new TabPane();
+//        tabPane.setStyle("-fx-background-color: lightsteelblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+        Tab tabA = new Tab();
+        tabA.setText("Offerte");
+        tabA.setClosable(false);
+        splitOfferte = buildOfferte();
+        tabA.setContent(splitOfferte);
+        tabPane.getTabs().add(tabA);
 
-
-        Label off_label = new Label("Offerte");
-        off_label.setFont(new Font("Arial",30));
-
-        Label pack_label = new Label("Pacchetti");
-        pack_label.setFont(new Font("Arial",30));
+        Tab tabB = new Tab();
+        tabB.setText("Pacchetti");
+        tabB.setClosable(false);
+        pacPane = buildPacchetti();
+        tabB.setContent(pacPane);
+        tabPane.getTabs().add(tabB);
 
 
 
-        gridPane.add(off_label,0,0);
-        gridPane.add(pack_label,1,0);
-
-        CheckBox pippo = new CheckBox("pippo");
-        CheckBox baudo = new CheckBox("baudo");
-
-        gridPane.add(pippo,0,2);
-        gridPane.add(baudo,1,2);
-
-        //Add GridPane to container.
-        exContainer.getChildren().add(gridPane);
-        exContainer.setStyle("-fx-background-color: lightsteelblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
-        componentLayout.setCenter(exContainer);
+        componentLayout.setCenter(tabPane);
 
 
 
@@ -248,12 +284,6 @@ public class AccessoCatalogoView {
         componentLayout.setLeft(leftLayout);
 
     }
-
-
-    private enum Dipendente {
-        Scout, Admin, Designer, orange
-    }
-
 
 
 }

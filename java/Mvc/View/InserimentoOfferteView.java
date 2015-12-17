@@ -1,9 +1,11 @@
 package Mvc.View;
 
 import Mvc.Control.InserimentoOfferteControl;
+import Patterns.GpMediatorImpl;
+import Patterns.Interface.GpColleague;
+import Patterns.Interface.GpMediator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,16 +26,19 @@ import java.time.LocalDate;
 /**
  * Created by Simone on 14/12/2015.
  */
-public class InserimentoOfferteView {
+public class InserimentoOfferteView implements GpColleague {
 
     private SplitPane layout;
     private Scene scene;
     private StackPane sp1;
     private StackPane sp2;
     private InserimentoOfferteControl inserimentoOfferteControl;
+    private GpMediatorImpl gpMediator;
 
-    public InserimentoOfferteView(Stage stage,InserimentoOfferteControl control) throws IOException {
+    public InserimentoOfferteView(Stage stage, InserimentoOfferteControl control, GpMediatorImpl mediator) throws IOException {
 
+        gpMediator = mediator;
+        gpMediator.addColleague(this);
         inserimentoOfferteControl = control;
         double percentageWidth = 0.40;
         double percentageHeight = 0.40;
@@ -56,15 +61,22 @@ public class InserimentoOfferteView {
         stage.setScene(scene);
         stage.show();
 //        final StackPane sp2 = buildRight();
-
-
     }
 
+    public void send(GridPane gp) {
+            gpMediator.send(gp,this);
+            }
+    public GpMediator getGpMediator() {return gpMediator;}
+
+    public void receive(GridPane gp) {
+        //Never Reched
+    }
 
     public void buildRight(int val)
     {
         sp2.getChildren().clear();
         final GridPane gp = new GridPane();
+        gp.setId("Right");
         gp.setAlignment(Pos.TOP_LEFT);
         ColumnConstraints cc = new ColumnConstraints(50,50, Double.MAX_VALUE,
                 Priority.ALWAYS, HPos.LEFT, true);
@@ -161,32 +173,12 @@ public class InserimentoOfferteView {
         okButton.setMaxWidth(100.0);
         okButton.setOnAction(inserimentoOfferteControl::inserimentoListener);
 
+        this.send(gp);
         sp2.getChildren().add(gp);
         sp2.setAlignment(Pos.BOTTOM_RIGHT);
         sp2.getChildren().add(okButton);
 
     }
-
-
-    private void bottone1 (ActionEvent event)
-    {
-
-        this.buildRight(0);
-    }
-
-    private void bottone2 (ActionEvent event)
-    {
-
-        this.buildRight(1);
-    }
-
-    private void bottone3 (ActionEvent event)
-    {
-
-        this.buildRight(2);
-    }
-
-
 
     private StackPane buildLeft()
     {
@@ -195,10 +187,11 @@ public class InserimentoOfferteView {
 //        final StackPane sp2 = new StackPane();
 //        sp2.getChildren().add(new Button("Button Two"));
 
-          final StackPane sp = new StackPane();
+        final StackPane sp = new StackPane();
 
-          final GridPane gp = new GridPane();
+        final GridPane gp = new GridPane();
 
+        gp.setId("Left");
         gp.setAlignment(Pos.TOP_LEFT);
         ColumnConstraints cc = new ColumnConstraints(50,50, Double.MAX_VALUE,
                 Priority.ALWAYS, HPos.LEFT, true);
@@ -261,8 +254,11 @@ public class InserimentoOfferteView {
         gp.add(data,0,6);
         gp.add(datePicker,1,6);
 
+        this.send(gp);
         sp.getChildren().add(gp);
         return sp;
 
     }
+
+
 }

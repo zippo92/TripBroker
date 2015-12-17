@@ -2,15 +2,20 @@ package Mvc.Control;
 
 import Mvc.Model.InserimentoOfferteModel;
 import Mvc.View.InserimentoOfferteView;
+import Patterns.GpMediatorImpl;
+import Patterns.Interface.GpColleague;
+import Patterns.Interface.GpMediator;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
@@ -19,7 +24,7 @@ import java.util.Locale;
 /**
  * Created by Simone on 14/12/2015.
  */
-public class InserimentoOfferteControl extends Application{
+public class InserimentoOfferteControl extends Application implements GpColleague {
 
     InserimentoOfferteView inserimentoOfferteView;
     InserimentoOfferteModel inserimentoOfferteModel;
@@ -36,18 +41,35 @@ public class InserimentoOfferteControl extends Application{
     private   String tipo ;
     private   int stelle;
     private  String evento;
+    private GpMediatorImpl mediator;
 
-
+    private GridPane gpLeft;
+    private GridPane gpRight;
 
     public InserimentoOfferteControl()
     {
+         mediator = new GpMediatorImpl();
+         mediator.addColleague(this);
 
+    }
 
+    public void send(GridPane gp) {
+         mediator.send(gp,this);
+    }
+
+    public GpMediator getGpMediator() {return mediator;}
+
+    public void receive(GridPane gp) {
+
+        if(gp.getId().equals("Right"))
+            gpRight = gp;
+        else if(gp.getId().equals("Left"))
+            gpLeft = gp;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        inserimentoOfferteView = new InserimentoOfferteView(primaryStage,this);
+        inserimentoOfferteView = new InserimentoOfferteView(primaryStage,this,mediator);
         inserimentoOfferteModel = new InserimentoOfferteModel();
     }
 
@@ -101,18 +123,19 @@ public class InserimentoOfferteControl extends Application{
         offerta.setTipologia(evento);
         return offerta;
     }
-    public void inserimentoListener (ActionEvent event) {
+    public void inserimentoListener (ActionEvent event){
 
-        final SplitPane sp = (SplitPane) ((Node) (event.getSource())).getScene().getRoot();
-
-
-        final StackPane stackPane1 = (StackPane) sp.getItems().get(0);
-
-        final GridPane gp1 = (GridPane) stackPane1.getChildren().get(0);
-
-        final TextField tf = null;
+//        final SplitPane sp = (SplitPane) ((Node) (event.getSource())).getScene().getRoot();
+//
+//
+//        final StackPane stackPane1 = (StackPane) sp.getItems().get(0);
+//
+//        final GridPane gp1 = (GridPane) stackPane1.getChildren().get(0);
 
 
+        final GridPane gp1 = gpLeft;
+
+        boolean red = false ;
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.ITALIAN);
@@ -124,8 +147,10 @@ public class InserimentoOfferteControl extends Application{
                     node.setStyle("");
                 }
                 else
+                {
+                    red = true;
                     node.setStyle("-fx-border-color: red");
-            }
+                }            }
             if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 1) {
                 if(!((TextField) node).getText().equals("")) {
                    try{
@@ -133,11 +158,15 @@ public class InserimentoOfferteControl extends Application{
                     node.setStyle("");
                    } catch (NumberFormatException e)
                    {
+                       red = true;
                        node.setStyle("-fx-border-color: red");
                    }
                 }
                 else
+                {
+                    red = true;
                     node.setStyle("-fx-border-color: red");
+                }
             }
             if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 2) {
                 if(!((TextField) node).getText().equals("")) {
@@ -145,7 +174,11 @@ public class InserimentoOfferteControl extends Application{
                     node.setStyle("");
                 }
                 else
-                    node.setStyle("-fx-border-color: red");            }
+                {
+                    red = true;
+                    node.setStyle("-fx-border-color: red");
+                }
+            }
             if (GridPane.getColumnIndex(node) == 0 && GridPane.getRowIndex(node) == 3) {
                 RadioButton chk = (RadioButton) ((RadioButton) node).getToggleGroup().getSelectedToggle();
                 radioButton = chk.getText();
@@ -157,11 +190,13 @@ public class InserimentoOfferteControl extends Application{
             }
         }
 
-        System.out.println(nome + " " + prezzo + " " + città + " " + data);
+//        System.out.println(nome + " " + prezzo + " " + città + " " + data);
+//
+//        StackPane stackPane2 = (StackPane) sp.getItems().get(1);
+//
+//        GridPane gp2 = (GridPane) stackPane2.getChildren().get(0);
 
-        StackPane stackPane2 = (StackPane) sp.getItems().get(1);
-
-        GridPane gp2 = (GridPane) stackPane2.getChildren().get(0);
+        final GridPane gp2 = gpRight;
 
         switch (radioButton) {
 
@@ -173,7 +208,10 @@ public class InserimentoOfferteControl extends Application{
                             node.setStyle("");
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
 
 
                     if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 1)
@@ -182,7 +220,10 @@ public class InserimentoOfferteControl extends Application{
                             node.setStyle("");
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
 
                     if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 2)
                         if(!((TextField) node).getText().equals("")) {
@@ -191,13 +232,17 @@ public class InserimentoOfferteControl extends Application{
                                 node.setStyle("");
                             } catch (NumberFormatException e)
                             {
+                                red = true;
                                 node.setStyle("-fx-border-color: red");
                             }
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
-                    }
-                inserimentoOfferteModel.InsertTrasporto(this.creaOffertaTrasporto());
+                        }
+                }
+                if(!red) inserimentoOfferteModel.InsertTrasporto(this.creaOffertaTrasporto());
                 break;
             case "Pernotto":
                 for (Node node : gp2.getChildren()) {
@@ -208,11 +253,15 @@ public class InserimentoOfferteControl extends Application{
                             node.setStyle("");
                             } catch (NumberFormatException e)
                             {
+                                red=true;
                                 node.setStyle("-fx-border-color: red");
                             }
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
 
 
                     if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 1)
@@ -221,7 +270,10 @@ public class InserimentoOfferteControl extends Application{
                             node.setStyle("");
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
 
                     if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 2)
                         if(!((ComboBox) node).getSelectionModel().isEmpty()) {
@@ -229,9 +281,12 @@ public class InserimentoOfferteControl extends Application{
                             stelle = ((ComboBox) node).getSelectionModel().getSelectedIndex() + 1;
                         }
                          else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
                 }
-                inserimentoOfferteModel.InsertPernotto(this.creaOffertaPernotto());
+               if(!red) inserimentoOfferteModel.InsertPernotto(this.creaOffertaPernotto());
                 break;
 
             case "Eventi":
@@ -242,11 +297,17 @@ public class InserimentoOfferteControl extends Application{
                             node.setStyle("");
                         }
                         else
+                        {
+                            red = true;
                             node.setStyle("-fx-border-color: red");
+                        }
 
                 }
-                inserimentoOfferteModel.InsertEvento(this.creaOffertaEvento());
+                if(!red) inserimentoOfferteModel.InsertEvento(this.creaOffertaEvento());
                 break;
         }
+        if(!red)
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+
     }
 }
