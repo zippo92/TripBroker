@@ -1,5 +1,8 @@
 package Mvc.Model;
 
+import DAO.OffertaEventoDAO;
+import DAO.OffertaPernottoDAO;
+import DAO.OffertaTrasportoDAO;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;

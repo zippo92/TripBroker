@@ -1,7 +1,5 @@
-package Patterns;
+package Patterns.GpMediator;
 
-import Patterns.Interface.GpColleague;
-import Patterns.Interface.GpMediator;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;

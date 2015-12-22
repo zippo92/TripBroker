@@ -1,4 +1,4 @@
-package Patterns.Interface;
+package Patterns.GpMediator;
 
 import javafx.scene.layout.GridPane;
 

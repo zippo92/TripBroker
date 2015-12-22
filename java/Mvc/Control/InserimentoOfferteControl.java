@@ -2,9 +2,11 @@ package Mvc.Control;
 
 import Mvc.Model.InserimentoOfferteModel;
 import Mvc.View.InserimentoOfferteView;
-import Patterns.GpMediatorImpl;
-import Patterns.Interface.GpColleague;
-import Patterns.Interface.GpMediator;
+import Patterns.GpMediator.GpColleague;
+import Patterns.GpMediator.GpMediator;
+import Patterns.GpMediator.GpMediatorImpl;
+import Patterns.OffObserver.OffObserver;
+import Patterns.OffObserver.OffSubject;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
@@ -19,15 +21,18 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by Simone on 14/12/2015.
  */
-public class InserimentoOfferteControl extends Application implements GpColleague {
+public class InserimentoOfferteControl extends Application implements GpColleague,OffSubject {
 
     private InserimentoOfferteView inserimentoOfferteView;
     private InserimentoOfferteModel inserimentoOfferteModel;
+    private AccessoCatalogoControl accessoCatalogoControl;
 
     private String nome ;
     private int prezzo;
@@ -46,15 +51,27 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     private GridPane gpLeft;
     private GridPane gpRight;
 
-    public InserimentoOfferteControl()
+    private List<OffObserver> list = new ArrayList<OffObserver>();
+
+
+
+    public InserimentoOfferteControl(AccessoCatalogoControl back)
     {
          mediator = new GpMediatorImpl();
          mediator.addColleague(this);
 
+        inserimentoOfferteModel = new InserimentoOfferteModel();
+
+        accessoCatalogoControl = back;
+
+        this.addOffObserver(accessoCatalogoControl);
+
+
+
     }
 
     public void send(GridPane gp) {
-         mediator.send(gp,this);
+        //Never Reached
     }
 
     public GpMediator getGpMediator() {return mediator;}
@@ -70,8 +87,24 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     @Override
     public void start(Stage primaryStage) throws Exception {
         inserimentoOfferteView = new InserimentoOfferteView(primaryStage,this,mediator);
-        inserimentoOfferteModel = new InserimentoOfferteModel();
     }
+
+
+    public void addOffObserver(OffObserver observer) {
+        list.add( observer );
+    }
+
+    public void removeOffObserver(OffObserver observer) {
+        list.remove( observer );
+    }
+
+    public void notifyOffObserver(Object offerta) {
+        for(OffObserver observer: list) {
+            observer.addOfferta(offerta);
+        }
+    }
+
+
 
 
     public void radioListener (ActionEvent event)
@@ -97,6 +130,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setCittàPartenza(this.cittaP);
         offerta.setTipologia(this.trasp);
         offerta.setDurata(this.durata);
+
+//        this.notifyOffObserver(offerta);
         return offerta;
     }
 
@@ -111,6 +146,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setNumeroNotti(this.notti);
         offerta.setStelle(this.stelle);
         offerta.setTipologia(tipo);
+
+//        this.notifyOffObserver(offerta);
         return offerta;
     }
     private OffertaEvento creaOffertaEvento()
@@ -121,6 +158,9 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setPrezzo(this.prezzo);
         offerta.setDataScadenza(this.data);
         offerta.setTipologia(evento);
+
+//        this.notifyOffObserver(offerta);
+
         return offerta;
     }
     public void inserimentoListener (ActionEvent event){
@@ -198,6 +238,11 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
         final GridPane gp2 = gpRight;
 
+        OffertaEvento offertaEvento;
+        OffertaTrasporto offertaTrasporto;
+        OffertaPernotto offertaPernotto;
+
+
         switch (radioButton) {
 
             case "Trasporto":
@@ -242,7 +287,12 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                             node.setStyle("-fx-border-color: red");
                         }
                 }
-                if(!red) inserimentoOfferteModel.InsertTrasporto(this.creaOffertaTrasporto());
+                if(!red)
+                {   offertaTrasporto = this.creaOffertaTrasporto();
+                    inserimentoOfferteModel.InsertTrasporto(offertaTrasporto);
+                    this.notifyOffObserver(offertaTrasporto);
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                }
                 break;
             case "Pernotto":
                 for (Node node : gp2.getChildren()) {
@@ -286,7 +336,12 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                             node.setStyle("-fx-border-color: red");
                         }
                 }
-               if(!red) inserimentoOfferteModel.InsertPernotto(this.creaOffertaPernotto());
+                if(!red)
+                {   offertaPernotto = this.creaOffertaPernotto();
+                    inserimentoOfferteModel.InsertPernotto(offertaPernotto);
+                    this.notifyOffObserver(offertaPernotto);
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                }
                 break;
 
             case "Eventi":
@@ -303,11 +358,13 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                         }
 
                 }
-                if(!red) inserimentoOfferteModel.InsertEvento(this.creaOffertaEvento());
+                if(!red)
+                {   offertaEvento = this.creaOffertaEvento();
+                    inserimentoOfferteModel.InsertEvento(offertaEvento);
+                    this.notifyOffObserver(offertaEvento);
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                }
                 break;
         }
-        if(!red)
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-
     }
 }

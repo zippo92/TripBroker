@@ -1,4 +1,4 @@
-package Patterns.Interface;
+package Patterns.GpMediator;
 
 import javafx.scene.layout.GridPane;
 
@@ -9,7 +9,7 @@ public interface GpColleague {
 
         void send(GridPane gp);
 
-        GpMediator getGpMediator();
+    GpMediator getGpMediator();
 
        void receive(GridPane gp);
 

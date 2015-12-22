@@ -1,16 +1,22 @@
 package Mvc.View;
 
 import Mvc.Control.AccessoCatalogoControl;
+import Patterns.CbMediator.CbColleague;
+import Patterns.CbMediator.CbMediator;
+import Patterns.CbMediator.CbMediatorImpl;
+import entityPackage.Offerta;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -21,7 +27,7 @@ import java.util.List;
 /**
  * Created by Simone on 07/12/2015.
  */
-public class AccessoCatalogoView {
+public class AccessoCatalogoView implements CbColleague{
 
     private BorderPane componentLayout;
     private Scene scene;
@@ -35,19 +41,37 @@ public class AccessoCatalogoView {
     private StackPane of3;
     private StackPane pacPane;
     private GridPane gpPern,gpTras,gpEve;
+    private int gpPernRow,gpTrasRow,gpEveRow;
+    private List<ImageView> infoEve = new ArrayList<ImageView>();
+    private List<ImageView> infoTras = new ArrayList<ImageView>();
+    private List<ImageView> infoPern = new ArrayList<ImageView>();
+    private Image image;
+    private Stage stage;
+    private ToggleGroup groupPern, groupTras;
+    private List<CheckBox> checkBoxes;
+    private CbMediatorImpl cbMediator;
 
 
-    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control) throws IOException {
+
+
+    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException {
+
+        cbMediator = mediator;
+        cbMediator.addColleague(this);
+
         dep = utente;
         accessoCatalogoControl = control;
         double percentageWidth = 0.98;
         double percentageHeight = 0.90;
         componentLayout = new BorderPane();
         componentLayout.setPadding(new Insets(20,0,20,20));
+        stage = primaryStage;
 
         Rectangle2D screenSize = Screen.getPrimary().getBounds();
         percentageWidth *= screenSize.getWidth();
         percentageHeight *= screenSize.getHeight();
+
+        image = new Image("search.png");
 
         this.scene = new Scene(componentLayout, percentageWidth, percentageHeight);
         buildLeft();
@@ -59,6 +83,18 @@ public class AccessoCatalogoView {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+    }
+
+
+
+    public void send(List<CheckBox> checkBoxes) {
+        cbMediator.send(checkBoxes,this);
+    }
+
+    public CbMediator getCbMediator() {return cbMediator;}
+
+    public void receive(List<CheckBox> checkBoxes) {
+    //Never Reached
     }
 
 
@@ -90,7 +126,8 @@ public class AccessoCatalogoView {
         evLabel.setFont(new Font("Arial",20));
         gpEve = new GridPane();
 
-        gpEve.setHgap(50);
+        gpEve.setHgap(25);
+        gpEve.setVgap(15);
 
 
         gpEve.add(evLabel,1,0,3,1);
@@ -111,21 +148,17 @@ public class AccessoCatalogoView {
         gpEve.add(prezzo,1,1);
         gpEve.add(citta,2,1);
         gpEve.add(tipo,3,1);
+        infoEve= new ArrayList<ImageView>();
 
         List<OffertaEvento> offerte  = new ArrayList<OffertaEvento>();
 
         offerte = accessoCatalogoControl.getOffEven();
 
-        int i=2;
+        gpEveRow=2;
         int app;
         if(offerte!=null)
         for(OffertaEvento offertaEvento : offerte){
-            System.out.println(offertaEvento.getNome());
-            gpEve.add(new Label(offertaEvento.getNome()),0,i);
-            gpEve.add(new Label(Integer.toString(offertaEvento.getPrezzo())+"€"),1,i);
-            gpEve.add(new Label(offertaEvento.getCittà()),2,i);
-            gpEve.add(new Label(offertaEvento.getTipologia()),3,i);
-            i++;
+            this.addRow(offertaEvento);
 
         }
 
@@ -144,7 +177,8 @@ public class AccessoCatalogoView {
 
         gpTras = new GridPane();
 
-        gpTras.setHgap(50);
+        gpTras.setHgap(25);
+        gpTras.setVgap(15);
 
 
         gpTras.add(trasLabel,1,0,3,1);
@@ -171,21 +205,15 @@ public class AccessoCatalogoView {
         gpTras.add(tipo,4,1);
 
         List<OffertaTrasporto> offerte  = new ArrayList<OffertaTrasporto>();
+        infoTras = new ArrayList<ImageView>();
 
         offerte = accessoCatalogoControl.getOffTras();
 
-        int i=2;
+        gpTrasRow=2;
         int app;
         if(offerte!=null)
             for(OffertaTrasporto offertaTrasporto : offerte){
-                System.out.println(offertaTrasporto.getNome());
-                gpTras.add(new Label(offertaTrasporto.getNome()),0,i);
-                gpTras.add(new Label(Integer.toString(offertaTrasporto.getPrezzo())+"€"),1,i);
-                gpTras.add(new Label(offertaTrasporto.getCittà()),2,i);
-                gpTras.add(new Label(offertaTrasporto.getCittàPartenza()),3,i);
-                gpTras.add(new Label(offertaTrasporto.getTipologia()),4,i);
-                i++;
-
+                this.addRow(offertaTrasporto);
             }
 
         sp.getChildren().add(gpTras);
@@ -203,7 +231,9 @@ public class AccessoCatalogoView {
 
         gpPern = new GridPane();
 
-        gpPern.setHgap(50);
+        gpPern.setHgap(25);
+        gpPern.setVgap(15);
+
 
 
         gpPern.add(pernLabel,1,0,3,1);
@@ -232,23 +262,17 @@ public class AccessoCatalogoView {
 
 
         List<OffertaPernotto> offerte  = new ArrayList<OffertaPernotto>();
+        infoPern = new ArrayList<ImageView>();
 
         offerte = accessoCatalogoControl.getOffPern();
 
-        int i=2;
+        gpPernRow=2;
         int app;
         if(offerte!=null)
             for(OffertaPernotto offertaPernotto : offerte){
-                System.out.println(offertaPernotto.getNome());
-                gpPern.add(new Label(offertaPernotto.getNome()),0,i);
-                gpPern.add(new Label(Integer.toString(offertaPernotto.getPrezzo())+"€"),1,i);
-                gpPern.add(new Label(offertaPernotto.getCittà()),2,i);
-                gpPern.add(new Label(offertaPernotto.getTipologia()),3,i);
-                gpPern.add(new Label(Integer.toString(offertaPernotto.getNumeroNotti())),4,i);
-                i++;
+                this.addRow(offertaPernotto);
 
             }
-
 
         sp.getChildren().add(gpPern);
 
@@ -256,13 +280,255 @@ public class AccessoCatalogoView {
     }
 
 
+
+
+
+    public void addRow(Object offerta)
+    {
+        if(offerta instanceof OffertaEvento) {
+
+            gpEve.add(new Label(((OffertaEvento)offerta).getNome()),0,gpEveRow);
+            gpEve.add(new Label(Integer.toString(((OffertaEvento)offerta).getPrezzo())+"€"),1,gpEveRow);
+            gpEve.add(new Label(((OffertaEvento)offerta).getCittà()),2,gpEveRow);
+            gpEve.add(new Label(((OffertaEvento)offerta).getTipologia()),3,gpEveRow);
+
+            ImageView imageView = new ImageView(image);
+            imageView.setId(Integer.toString( ( (OffertaEvento) offerta).getEveID()));
+            imageView.setOnMouseClicked(accessoCatalogoControl::visualizzaOfferteEvento);
+
+            infoEve.add(imageView);
+
+
+            gpEve.add(imageView,4,gpEveRow);
+            gpEveRow++;
+
+        }
+
+
+
+        if(offerta instanceof OffertaPernotto) {
+
+            gpPern.add(new Label(((OffertaPernotto)offerta).getNome()),0,gpPernRow);
+            gpPern.add(new Label(Integer.toString(((OffertaPernotto)offerta).getPrezzo())+"€"),1,gpPernRow);
+            gpPern.add(new Label(((OffertaPernotto)offerta).getCittà()),2,gpPernRow);
+            gpPern.add(new Label(((OffertaPernotto)offerta).getTipologia()),3,gpPernRow);
+            gpPern.add(new Label(Integer.toString(((OffertaPernotto)offerta).getNumeroNotti())),4,gpPernRow);
+
+
+            ImageView imageView = new ImageView(image);
+            imageView.setId(Integer.toString(((OffertaPernotto)offerta).getPerID()));
+            imageView.setOnMouseClicked(accessoCatalogoControl::visualizzaOffertePernotto);
+
+            infoPern.add(imageView);
+
+
+            gpPern.add(imageView,5,gpPernRow);
+            gpPernRow++;
+
+        }
+
+
+        if(offerta instanceof  OffertaTrasporto) {
+
+
+            gpTras.add(new Label(((OffertaTrasporto)offerta).getNome()),0,gpTrasRow);
+            gpTras.add(new Label(Integer.toString(((OffertaTrasporto)offerta).getPrezzo())+"€"),1,gpTrasRow);
+            gpTras.add(new Label(((OffertaTrasporto)offerta).getCittà()),2,gpTrasRow);
+            gpTras.add(new Label(((OffertaTrasporto)offerta).getCittàPartenza()),3,gpTrasRow);
+            gpTras.add(new Label(((OffertaTrasporto)offerta).getTipologia()),4,gpTrasRow);
+
+
+            ImageView imageView = new ImageView(image);
+            imageView.setId(Integer.toString(((OffertaTrasporto)offerta).getTrasID()));
+            imageView.setOnMouseClicked(accessoCatalogoControl::visualizzaOfferteTrasporto);
+
+            infoEve.add(imageView);
+
+
+            gpTras.add(imageView,5,gpTrasRow);
+
+            gpTrasRow++;
+
+
+
+        }
+
+    }
+
+
+    private void addDesignerBox()
+    {
+        Label selPern = new Label("Aggiungi");
+        selPern.setFont(new Font("Arial",15));
+        gpPern.add(selPern,6,1);
+
+        int i,j=11;
+        groupPern = new ToggleGroup();
+        for (i=2;i<gpPernRow;i++) {
+
+            RadioButton radioButton = new RadioButton();
+            radioButton.setId(gpPern.getChildren().get(j).getId());//setta l'id  con l'id dell'offerta relativa (contenuto dentro l'imageview, dalla posizione 11 ogni 6 posizioni
+            j+=6;
+            radioButton.setToggleGroup(groupPern);
+            radioButton.setOnAction(accessoCatalogoControl::radioPern);
+
+            gpPern.add(radioButton,6,i);
+
+        }
+
+        Label selTras = new Label("Aggiungi");
+        selTras.setFont(new Font("Arial",15));
+
+        gpTras.add(selTras,6,1);
+
+        j=11;
+        groupTras = new ToggleGroup();
+        for (i=2;i<gpTrasRow;i++) {
+
+            RadioButton radioButton = new RadioButton();
+            radioButton.setId(gpTras.getChildren().get(j).getId());
+            j+=6;
+            radioButton.setToggleGroup(groupTras);
+            radioButton.setOnAction(accessoCatalogoControl::radioTras);
+
+            gpTras.add(radioButton,6,i);
+
+        }
+
+        Label selEve = new Label("Aggiungi");
+        selEve.setFont(new Font("Arial",15));
+
+        gpEve.add(selEve,5,1);
+
+        checkBoxes= new ArrayList<CheckBox>();
+         j=9;
+        for(i=2;i<gpEveRow;i++)
+        {   CheckBox checkBox = new CheckBox();
+
+            checkBox.setId(gpEve.getChildren().get(j).getId()); //setta l'id  con l'id dell'offerta relativa
+            j+=5;
+            gpEve.add(checkBox,5,i);
+            checkBoxes.add(checkBox);
+
+        }
+        final Pane  spring = new Pane();
+        Button okButton = new Button("Aggiungi a pacchetto");
+        okButton.setOnAction(accessoCatalogoControl::addPack);
+
+        gpEve.add(spring,0,gpEveRow);
+        gpEve.add(okButton,0,gpEveRow+1,4,1);
+
+
+
+        this.send(checkBoxes);
+        this.setEffect(1,null);
+
+
+    }
+
+    private void removeDesignerBox()
+    {
+        int from = gpPern.getChildren().size() - gpPernRow +1 ;
+        int to= gpPern.getChildren().size();
+        gpPern.getChildren().remove(from,to);
+
+
+        from = gpTras.getChildren().size() - gpTrasRow +1 ;
+        to= gpTras.getChildren().size();
+        gpTras.getChildren().remove(from,to);
+
+        from = gpEve.getChildren().size() - gpEveRow -1 ; //comprende anche il bottone di conferma
+        to= gpEve.getChildren().size();
+        gpEve.getChildren().remove(from,to);
+
+    }
+
+
+    public void setEffect(int val,String citta)
+    {
+        BoxBlur bb = new BoxBlur();
+        bb.setWidth(5);
+        bb.setHeight(5);
+        bb.setIterations(3);
+        int i,j;
+
+
+        if(val == 0)
+        {
+            of1.setEffect(null);
+            of2.setEffect(null);
+            of3.setEffect(null);
+
+            of1.setDisable(false);
+            of2.setDisable(false);
+            of3.setDisable(false);
+
+        }
+        if(val ==1)
+        {
+            of1.setEffect(null);
+            of2.setEffect(bb);
+            of3.setEffect(bb);
+
+            of1.setDisable(false);
+            of2.setDisable(true);
+            of3.setDisable(true);
+
+
+        }
+        if(val ==2)
+        {
+            of2.setEffect(null);
+
+
+            j=8;
+            for (i=2;i<gpTrasRow;i++) {
+                if(!( (Label) gpTras.getChildren().get(j)).getText().equals(citta)) {
+                    int pos = gpTras.getChildren().size()-1;
+                    pos=pos - (gpTrasRow -i) +1;
+                    gpTras.getChildren().get(pos).setVisible(false);
+                }
+                j+=6;
+            }
+
+            of1.setEffect(bb);
+            of3.setEffect(bb);
+
+            of2.setDisable(false);
+            of1.setDisable(true);
+            of3.setDisable(true);
+
+        }
+        if(val ==3)
+        {
+            of3.setEffect(null);
+
+
+            j=7;
+            for (i=2;i<gpEveRow;i++) {
+                if(!( (Label) gpEve.getChildren().get(j)).getText().equals(citta)) {
+                    int pos = gpEve.getChildren().size()-1;
+                    pos=pos - (gpEveRow -i) +1 -2;
+                    gpEve.getChildren().get(pos).setVisible(false);
+                }
+                j+=5;
+            }
+
+
+            of1.setEffect(bb);
+            of2.setEffect(bb);
+
+            of3.setDisable(false);
+            of1.setDisable(true);
+            of2.setDisable(true);
+
+        }
+
+    }
+
+
     private StackPane buildPacchetti(){
         StackPane sp = new StackPane();
-        Label label1 = new Label("label gdsgsdg");
-        sp.getChildren().add(label1);
-
-
-
         return sp;
     }
 
@@ -338,24 +604,11 @@ public class AccessoCatalogoView {
 
             case "Scout":
 
-                    //Add Click Event.
-//        btnExample1.setOnAction(new EventHandler() e){
-//
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Exampletton Clicked.");
-//                layout.setCenter(example1());
-//            }
-//
-
                     Button offerte = new Button() ;
                 offerte.setText("Inserimento offerte");
                 offerte.setFont(new Font(Dim_Butt));
                 offerte.setMaxWidth(Double.MAX_VALUE);
                 offerte.setOnAction(accessoCatalogoControl::inserimentoOfferte);
-
-
-
 
                 Button contratti = new Button();
                 contratti.setText("Gestione contratti");
@@ -372,10 +625,12 @@ public class AccessoCatalogoView {
 
             case "Designer":
 
+
                 Button aggrega = new Button() ;
                 aggrega.setText("Aggregazione Offerte");
                 aggrega.setFont(new Font(Dim_Butt));
                 aggrega.setMaxWidth(Double.MAX_VALUE);
+                aggrega.setOnAction(accessoCatalogoControl::aggregazioneOfferte);
 
 
                 Button costi = new Button();
@@ -398,8 +653,6 @@ public class AccessoCatalogoView {
                 andamento.setText("Visualizza andamento economico");
                 andamento.setFont(new Font(Dim_Butt));
                 andamento.setMaxWidth(Double.MAX_VALUE);
-
-
 
                 Button log = new Button();
                 log.setText("Visualizza log");
@@ -436,17 +689,117 @@ public class AccessoCatalogoView {
         //Place all demonstration buttons in a Vercial Box.
 
 
-
-
-
-//
-
-
         //Add VBox to leftLayout.
         leftLayout.setCenter(setButtonBox(dep));
 
         //Place into Application.
         componentLayout.setLeft(leftLayout);
+
+    }
+
+    public void mostraOfferta(Object offerta)
+    {
+
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        dialog.setTitle("Descrizione Offerta");
+        GridPane gp = new GridPane();
+        gp.setPadding(new Insets(20,0,20,20));
+
+
+        gp.setAlignment(Pos.TOP_LEFT);
+        ColumnConstraints cc = new ColumnConstraints(50,50, Double.MAX_VALUE,
+                Priority.ALWAYS, HPos.LEFT, true);
+        gp.getColumnConstraints().addAll(cc, cc);
+
+       RowConstraints rc = new RowConstraints(5, 5, Double.MAX_VALUE,
+                Priority.ALWAYS, VPos.TOP, true);
+       gp.getRowConstraints().addAll(rc, rc);
+        gp.setHgap(5);
+        gp.setVgap(5);
+
+        gp.add(new Label("Nome:"),0,0);
+        gp.add(new Label( ((Offerta)offerta).getNome()),1,0);
+
+        gp.add(new Label("Prezzo:"),0,1);
+        gp.add(new Label(Integer.toString(((Offerta)offerta).getPrezzo())),1,1);
+
+        gp.add(new Label("Città:"),0,2);
+        gp.add(new Label(((Offerta)offerta).getCittà()),1,2);
+
+        gp.add(new Label("Data:"),0,3);
+        gp.add(new Label(((Offerta)offerta).getDataScadenza()),1,3);
+
+
+        if(offerta instanceof OffertaPernotto)
+        {
+
+            gp.add(new Label("Numero notti:"),0,4);
+            gp.add(new Label(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti())),1,4);
+
+            gp.add(new Label("Stelle: "),0,5);
+            gp.add(new Label(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti())),1,5);
+
+            gp.add(new Label("Tipologia"),0,6);
+            gp.add(new Label( ((OffertaPernotto)offerta).getTipologia()),1,6);
+
+            Button ok = new Button("OK");
+            ok.setMaxWidth(100.0);
+            ok.setOnAction(accessoCatalogoControl::okListener);
+
+            gp.add(ok,1,7,2,1);
+
+        }
+
+        if(offerta instanceof OffertaTrasporto) {
+
+
+            gp.add(new Label("Città di partenza"), 0, 4);
+            gp.add(new Label(((OffertaTrasporto) offerta).getCittàPartenza()), 1, 4);
+
+            gp.add(new Label("Durata:"),0,5);
+            gp.add(new Label( Integer.toString  (((OffertaTrasporto)offerta).getDurata())),1,5);
+
+            gp.add(new Label("Tipologia"),0,6);
+            gp.add(new Label( ((OffertaTrasporto)offerta).getTipologia()),1,6);
+
+            Button ok = new Button("OK");
+            ok.setMaxWidth(100.0);
+            ok.setOnAction(accessoCatalogoControl::okListener);
+
+            gp.add(ok,1,7,2,1);
+
+        }
+
+        if(offerta instanceof OffertaEvento)
+        {
+            gp.add(new Label("Tipologia"),0,4);
+            gp.add(new Label( ((OffertaEvento)offerta).getTipologia()),1,4);
+
+            Button ok = new Button("OK");
+            ok.setMaxWidth(100.0);
+            ok.setOnAction(accessoCatalogoControl::okListener);
+
+            gp.add(ok,1,7,2,1);
+        }
+
+
+        Scene dialogScene = new Scene(gp, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+    }
+
+    public void showCheckBox(boolean show)
+    {
+
+        if(show)
+            this.addDesignerBox();
+
+        else
+            this.removeDesignerBox();
+
 
     }
 

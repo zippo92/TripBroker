@@ -1,5 +1,6 @@
 package Mvc.Model;
 
+import DAO.UserDAO;
 import entityPackage.User;
 import javafx.application.Application;
 import javafx.stage.Stage;

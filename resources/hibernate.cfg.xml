@@ -17,6 +17,7 @@
         <mapping class="entityPackage.OffertaPernotto"/>
         <mapping class="entityPackage.OffertaTrasporto"/>
         <mapping class="entityPackage.OffertaEvento"/>
+        <mapping class="entityPackage.Pacchetto"/>
 
     </session-factory>
 </hibernate-configuration>
