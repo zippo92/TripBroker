@@ -9,6 +9,7 @@ import Patterns.OffObserver.OffObserver;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
+import entityPackage.Pacchetto;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -108,16 +109,17 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         RadioButton o = (RadioButton) event.getSource();
         offertaPernotto = (accessoCatalogoModel.findPern(o.getId())).get(0);
+
         accessoCatalogoView.setEffect(2,offertaPernotto.getCittà());
     }
 
     public void addPack(ActionEvent event){
         accessoCatalogoView.setEffect(0,null);
-
         for(CheckBox checkBox : checkBoxes)
             if(checkBox.isSelected()) {
                 offertaEvento.add((accessoCatalogoModel.findEven(checkBox.getId())).get(0));
             }
+
         accessoCatalogoView.showCheckBox(false);
 
         aggregazioneOfferteControl = new AggregazioneOfferteControl(offertaPernotto,offertaTrasporto,offertaEvento);
@@ -175,6 +177,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
         return accessoCatalogoModel.getOffPern();
     }
+    public List<Pacchetto> getPack(){ return accessoCatalogoModel.getPack();}
 
     public void okListener (ActionEvent event)  {
 
@@ -182,5 +185,13 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
+
+    public void okButton(ActionEvent event)
+    {
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+        accessoCatalogoView.setEffect(0,null);
+        accessoCatalogoView.showCheckBox(false);
+
+    }
 
 }

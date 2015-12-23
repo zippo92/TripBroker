@@ -5,6 +5,8 @@ import entityPackage.Pacchetto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.util.List;
+
 /**
  * Created by Simone on 22/12/2015.
  */
@@ -28,6 +30,18 @@ public class PacchettoDAO {
 
         // close session
         s.close();
+    }
+
+    public static List<Pacchetto> getList() {
+        Session s = DBResourcesManager.getSession();
+        String query = "from Pacchetto";
+        @SuppressWarnings("unchecked")
+        List<Pacchetto> pacchetto = s.createQuery(query).list();
+        if(pacchetto.size()>0)
+            return pacchetto;
+        else
+            return null;
+
     }
 
 }

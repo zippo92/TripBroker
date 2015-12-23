@@ -4,10 +4,7 @@ import Mvc.Control.AccessoCatalogoControl;
 import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
-import entityPackage.Offerta;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
+import entityPackage.*;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -53,6 +51,11 @@ public class AccessoCatalogoView implements CbColleague{
 
 
 
+    /*
+    * Il costruttore costruisce la schermata di accesso catalogo
+    *
+    *
+    * */
 
     public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException {
 
@@ -86,7 +89,11 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
-
+    /*
+    *   le prossime 3 funzioni servono a implementare il mediator ( in questo caso il mediator è unidirezionale, quindi
+    *   la receive non verrà mai raggiunta
+    *
+    * */
     public void send(List<CheckBox> checkBoxes) {
         cbMediator.send(checkBoxes,this);
     }
@@ -98,6 +105,178 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
+    /*buildLeft costruisce la zona a sinistra, con i button relativi alla specializzazione dell'utente*/
+    private void buildLeft() {
+
+        BorderPane leftLayout = new BorderPane();
+
+        leftLayout.setStyle("-fx-background-color: cadetblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+
+
+        // Create a faux border-right effect using a Label.
+        Label divider = new Label();
+        divider.setPrefWidth(1);
+        divider.setMinHeight(Screen.getPrimary().getBounds().getHeight());
+        leftLayout.setRight(divider);
+
+        //Place all demonstration buttons in a Vercial Box.
+
+
+        //Add VBox to leftLayout.
+        leftLayout.setCenter(setButtonBox(dep));
+
+        //Place into Application.
+        componentLayout.setLeft(leftLayout);
+
+    }
+
+    /*setButtonBox sceglie quali button inserire (dep può essere Scout,Designer,Administrator,Agente)*/
+
+    private VBox setButtonBox(String dep)
+    {
+        VBox buttonBox = new VBox();
+
+        buttonBox.setAlignment(Pos.TOP_CENTER);
+
+        buttonBox.setSpacing(10);
+
+//        Dipendente dipendente = Dipendente.valueOf(dep);
+
+        switch (dep) {
+
+            case "Scout":
+
+                Button offerte = new Button() ;
+                offerte.setText("Inserimento offerte");
+                offerte.setFont(new Font(Dim_Butt));
+                offerte.setMaxWidth(Double.MAX_VALUE);
+                offerte.setOnAction(accessoCatalogoControl::inserimentoOfferte);
+
+                Button contratti = new Button();
+                contratti.setText("Gestione contratti");
+                contratti.setFont(new Font(Dim_Butt));
+                contratti.setMaxWidth(Double.MAX_VALUE);
+
+
+                Button ricerca = new Button();
+                ricerca.setText("Ricerca offerte");
+                ricerca.setFont(new Font(Dim_Butt));
+                ricerca.setMaxWidth(Double.MAX_VALUE);
+                buttonBox.getChildren().addAll(offerte, contratti, ricerca);
+                break;
+
+            case "Designer":
+
+
+                Button aggrega = new Button() ;
+                aggrega.setText("Aggregazione Offerte");
+                aggrega.setFont(new Font(Dim_Butt));
+                aggrega.setMaxWidth(Double.MAX_VALUE);
+                aggrega.setOnAction(accessoCatalogoControl::aggregazioneOfferte);
+
+
+                Button costi = new Button();
+                costi.setText("Aggiorna costi offerte");
+                costi.setFont(new Font(Dim_Butt));
+                costi.setMaxWidth(Double.MAX_VALUE);
+
+
+
+                buttonBox.getChildren().addAll(aggrega, costi);
+                break;
+
+            case "Admin":
+                Button aggiorna = new Button() ;
+                aggiorna.setText("Aggiorna offerte con criterio");
+                aggiorna.setFont(new Font(Dim_Butt));
+                aggiorna.setMaxWidth(Double.MAX_VALUE);
+
+                Button andamento = new Button();
+                andamento.setText("Visualizza andamento economico");
+                andamento.setFont(new Font(Dim_Butt));
+                andamento.setMaxWidth(Double.MAX_VALUE);
+
+                Button log = new Button();
+                log.setText("Visualizza log");
+                log.setFont(new Font(Dim_Butt));
+                log.setMaxWidth(Double.MAX_VALUE);
+
+
+                buttonBox.getChildren().addAll(aggiorna,andamento,log);
+
+            case "Agente":
+                Button prenotazione = new Button() ;
+                prenotazione.setText("Prenotazione viaggio");
+                prenotazione.setMaxWidth(Double.MAX_VALUE);
+                prenotazione.setFont(new Font(20));
+                buttonBox.getChildren().addAll(prenotazione);
+
+        }
+        return buttonBox;
+    }
+
+    /*buildTop costruisce la barra del titolo in alto*/
+    private void buildTop() {
+
+        BorderPane topLayout = new BorderPane();
+
+        Label divider = new Label();
+        divider.setMaxHeight(1);
+        divider.setMinHeight(1);
+        divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+        topLayout.setBottom(divider);
+
+        HBox titleBox = new HBox();
+        titleBox.setAlignment(Pos.TOP_CENTER);
+        Label title = new Label();
+        title.setText("TRIP BROKER");
+        title.setFont(new Font("Segoe Print",50));
+
+        //Add Title label to titleBox
+        titleBox.getChildren().add(title);
+
+        //Add Title Box (with label) to topLayout
+        topLayout.setCenter(titleBox);
+        topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+
+
+        //Add topLayout (a BorderPane Manager) to App Layout.
+        componentLayout.setTop(topLayout);
+
+    }
+
+    /* BuildCenter costruisce la parte centrale , con le due tab, una relativa alle offerte e una relativa ai pacchetti
+    *
+    * */
+    private void buildCenter()
+    {
+
+        tabPane = new TabPane();
+//        tabPane.setStyle("-fx-background-color: lightsteelblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+        Tab tabA = new Tab();
+        tabA.setText("Offerte");
+        tabA.setClosable(false);
+        splitOfferte = buildOfferte();
+        tabA.setContent(splitOfferte);
+        tabPane.getTabs().add(tabA);
+
+        Tab tabB = new Tab();
+        tabB.setText("Pacchetti");
+        tabB.setClosable(false);
+        pacPane = buildPacchetti();
+        tabB.setContent(pacPane);
+        tabPane.getTabs().add(tabB);
+
+
+
+        componentLayout.setCenter(tabPane);
+
+
+
+    }
+
+    /*buildOfferte costruisce la tab relativa alle offerte, costituita da una splitpane divisa in 3 parti, in quanto
+    * ci sono 3 tipi di offerte differenti */
     private SplitPane buildOfferte(){
         SplitPane sp = new SplitPane();
 
@@ -107,7 +286,7 @@ public class AccessoCatalogoView implements CbColleague{
 
         of2 =BuildOfferteTrasporto();
 
-        of3 = BuildOfferteEventi();
+        of3 = buildOfferteEventi();
 
         sp.setDividerPositions(0.33f, 0.66f, 0.99f);
         sp.getItems().addAll(of1,of2,of3);
@@ -117,8 +296,11 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
-
-    private StackPane BuildOfferteEventi()
+    /* buildOfferteEventi contatta il controller per prelevare dal database le offerte eventi, poi le inserisce all 'interno
+     della propria zona
+    *
+    * */
+    private StackPane buildOfferteEventi()
     {
         StackPane sp = new StackPane();
 
@@ -300,7 +482,12 @@ public class AccessoCatalogoView implements CbColleague{
 
 
             gpEve.add(imageView,4,gpEveRow);
-            gpEveRow++;
+
+            Separator separator = new Separator();
+            gpEve.add(separator,0,gpEveRow+1,5,1);
+
+
+            gpEveRow+=2;
 
         }
 
@@ -323,7 +510,12 @@ public class AccessoCatalogoView implements CbColleague{
 
 
             gpPern.add(imageView,5,gpPernRow);
-            gpPernRow++;
+
+            Separator separator = new Separator();
+            gpPern.add(separator,0,gpPernRow+1,6,1);
+
+
+            gpPernRow+=2;
 
         }
 
@@ -347,7 +539,12 @@ public class AccessoCatalogoView implements CbColleague{
 
             gpTras.add(imageView,5,gpTrasRow);
 
-            gpTrasRow++;
+
+            Separator separator = new Separator();
+            gpTras.add(separator,0,gpTrasRow+1,6,1);
+
+
+            gpTrasRow+=2;
 
 
 
@@ -365,15 +562,15 @@ public class AccessoCatalogoView implements CbColleague{
         int i,j=11;
         groupPern = new ToggleGroup();
         for (i=2;i<gpPernRow;i++) {
+            if(i%2==0) {
+                RadioButton radioButton = new RadioButton();
+                radioButton.setId(gpPern.getChildren().get(j).getId());//setta l'id  con l'id dell'offerta relativa (contenuto dentro l'imageview, dalla posizione 11 ogni 6 posizioni
+                j += 7;
+                radioButton.setToggleGroup(groupPern);
+                radioButton.setOnAction(accessoCatalogoControl::radioPern);
 
-            RadioButton radioButton = new RadioButton();
-            radioButton.setId(gpPern.getChildren().get(j).getId());//setta l'id  con l'id dell'offerta relativa (contenuto dentro l'imageview, dalla posizione 11 ogni 6 posizioni
-            j+=6;
-            radioButton.setToggleGroup(groupPern);
-            radioButton.setOnAction(accessoCatalogoControl::radioPern);
-
-            gpPern.add(radioButton,6,i);
-
+                gpPern.add(radioButton, 6, i);
+            }
         }
 
         Label selTras = new Label("Aggiungi");
@@ -384,15 +581,15 @@ public class AccessoCatalogoView implements CbColleague{
         j=11;
         groupTras = new ToggleGroup();
         for (i=2;i<gpTrasRow;i++) {
+            if(i%2==0) {
+                RadioButton radioButton = new RadioButton();
+                radioButton.setId(gpTras.getChildren().get(j).getId());
+                j += 7;
+                radioButton.setToggleGroup(groupTras);
+                radioButton.setOnAction(accessoCatalogoControl::radioTras);
 
-            RadioButton radioButton = new RadioButton();
-            radioButton.setId(gpTras.getChildren().get(j).getId());
-            j+=6;
-            radioButton.setToggleGroup(groupTras);
-            radioButton.setOnAction(accessoCatalogoControl::radioTras);
-
-            gpTras.add(radioButton,6,i);
-
+                gpTras.add(radioButton, 6, i);
+            }
         }
 
         Label selEve = new Label("Aggiungi");
@@ -403,13 +600,16 @@ public class AccessoCatalogoView implements CbColleague{
         checkBoxes= new ArrayList<CheckBox>();
          j=9;
         for(i=2;i<gpEveRow;i++)
-        {   CheckBox checkBox = new CheckBox();
+        {
+            if(i%2==0) {
 
-            checkBox.setId(gpEve.getChildren().get(j).getId()); //setta l'id  con l'id dell'offerta relativa
-            j+=5;
-            gpEve.add(checkBox,5,i);
-            checkBoxes.add(checkBox);
+                CheckBox checkBox = new CheckBox();
 
+                checkBox.setId(gpEve.getChildren().get(j).getId()); //setta l'id  con l'id dell'offerta relativa
+                j += 6;
+                gpEve.add(checkBox, 5, i);
+                checkBoxes.add(checkBox);
+            }
         }
         final Pane  spring = new Pane();
         Button okButton = new Button("Aggiungi a pacchetto");
@@ -428,16 +628,16 @@ public class AccessoCatalogoView implements CbColleague{
 
     private void removeDesignerBox()
     {
-        int from = gpPern.getChildren().size() - gpPernRow +1 ;
+        int from = gpPern.getChildren().size() - gpPernRow/2  ;
         int to= gpPern.getChildren().size();
         gpPern.getChildren().remove(from,to);
 
 
-        from = gpTras.getChildren().size() - gpTrasRow +1 ;
+        from = gpTras.getChildren().size() - gpTrasRow/2 ;
         to= gpTras.getChildren().size();
         gpTras.getChildren().remove(from,to);
 
-        from = gpEve.getChildren().size() - gpEveRow -1 ; //comprende anche il bottone di conferma
+        from = gpEve.getChildren().size() - gpEveRow/2 -2 ; //comprende anche il bottone di conferma
         to= gpEve.getChildren().size();
         gpEve.getChildren().remove(from,to);
 
@@ -450,6 +650,8 @@ public class AccessoCatalogoView implements CbColleague{
         bb.setWidth(5);
         bb.setHeight(5);
         bb.setIterations(3);
+        boolean trovato = false;
+
         int i,j;
 
 
@@ -476,226 +678,230 @@ public class AccessoCatalogoView implements CbColleague{
 
 
         }
+
+
         if(val ==2)
         {
             of2.setEffect(null);
-
-
+            trovato = false;
             j=8;
-            for (i=2;i<gpTrasRow;i++) {
+            for (i=2;i<gpTrasRow;i+=2) {
                 if(!( (Label) gpTras.getChildren().get(j)).getText().equals(citta)) {
                     int pos = gpTras.getChildren().size()-1;
-                    pos=pos - (gpTrasRow -i) +1;
+                    pos=pos - (gpTrasRow-i)/2 + 1;
                     gpTras.getChildren().get(pos).setVisible(false);
                 }
-                j+=6;
+                else trovato = true;
+                j+=7;
+            }
+            if(trovato) {
+                of1.setEffect(bb);
+                of3.setEffect(bb);
+
+                of2.setDisable(false);
+                of1.setDisable(true);
+                of3.setDisable(true);
             }
 
-            of1.setEffect(bb);
-            of3.setEffect(bb);
-
-            of2.setDisable(false);
-            of1.setDisable(true);
-            of3.setDisable(true);
+            else
+                showPopup("Non è possibile trovare combinazioni possibili");
 
         }
         if(val ==3)
         {
             of3.setEffect(null);
-
+            trovato = false;
 
             j=7;
-            for (i=2;i<gpEveRow;i++) {
+            for (i=2;i<gpEveRow;i+=2) {
                 if(!( (Label) gpEve.getChildren().get(j)).getText().equals(citta)) {
                     int pos = gpEve.getChildren().size()-1;
-                    pos=pos - (gpEveRow -i) +1 -2;
+                    pos=pos - ((gpEveRow-i)/2) +1 -2;
                     gpEve.getChildren().get(pos).setVisible(false);
                 }
-                j+=5;
+                else trovato=true;
+                j+=6;
             }
 
+            if(trovato) {
+                of1.setEffect(bb);
+                of2.setEffect(bb);
 
-            of1.setEffect(bb);
-            of2.setEffect(bb);
-
-            of3.setDisable(false);
-            of1.setDisable(true);
-            of2.setDisable(true);
-
+                of3.setDisable(false);
+                of1.setDisable(true);
+                of2.setDisable(true);
+            }
+            else
+                showPopup("Non è possibile trovare combinazioni possibili");
         }
+
+    }
+
+    private void showPopup(String message)
+    {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(message));
+        Button button = new Button("OK");
+        button.setPrefWidth(100);
+        button.setOnAction(accessoCatalogoControl::okButton);
+        dialogVbox.getChildren().add(button);
+        Scene dialogScene = new Scene(dialogVbox, 200, 100);
+        dialog.setScene(dialogScene);
+        dialog.show();
 
     }
 
 
     private StackPane buildPacchetti(){
         StackPane sp = new StackPane();
+        int i = 2;
+
+        GridPane gp = new GridPane();
+
+
+        gp.setHgap(50);
+        gp.setVgap(10);
+
+
+
+
+        Label name = new Label("Nome Pacchetto");
+        name.setFont(new Font("Arial",15));
+
+        Label price = new Label("Prezzo");
+        price.setFont(new Font("Arial",15));
+
+        Label citta = new Label("Città");
+        citta.setFont(new Font("Arial",15));
+
+        Label tipoPern= new Label ("Tipologia");
+        tipoPern.setFont(new Font("Arial",15));
+
+        Label stelle= new Label ("Stelle");
+        stelle.setFont(new Font("Arial",15));
+
+        Label notti = new Label("Numero notti");
+        notti.setFont(new Font("Arial",15));
+
+        Label cittaP = new Label("Città di partenza");
+        cittaP.setFont(new Font("Arial",15));
+
+        Label tipoTras = new Label("Tipologia");
+        tipoTras.setFont(new Font("Arial",15));
+
+        Label durata = new Label ("Durata");
+        durata.setFont(new Font("Arial",15));
+
+        Label evento = new Label("Nome evento");
+        evento.setFont(new Font("Arial",15));
+
+        Label tipoEven = new Label ("Tipologia");
+        tipoEven.setFont(new Font("Arial",15));
+
+        Label pernotto = new Label("Pernotto");
+        pernotto.setFont(new Font("Arial",20));
+
+        Label trasporto = new Label("Trasporto");
+        trasporto.setFont(new Font("Arial",20));
+
+        Label eventi = new Label("Eventi");
+        eventi.setFont(new Font("Arial",20));
+
+        Label pacchetto = new Label ("Pacchetto");
+        pacchetto.setFont(new Font("Arial",20));
+
+
+        Separator separator1 = new Separator();
+        separator1.setOrientation(Orientation.VERTICAL);
+
+        Separator separator2 = new Separator();
+        separator2.setOrientation(Orientation.VERTICAL);
+
+        Separator separator3 = new Separator();
+        separator3.setOrientation(Orientation.VERTICAL);
+
+        Separator separator4 = new Separator();
+        separator4.setOrientation(Orientation.VERTICAL);
+
+        gp.add(pacchetto,1,0,3,1);
+        gp.add(pernotto,4,0,3,1);
+        gp.add(trasporto,9,0,2,1);
+        gp.add(eventi,12,0,2,1);
+
+        gp.add(name,0,1);
+        gp.add(price,1,1);
+        gp.add(citta,2,1);
+
+
+        gp.add(tipoPern,4,1);
+        gp.add(stelle,5,1);
+        gp.add(notti,6,1);
+
+        gp.add(cittaP,8,1);
+        gp.add(tipoTras,9,1);
+        gp.add(durata,10,1);
+
+
+
+        gp.add(evento,12,1);
+        gp.add(tipoEven,13,1);
+
+        List<Pacchetto> pacchetti= accessoCatalogoControl.getPack();
+
+
+
+        for(Pacchetto pack :pacchetti) {
+            gp.add(new Label(pack.getNome()), 0, i);
+            gp.add(new Label(Integer.toString(pack.getPrezzo())), 1, i);
+            gp.add(new Label(pack.getOffertaPernotto().getCittà()), 2, i);
+            gp.add(new Label(pack.getOffertaPernotto().getTipologia()), 4, i);
+            gp.add(new Label(Integer.toString(pack.getOffertaPernotto().getStelle())), 5, i);
+            gp.add(new Label(Integer.toString(pack.getOffertaPernotto().getNumeroNotti())), 6, i);
+            gp.add(new Label(pack.getOffertaTrasporto().getCittàPartenza()), 8, i);
+            gp.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, i);
+            gp.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, i);
+
+            for (OffertaEvento events : pack.getOffertaEvento()) {
+                gp.add(new Label(events.getNome()), 12, i);
+                gp.add(new Label(events.getTipologia()), 13, i);
+                i++;
+            }
+            Separator separator = new Separator();
+            gp.add(separator,0,i,15,1);
+            i++;
+
+        }
+
+
+
+            gp.add(separator1,3,0,1,i);
+            gp.add(separator2,7,0,1,i);
+            gp.add(separator3,11,0,1,i);
+            gp.add(separator4,14,0,1,i);
+
+
+
+
+
+
+
+
+        sp.getChildren().add(gp);
         return sp;
     }
 
 
-    private void buildCenter()
-    {
-
-        tabPane = new TabPane();
-//        tabPane.setStyle("-fx-background-color: lightsteelblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
-        Tab tabA = new Tab();
-        tabA.setText("Offerte");
-        tabA.setClosable(false);
-        splitOfferte = buildOfferte();
-        tabA.setContent(splitOfferte);
-        tabPane.getTabs().add(tabA);
-
-        Tab tabB = new Tab();
-        tabB.setText("Pacchetti");
-        tabB.setClosable(false);
-        pacPane = buildPacchetti();
-        tabB.setContent(pacPane);
-        tabPane.getTabs().add(tabB);
 
 
 
-        componentLayout.setCenter(tabPane);
 
 
 
-    }
-
-    private void buildTop() {
-
-        BorderPane topLayout = new BorderPane();
-
-        Label divider = new Label();
-        divider.setMaxHeight(1);
-        divider.setMinHeight(1);
-        divider.setMinWidth(Screen.getPrimary().getBounds().getWidth());
-        topLayout.setBottom(divider);
-
-        HBox titleBox = new HBox();
-        titleBox.setAlignment(Pos.TOP_CENTER);
-        Label title = new Label();
-        title.setText("TRIP BROKER");
-        title.setFont(new Font("Segoe Print",50));
-
-        //Add Title label to titleBox
-        titleBox.getChildren().add(title);
-
-        //Add Title Box (with label) to topLayout
-        topLayout.setCenter(titleBox);
-        topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
 
 
-        //Add topLayout (a BorderPane Manager) to App Layout.
-        componentLayout.setTop(topLayout);
-
-    }
-
-
-    private VBox setButtonBox(String dep)
-    {
-        VBox buttonBox = new VBox();
-
-        buttonBox.setAlignment(Pos.TOP_CENTER);
-
-        buttonBox.setSpacing(10);
-
-//        Dipendente dipendente = Dipendente.valueOf(dep);
-
-        switch (dep) {
-
-            case "Scout":
-
-                    Button offerte = new Button() ;
-                offerte.setText("Inserimento offerte");
-                offerte.setFont(new Font(Dim_Butt));
-                offerte.setMaxWidth(Double.MAX_VALUE);
-                offerte.setOnAction(accessoCatalogoControl::inserimentoOfferte);
-
-                Button contratti = new Button();
-                contratti.setText("Gestione contratti");
-                contratti.setFont(new Font(Dim_Butt));
-                contratti.setMaxWidth(Double.MAX_VALUE);
-
-
-                Button ricerca = new Button();
-                ricerca.setText("Ricerca offerte");
-                ricerca.setFont(new Font(Dim_Butt));
-                ricerca.setMaxWidth(Double.MAX_VALUE);
-                buttonBox.getChildren().addAll(offerte, contratti, ricerca);
-                break;
-
-            case "Designer":
-
-
-                Button aggrega = new Button() ;
-                aggrega.setText("Aggregazione Offerte");
-                aggrega.setFont(new Font(Dim_Butt));
-                aggrega.setMaxWidth(Double.MAX_VALUE);
-                aggrega.setOnAction(accessoCatalogoControl::aggregazioneOfferte);
-
-
-                Button costi = new Button();
-                costi.setText("Aggiorna costi offerte");
-                costi.setFont(new Font(Dim_Butt));
-                costi.setMaxWidth(Double.MAX_VALUE);
-
-
-
-                buttonBox.getChildren().addAll(aggrega, costi);
-                break;
-
-            case "Admin":
-                Button aggiorna = new Button() ;
-                aggiorna.setText("Aggiorna offerte con criterio");
-                aggiorna.setFont(new Font(Dim_Butt));
-                aggiorna.setMaxWidth(Double.MAX_VALUE);
-
-                Button andamento = new Button();
-                andamento.setText("Visualizza andamento economico");
-                andamento.setFont(new Font(Dim_Butt));
-                andamento.setMaxWidth(Double.MAX_VALUE);
-
-                Button log = new Button();
-                log.setText("Visualizza log");
-                log.setFont(new Font(Dim_Butt));
-                log.setMaxWidth(Double.MAX_VALUE);
-
-
-                buttonBox.getChildren().addAll(aggiorna,andamento,log);
-
-            case "Agente":
-                Button prenotazione = new Button() ;
-                prenotazione.setText("Prenotazione viaggio");
-                prenotazione.setMaxWidth(Double.MAX_VALUE);
-                prenotazione.setFont(new Font(20));
-                buttonBox.getChildren().addAll(prenotazione);
-
-        }
-        return buttonBox;
-    }
-
-    private void buildLeft() {
-
-        BorderPane leftLayout = new BorderPane();
-
-        leftLayout.setStyle("-fx-background-color: cadetblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
-
-
-        // Create a faux border-right effect using a Label.
-        Label divider = new Label();
-        divider.setPrefWidth(1);
-        divider.setMinHeight(Screen.getPrimary().getBounds().getHeight());
-        leftLayout.setRight(divider);
-
-        //Place all demonstration buttons in a Vercial Box.
-
-
-        //Add VBox to leftLayout.
-        leftLayout.setCenter(setButtonBox(dep));
-
-        //Place into Application.
-        componentLayout.setLeft(leftLayout);
-
-    }
 
     public void mostraOfferta(Object offerta)
     {

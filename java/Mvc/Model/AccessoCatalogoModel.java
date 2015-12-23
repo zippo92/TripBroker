@@ -3,9 +3,11 @@ package Mvc.Model;
 import DAO.OffertaEventoDAO;
 import DAO.OffertaPernottoDAO;
 import DAO.OffertaTrasportoDAO;
+import DAO.PacchettoDAO;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
+import entityPackage.Pacchetto;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class AccessoCatalogoModel {
     {
         return OffertaTrasportoDAO.getList();
     }
+    public List<Pacchetto> getPack() { return PacchettoDAO.getList();}
 
     public List<OffertaEvento> findEven(String id)
     {

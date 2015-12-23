@@ -11,6 +11,7 @@ import entityPackage.OffertaTrasporto;
 import entityPackage.Pacchetto;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -66,9 +67,6 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
     public void creaPacchetto(ActionEvent event)
     {
 
-        System.out.println(((TextField) gridPane.getChildren().get(1)).getText());
-        System.out.println(((TextField) gridPane.getChildren().get(3)).getText());
-        System.out.println(((TextField) gridPane.getChildren().get(5)).getText());
 
         Pacchetto pacchetto = new Pacchetto();
 
@@ -80,6 +78,9 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         pacchetto.setPrezzo( Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
 
         aggregazioneOfferteModel.creaPacchetto(pacchetto);
+
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+
 
     }
 }
