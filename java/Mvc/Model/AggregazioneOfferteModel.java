@@ -1,6 +1,6 @@
 package Mvc.Model;
 
-import DAO.PacchettoDAO;
+import Patterns.DAOFactory.DAOFactory;
 import entityPackage.Pacchetto;
 
 /**
@@ -11,7 +11,7 @@ public class AggregazioneOfferteModel {
 
     public void creaPacchetto(Pacchetto pacchetto)
     {
-        PacchettoDAO.store(pacchetto);
+        DAOFactory.getPacchettoDAO().store(pacchetto);
 
     }
 

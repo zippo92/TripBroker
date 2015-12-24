@@ -10,6 +10,8 @@ import org.hibernate.Session;
  */
 public abstract class OffertaDAO {
 
+    String type;
+
     public static void store(Offerta e) {
         // start a session
         Session s = DBResourcesManager.getSession();
@@ -28,5 +30,9 @@ public abstract class OffertaDAO {
         // close session
         s.close();
     }
+
+    public abstract Object getList();
+
+    public abstract Object findOff(String id);
 
 }

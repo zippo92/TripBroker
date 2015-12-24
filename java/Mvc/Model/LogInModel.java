@@ -1,6 +1,6 @@
 package Mvc.Model;
 
-import DAO.UserDAO;
+import Patterns.DAOFactory.DAOFactory;
 import entityPackage.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,7 +20,7 @@ public class LogInModel extends Application {
     }
 
     public static List<User> searchForName(String name,String password){
-        return UserDAO.findSelectedUser(name,password);
+        return DAOFactory.getUserDAO().findSelectedUser(name,password);
     }
 
     @Override

@@ -11,26 +11,8 @@ import java.util.List;
  */
 public class OffertaTrasportoDAO extends OffertaDAO {
 
-//    public static void store(OffertaTrasporto e) {
-//        // start a session
-//        Session s = DBResourcesManager.getSession();
-//        // in the given session, start a transaction
-//        s.beginTransaction();
-//
-//        // within the transaction, save the event
-//        try {
-//            s.save(e); //might throw exception
-//        } catch(HibernateException ex) {
-//        }
-//
-//        // commit the current transaction of the session
-//        s.getTransaction().commit();
-//
-//        // close session
-//        s.close();
-//    }
-
-    public static List<OffertaTrasporto> getList() {
+    @Override
+    public Object getList() {
         Session s = DBResourcesManager.getSession();
 
         String query = "from OffertaTrasporto";
@@ -43,15 +25,17 @@ public class OffertaTrasportoDAO extends OffertaDAO {
 
     }
 
-    public static List<OffertaTrasporto> find(String id) {
+    @Override
+    public  Object findOff(String id) {
         Session s = DBResourcesManager.getSession();
         String query = "from OffertaTrasporto offertaTrasporto where offertaTrasporto.trasID = '"+id+"'";
         @SuppressWarnings("unchecked")
         List<OffertaTrasporto> offerte = s.createQuery(query).list();
         if(offerte.size()>0)
-            return offerte;
+            return offerte.get(0);
         else
             return null;
 
     }
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserDAO {
 
-    public static void store(User e) {
+    public void store(User e) {
         // start a session
         Session s = DBResourcesManager.getSession();
         // in the given session, start a transaction
@@ -30,7 +30,7 @@ public class UserDAO {
         s.close();
     }
 
-    public static List<User> findSelectedUser(String name,String password) {
+    public List<User> findSelectedUser(String name,String password) {
         Session s = DBResourcesManager.getSession();
 
 //        String query = "from User user where user.usID = '" + name + "' and user.password = '" + password + "'";
@@ -50,17 +50,5 @@ public class UserDAO {
             return null;
         }
     }
-    public static void updateUser(User toUpdate) {
-        Session s = DBResourcesManager.getSession();
-        s.beginTransaction();
-        s.update(toUpdate);
-        s.getTransaction().commit();
-    }
 
-    public static void deleteUser(User toDelete) {
-        Session s = DBResourcesManager.getSession();
-        s.beginTransaction();
-        s.delete(toDelete);
-        s.getTransaction().commit();
-    }
 }

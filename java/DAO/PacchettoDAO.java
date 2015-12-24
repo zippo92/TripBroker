@@ -13,7 +13,7 @@ import java.util.List;
 public class PacchettoDAO {
 
 
-    public static void store(Pacchetto e) {
+    public void store(Pacchetto e) {
         // start a session
         Session s = DBResourcesManager.getSession();
         // in the given session, start a transaction
@@ -32,7 +32,7 @@ public class PacchettoDAO {
         s.close();
     }
 
-    public static List<Pacchetto> getList() {
+    public  List<Pacchetto> getList() {
         Session s = DBResourcesManager.getSession();
         String query = "from Pacchetto";
         @SuppressWarnings("unchecked")

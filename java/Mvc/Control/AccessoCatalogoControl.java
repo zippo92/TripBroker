@@ -6,6 +6,7 @@ import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
 import Patterns.OffObserver.OffObserver;
+import Patterns.PackObserver.PackObserver;
 import entityPackage.OffertaEvento;
 import entityPackage.OffertaPernotto;
 import entityPackage.OffertaTrasporto;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by Simone on 07/12/2015.
  */
-public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague{
+public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
 
     String utente;
     private AccessoCatalogoView accessoCatalogoView;
@@ -38,6 +39,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
 
+
+
     public AccessoCatalogoControl(String user){
 
         utente = user;
@@ -49,6 +52,11 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         offertaEvento = new ArrayList<OffertaEvento>();
 
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        accessoCatalogoView = new AccessoCatalogoView(primaryStage,utente,this,mediator);
     }
 
     public void send(List<CheckBox> checkBoxes) {
@@ -65,18 +73,16 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        accessoCatalogoView = new AccessoCatalogoView(primaryStage,utente,this,mediator);
-    }
-
-
-
-    @Override
     public void addOfferta (Object offerta) {
 
-        accessoCatalogoView.addRow(offerta);
+        accessoCatalogoView.addOff(offerta);
     }
 
+    @Override
+    public void addPack (Pacchetto pacchetto) {
+        accessoCatalogoView.addPack(pacchetto);
+
+    }
 
 
 
@@ -91,6 +97,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     public void aggregazioneOfferte(ActionEvent event)
     {
+        accessoCatalogoView.showCheckBox(false);
         accessoCatalogoView.showCheckBox(true);
     }
 
@@ -99,7 +106,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
 
         RadioButton o = (RadioButton) event.getSource();
-        offertaTrasporto = (accessoCatalogoModel.findTras(o.getId())).get(0);
+        offertaTrasporto = (OffertaTrasporto) (accessoCatalogoModel.findOff(o.getId(),"OffertaTrasporto"));
         accessoCatalogoView.setEffect(3,offertaTrasporto.getCittà());
 
     }
@@ -108,7 +115,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
 
         RadioButton o = (RadioButton) event.getSource();
-        offertaPernotto = (accessoCatalogoModel.findPern(o.getId())).get(0);
+        offertaPernotto = (OffertaPernotto)  accessoCatalogoModel.findOff(o.getId(),"OffertaPernotto");
 
         accessoCatalogoView.setEffect(2,offertaPernotto.getCittà());
     }
@@ -117,12 +124,12 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         accessoCatalogoView.setEffect(0,null);
         for(CheckBox checkBox : checkBoxes)
             if(checkBox.isSelected()) {
-                offertaEvento.add((accessoCatalogoModel.findEven(checkBox.getId())).get(0));
+                offertaEvento.add((OffertaEvento) (accessoCatalogoModel.findOff(checkBox.getId(),"OffertaEvento")));
             }
 
         accessoCatalogoView.showCheckBox(false);
 
-        aggregazioneOfferteControl = new AggregazioneOfferteControl(offertaPernotto,offertaTrasporto,offertaEvento);
+        aggregazioneOfferteControl = new AggregazioneOfferteControl(offertaPernotto,offertaTrasporto,offertaEvento,this);
 
         try {
             aggregazioneOfferteControl.start(new Stage());
@@ -139,9 +146,9 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         ImageView o = (ImageView) event.getSource();
 
-        List<OffertaTrasporto> offerta = accessoCatalogoModel.findTras(o.getId());
 
-        accessoCatalogoView.mostraOfferta(offerta.get(0));
+        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),"OffertaTrasporto"));
+
 
     }
 
@@ -149,9 +156,9 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         ImageView o = (ImageView) event.getSource();
 
-        List<OffertaEvento> offerta = accessoCatalogoModel.findEven(o.getId());
 
-        accessoCatalogoView.mostraOfferta(offerta.get(0));
+
+        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),"OffertaEvento"));
 
 
     }
@@ -160,23 +167,15 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         ImageView o = (ImageView) event.getSource();
 
-        List<OffertaPernotto> offerta = accessoCatalogoModel.findPern(o.getId());
-
-        accessoCatalogoView.mostraOfferta(offerta.get(0));
+        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),"OffertaPernotto"));
 
     }
-    public List<OffertaEvento> getOffEven()
+
+    public Object getAllOff(String offerta)
     {
-        return accessoCatalogoModel.getOffEve();
+        return accessoCatalogoModel.getOff(offerta);
     }
-    public List<OffertaTrasporto> getOffTras()
-    {
-        return accessoCatalogoModel.getOffTras();
-    }
-    public List<OffertaPernotto> getOffPern()
-    {
-        return accessoCatalogoModel.getOffPern();
-    }
+
     public List<Pacchetto> getPack(){ return accessoCatalogoModel.getPack();}
 
     public void okListener (ActionEvent event)  {
@@ -190,6 +189,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
         ((Node)(event.getSource())).getScene().getWindow().hide();
         accessoCatalogoView.setEffect(0,null);
+
         accessoCatalogoView.showCheckBox(false);
 
     }

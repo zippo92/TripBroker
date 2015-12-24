@@ -38,17 +38,16 @@ public class AccessoCatalogoView implements CbColleague{
     private StackPane of2;
     private StackPane of3;
     private StackPane pacPane;
-    private GridPane gpPern,gpTras,gpEve;
-    private int gpPernRow,gpTrasRow,gpEveRow;
+    private GridPane gpPern,gpTras,gpEve,gpPack;
+    private int gpPernRow,gpTrasRow,gpEveRow,gpPackRow;
     private List<ImageView> infoEve = new ArrayList<ImageView>();
     private List<ImageView> infoTras = new ArrayList<ImageView>();
     private List<ImageView> infoPern = new ArrayList<ImageView>();
     private Image image;
     private Stage stage;
-    private ToggleGroup groupPern, groupTras;
     private List<CheckBox> checkBoxes;
     private CbMediatorImpl cbMediator;
-
+    private Boolean check;
 
 
     /*
@@ -61,7 +60,7 @@ public class AccessoCatalogoView implements CbColleague{
 
         cbMediator = mediator;
         cbMediator.addColleague(this);
-
+        check = false ;
         dep = utente;
         accessoCatalogoControl = control;
         double percentageWidth = 0.98;
@@ -334,13 +333,15 @@ public class AccessoCatalogoView implements CbColleague{
 
         List<OffertaEvento> offerte  = new ArrayList<OffertaEvento>();
 
-        offerte = accessoCatalogoControl.getOffEven();
+//        offerte = accessoCatalogoControl.getOffEven();
+
+        offerte = (List<OffertaEvento>) accessoCatalogoControl.getAllOff("OffertaEvento");
 
         gpEveRow=2;
         int app;
         if(offerte!=null)
         for(OffertaEvento offertaEvento : offerte){
-            this.addRow(offertaEvento);
+            this.addOff(offertaEvento);
 
         }
 
@@ -387,15 +388,18 @@ public class AccessoCatalogoView implements CbColleague{
         gpTras.add(tipo,4,1);
 
         List<OffertaTrasporto> offerte  = new ArrayList<OffertaTrasporto>();
+
         infoTras = new ArrayList<ImageView>();
 
-        offerte = accessoCatalogoControl.getOffTras();
+        offerte = (List<OffertaTrasporto>) accessoCatalogoControl.getAllOff("OffertaTrasporto");
+
+//        offerte = accessoCatalogoControl.getOffTras();
 
         gpTrasRow=2;
         int app;
         if(offerte!=null)
             for(OffertaTrasporto offertaTrasporto : offerte){
-                this.addRow(offertaTrasporto);
+                this.addOff(offertaTrasporto);
             }
 
         sp.getChildren().add(gpTras);
@@ -446,13 +450,16 @@ public class AccessoCatalogoView implements CbColleague{
         List<OffertaPernotto> offerte  = new ArrayList<OffertaPernotto>();
         infoPern = new ArrayList<ImageView>();
 
-        offerte = accessoCatalogoControl.getOffPern();
+        offerte = (List<OffertaPernotto>) accessoCatalogoControl.getAllOff("OffertaPernotto");
+
+
+//        offerte = accessoCatalogoControl.getOffPern();
 
         gpPernRow=2;
         int app;
         if(offerte!=null)
             for(OffertaPernotto offertaPernotto : offerte){
-                this.addRow(offertaPernotto);
+                this.addOff(offertaPernotto);
 
             }
 
@@ -465,7 +472,7 @@ public class AccessoCatalogoView implements CbColleague{
 
 
 
-    public void addRow(Object offerta)
+    public void addOff(Object offerta)
     {
         if(offerta instanceof OffertaEvento) {
 
@@ -545,9 +552,6 @@ public class AccessoCatalogoView implements CbColleague{
 
 
             gpTrasRow+=2;
-
-
-
         }
 
     }
@@ -558,6 +562,8 @@ public class AccessoCatalogoView implements CbColleague{
         Label selPern = new Label("Aggiungi");
         selPern.setFont(new Font("Arial",15));
         gpPern.add(selPern,6,1);
+        ToggleGroup groupPern, groupTras;
+
 
         int i,j=11;
         groupPern = new ToggleGroup();
@@ -622,24 +628,28 @@ public class AccessoCatalogoView implements CbColleague{
 
         this.send(checkBoxes);
         this.setEffect(1,null);
+        check = true;
 
 
     }
 
     private void removeDesignerBox()
     {
-        int from = gpPern.getChildren().size() - gpPernRow/2  ;
-        int to= gpPern.getChildren().size();
-        gpPern.getChildren().remove(from,to);
+            if(check) {
+                int from = gpPern.getChildren().size() - gpPernRow / 2;
+                int to = gpPern.getChildren().size();
+                gpPern.getChildren().remove(from, to);
 
 
-        from = gpTras.getChildren().size() - gpTrasRow/2 ;
-        to= gpTras.getChildren().size();
-        gpTras.getChildren().remove(from,to);
+                from = gpTras.getChildren().size() - gpTrasRow / 2;
+                to = gpTras.getChildren().size();
+                gpTras.getChildren().remove(from, to);
 
-        from = gpEve.getChildren().size() - gpEveRow/2 -2 ; //comprende anche il bottone di conferma
-        to= gpEve.getChildren().size();
-        gpEve.getChildren().remove(from,to);
+                from = gpEve.getChildren().size() - gpEveRow / 2 - 2; //comprende anche il bottone di conferma
+                to = gpEve.getChildren().size();
+                gpEve.getChildren().remove(from, to);
+                check = false;
+            }
 
     }
 
@@ -757,13 +767,14 @@ public class AccessoCatalogoView implements CbColleague{
 
     private StackPane buildPacchetti(){
         StackPane sp = new StackPane();
-        int i = 2;
 
-        GridPane gp = new GridPane();
+        gpPackRow = 2;
+
+        gpPack = new GridPane();
 
 
-        gp.setHgap(50);
-        gp.setVgap(10);
+        gpPack.setHgap(50);
+        gpPack.setVgap(10);
 
 
 
@@ -814,6 +825,31 @@ public class AccessoCatalogoView implements CbColleague{
         pacchetto.setFont(new Font("Arial",20));
 
 
+
+
+        gpPack.add(pacchetto,1,0,3,1);
+        gpPack.add(pernotto,4,0,3,1);
+        gpPack.add(trasporto,9,0,2,1);
+        gpPack.add(eventi,12,0,2,1);
+
+        gpPack.add(name,0,1);
+        gpPack.add(price,1,1);
+        gpPack.add(citta,2,1);
+
+
+        gpPack.add(tipoPern,4,1);
+        gpPack.add(stelle,5,1);
+        gpPack.add(notti,6,1);
+
+        gpPack.add(cittaP,8,1);
+        gpPack.add(tipoTras,9,1);
+        gpPack.add(durata,10,1);
+
+
+
+        gpPack.add(evento,12,1);
+        gpPack.add(tipoEven,13,1);
+
         Separator separator1 = new Separator();
         separator1.setOrientation(Orientation.VERTICAL);
 
@@ -826,74 +862,71 @@ public class AccessoCatalogoView implements CbColleague{
         Separator separator4 = new Separator();
         separator4.setOrientation(Orientation.VERTICAL);
 
-        gp.add(pacchetto,1,0,3,1);
-        gp.add(pernotto,4,0,3,1);
-        gp.add(trasporto,9,0,2,1);
-        gp.add(eventi,12,0,2,1);
-
-        gp.add(name,0,1);
-        gp.add(price,1,1);
-        gp.add(citta,2,1);
+        gpPack.add(separator1,3,0,1,4);
+        gpPack.add(separator2,7,0,1,4);
+        gpPack.add(separator3,11,0,1,4);
+        gpPack.add(separator4,14,0,1,4);
 
 
-        gp.add(tipoPern,4,1);
-        gp.add(stelle,5,1);
-        gp.add(notti,6,1);
-
-        gp.add(cittaP,8,1);
-        gp.add(tipoTras,9,1);
-        gp.add(durata,10,1);
-
-
-
-        gp.add(evento,12,1);
-        gp.add(tipoEven,13,1);
 
         List<Pacchetto> pacchetti= accessoCatalogoControl.getPack();
 
 
 
         for(Pacchetto pack :pacchetti) {
-            gp.add(new Label(pack.getNome()), 0, i);
-            gp.add(new Label(Integer.toString(pack.getPrezzo())), 1, i);
-            gp.add(new Label(pack.getOffertaPernotto().getCittà()), 2, i);
-            gp.add(new Label(pack.getOffertaPernotto().getTipologia()), 4, i);
-            gp.add(new Label(Integer.toString(pack.getOffertaPernotto().getStelle())), 5, i);
-            gp.add(new Label(Integer.toString(pack.getOffertaPernotto().getNumeroNotti())), 6, i);
-            gp.add(new Label(pack.getOffertaTrasporto().getCittàPartenza()), 8, i);
-            gp.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, i);
-            gp.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, i);
-
-            for (OffertaEvento events : pack.getOffertaEvento()) {
-                gp.add(new Label(events.getNome()), 12, i);
-                gp.add(new Label(events.getTipologia()), 13, i);
-                i++;
-            }
-            Separator separator = new Separator();
-            gp.add(separator,0,i,15,1);
-            i++;
-
+            this.addPack(pack);
         }
 
 
 
-            gp.add(separator1,3,0,1,i);
-            gp.add(separator2,7,0,1,i);
-            gp.add(separator3,11,0,1,i);
-            gp.add(separator4,14,0,1,i);
 
-
-
-
-
-
-
-
-        sp.getChildren().add(gp);
+        sp.getChildren().add(gpPack);
         return sp;
     }
 
+    public void addPack(Pacchetto pack)
+    {
 
+
+
+            gpPack.add(new Label(pack.getNome()), 0, gpPackRow);
+            gpPack.add(new Label(Integer.toString(pack.getPrezzo())), 1, gpPackRow);
+            gpPack.add(new Label(pack.getOffertaPernotto().getCittà()), 2, gpPackRow);
+            gpPack.add(new Label(pack.getOffertaPernotto().getTipologia()), 4, gpPackRow);
+            gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getStelle())), 5, gpPackRow);
+            gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getNumeroNotti())), 6, gpPackRow);
+            gpPack.add(new Label(pack.getOffertaTrasporto().getCittàPartenza()), 8, gpPackRow);
+            gpPack.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, gpPackRow);
+            gpPack.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, gpPackRow);
+
+            for (OffertaEvento events : pack.getOffertaEvento()) {
+                gpPack.add(new Label(events.getNome()), 12, gpPackRow);
+                gpPack.add(new Label(events.getTipologia()), 13, gpPackRow);
+                gpPackRow++;
+            }
+            Separator separator = new Separator();
+            gpPack.add(separator,0,gpPackRow,15,1);
+            gpPackRow++;
+
+
+            Separator separator1 = new Separator();
+            separator1.setOrientation(Orientation.VERTICAL);
+
+            Separator separator2 = new Separator();
+            separator2.setOrientation(Orientation.VERTICAL);
+
+            Separator separator3 = new Separator();
+            separator3.setOrientation(Orientation.VERTICAL);
+
+             Separator separator4 = new Separator();
+            separator4.setOrientation(Orientation.VERTICAL);
+
+            gpPack.add(separator1,3,gpPackRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator2,7,gpPackRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator3,11,gpPackRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator4,14,gpPackRow,1,pack.getOffertaEvento().size());
+
+    }
 
 
 
