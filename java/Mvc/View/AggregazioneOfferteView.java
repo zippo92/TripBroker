@@ -93,7 +93,6 @@ public class AggregazioneOfferteView implements GpColleague {
         gp.setVgap(10);
 
 
-
         Label name = new Label("Nome Pacchetto");
         name.setFont(new Font("Arial",15));
 

@@ -5,7 +5,10 @@ import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
 import entityPackage.*;
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -48,6 +51,7 @@ public class AccessoCatalogoView implements CbColleague{
     private List<CheckBox> checkBoxes;
     private CbMediatorImpl cbMediator;
     private Boolean check;
+    private List<List<Label>> packRow;
 
 
     /*
@@ -68,6 +72,8 @@ public class AccessoCatalogoView implements CbColleague{
         componentLayout = new BorderPane();
         componentLayout.setPadding(new Insets(20,0,20,20));
         stage = primaryStage;
+
+        packRow = new ArrayList<List<Label>>();
 
         Rectangle2D screenSize = Screen.getPrimary().getBounds();
         percentageWidth *= screenSize.getWidth();
@@ -350,6 +356,11 @@ public class AccessoCatalogoView implements CbColleague{
         return sp;
     }
 
+    /* buildOfferteTrasporto contatta il controller per prelevare dal database le offerte eventi, poi le inserisce all 'interno
+     della propria zona
+    *
+    * */
+
     private StackPane BuildOfferteTrasporto()
     {
         StackPane sp = new StackPane();
@@ -406,6 +417,12 @@ public class AccessoCatalogoView implements CbColleague{
 
         return sp;
     }
+
+
+/* buildOffertePernotto contatta il controller per prelevare dal database le offerte pernotto, poi le inserisce all 'interno
+     della propria zona
+    *
+    * */
 
     private StackPane BuildOffertePernotto()
     {
@@ -471,7 +488,10 @@ public class AccessoCatalogoView implements CbColleague{
 
 
 
-
+    /*
+    *
+    *   addOff inserisce una offerta nella relativa tabella
+    * */
     public void addOff(Object offerta)
     {
         if(offerta instanceof OffertaEvento) {
@@ -557,6 +577,11 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
+    /*
+    *
+    *   aggiunge i radiobutton e le checkbox per permettere al designer di selezionare le offerte
+    *
+    * */
     private void addDesignerBox()
     {
         Label selPern = new Label("Aggiungi");
@@ -633,6 +658,11 @@ public class AccessoCatalogoView implements CbColleague{
 
     }
 
+    /*
+    *
+    *  rimuove i radiobutton e le checkbox quando il designer finisce il proprio lavoro
+    * */
+
     private void removeDesignerBox()
     {
             if(check) {
@@ -654,6 +684,20 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
+    /*
+    *
+    *  Oscura le colonne di offerte diverse da val,e rende invisibili i checkbox e i radiobutton
+    *  della colonna di val non compadibili con l'offerta
+    *
+    *
+    *   esempio: val = 1 , => colonna n° 2 , cioè offerteTrasporto
+     *            quindi oscura la colonna offertePernotto e offerteEvento ,ed elimina radiobutton di offerteTrasporto
+     *            non compatibili con l'offerta
+     *
+     *            se val =0, fa tornare tutto normale
+    *
+    *
+    * */
     public void setEffect(int val,String citta)
     {
         BoxBlur bb = new BoxBlur();
@@ -747,6 +791,10 @@ public class AccessoCatalogoView implements CbColleague{
 
     }
 
+    /*
+    * Mostra un popup con il messaggio message
+    * */
+
     private void showPopup(String message)
     {
         final Stage dialog = new Stage();
@@ -765,6 +813,11 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
+    /*
+    *  Costruisce la tab relativa ai pacchetti, Preleva i pacchetti dal db e li inserisce.
+    *  Colora di rosso quelli non approvati, di blu quelli approvati
+    *
+    * */
     private StackPane buildPacchetti(){
         StackPane sp = new StackPane();
 
@@ -868,24 +921,33 @@ public class AccessoCatalogoView implements CbColleague{
         gpPack.add(separator4,14,0,1,4);
 
 
-
         List<Pacchetto> pacchetti= accessoCatalogoControl.getPack();
 
+        if(pacchetti!=null) {
+            for (Pacchetto pack : pacchetti) {
+                this.addPack(pack);
+            }
 
-
-        for(Pacchetto pack :pacchetti) {
-            this.addPack(pack);
         }
 
 
-
-
-        sp.getChildren().add(gpPack);
+            sp.getChildren().add(gpPack);
         return sp;
     }
 
+    /*
+    * Aggiunge una nuova riga alla tabella dei pacchetti
+    *
+    * */
     public void addPack(Pacchetto pack)
     {
+
+            List<Label> labels = new ArrayList<Label>();
+            labels.add(new Label(Integer.toString(pack.getId())));
+
+            int i;
+
+            int from = gpPack.getChildren().size();
 
 
 
@@ -899,11 +961,22 @@ public class AccessoCatalogoView implements CbColleague{
             gpPack.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, gpPackRow);
             gpPack.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, gpPackRow);
 
+
+            int j=0;
             for (OffertaEvento events : pack.getOffertaEvento()) {
                 gpPack.add(new Label(events.getNome()), 12, gpPackRow);
                 gpPack.add(new Label(events.getTipologia()), 13, gpPackRow);
+
+                j+=2;
                 gpPackRow++;
             }
+
+            for(i=0;i<9+j;i++)
+            {
+
+                labels.add(((Label) gpPack.getChildren().get(from+i)));
+            }
+
             Separator separator = new Separator();
             gpPack.add(separator,0,gpPackRow,15,1);
             gpPackRow++;
@@ -926,6 +999,42 @@ public class AccessoCatalogoView implements CbColleague{
             gpPack.add(separator3,11,gpPackRow,1,pack.getOffertaEvento().size());
             gpPack.add(separator4,14,gpPackRow,1,pack.getOffertaEvento().size());
 
+
+            packRow.add(labels);
+
+
+            colorRow(pack,pack.getStato());
+
+
+
+
+    }
+
+/*
+ *  Colora di rosso quelli non approvati, di blu quelli approvati
+*/
+    private void colorRow(Pacchetto pacchetto, boolean stato)
+    {
+        int row = 0;
+        int i=0;
+        for(List<Label> labell : packRow)
+        {
+            if( Integer.parseInt(labell.get(0).getText()) == pacchetto.getId()) {
+                row = i;
+                break;
+            }
+
+            i++;
+        }
+
+        for(Label label : packRow.get(row))
+        {
+            if(stato)
+                label.setStyle("-fx-text-fill: blue;");
+            else
+                label.setStyle("-fx-text-fill: red;");
+        }
+
     }
 
 
@@ -933,12 +1042,13 @@ public class AccessoCatalogoView implements CbColleague{
 
 
 
-
-
-
+/*
+*
+* Mostra un popup contenente le informazioni della tabella selezionata
+* */
     public void mostraOfferta(Object offerta)
     {
-
+        TextField textField;
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(stage);
@@ -946,42 +1056,52 @@ public class AccessoCatalogoView implements CbColleague{
         GridPane gp = new GridPane();
         gp.setPadding(new Insets(20,0,20,20));
 
+        gp.setHgap(10);
+        gp.setVgap(10);
 
-        gp.setAlignment(Pos.TOP_LEFT);
-        ColumnConstraints cc = new ColumnConstraints(50,50, Double.MAX_VALUE,
-                Priority.ALWAYS, HPos.LEFT, true);
-        gp.getColumnConstraints().addAll(cc, cc);
-
-       RowConstraints rc = new RowConstraints(5, 5, Double.MAX_VALUE,
-                Priority.ALWAYS, VPos.TOP, true);
-       gp.getRowConstraints().addAll(rc, rc);
-        gp.setHgap(5);
-        gp.setVgap(5);
-
+        textField = new TextField( ((Offerta)offerta).getNome());
+        textField.setEditable(false);
         gp.add(new Label("Nome:"),0,0);
-        gp.add(new Label( ((Offerta)offerta).getNome()),1,0);
+        gp.add(textField,1,0);
+
+        textField = new TextField(Integer.toString(((Offerta)offerta).getPrezzo()));
+        textField.setEditable(false);
 
         gp.add(new Label("Prezzo:"),0,1);
-        gp.add(new Label(Integer.toString(((Offerta)offerta).getPrezzo())),1,1);
+        gp.add(textField,1,1);
+
+        textField =new TextField(((Offerta)offerta).getCittà());
+        textField.setEditable(false);
 
         gp.add(new Label("Città:"),0,2);
-        gp.add(new Label(((Offerta)offerta).getCittà()),1,2);
+        gp.add(textField,1,2);
+
+        textField = new TextField(((Offerta)offerta).getDataScadenza());
+        textField.setEditable(false);
 
         gp.add(new Label("Data:"),0,3);
-        gp.add(new Label(((Offerta)offerta).getDataScadenza()),1,3);
+        gp.add(textField,1,3);
 
 
         if(offerta instanceof OffertaPernotto)
         {
+            textField = new TextField(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti()));
+            textField.setEditable(false);
 
             gp.add(new Label("Numero notti:"),0,4);
-            gp.add(new Label(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti())),1,4);
+            gp.add(textField,1,4);
+
+            textField = new TextField(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti()));
+            textField.setEditable(false);
 
             gp.add(new Label("Stelle: "),0,5);
-            gp.add(new Label(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti())),1,5);
+            gp.add(textField,1,5);
+
+            textField = new TextField(((OffertaPernotto)offerta).getTipologia());
+            textField.setEditable(false);
 
             gp.add(new Label("Tipologia"),0,6);
-            gp.add(new Label( ((OffertaPernotto)offerta).getTipologia()),1,6);
+            gp.add(textField,1,6);
 
             Button ok = new Button("OK");
             ok.setMaxWidth(100.0);
@@ -994,14 +1114,23 @@ public class AccessoCatalogoView implements CbColleague{
         if(offerta instanceof OffertaTrasporto) {
 
 
+            textField = new TextField(((OffertaTrasporto) offerta).getCittàPartenza());
+            textField.setEditable(false);
+
             gp.add(new Label("Città di partenza"), 0, 4);
-            gp.add(new Label(((OffertaTrasporto) offerta).getCittàPartenza()), 1, 4);
+            gp.add(textField, 1, 4);
+
+            textField = new TextField( Integer.toString  (((OffertaTrasporto)offerta).getDurata()));
+            textField.setEditable(false);
 
             gp.add(new Label("Durata:"),0,5);
-            gp.add(new Label( Integer.toString  (((OffertaTrasporto)offerta).getDurata())),1,5);
+            gp.add(textField,1,5);
+
+            textField = new TextField( ((OffertaTrasporto)offerta).getTipologia());
+            textField.setEditable(false);
 
             gp.add(new Label("Tipologia"),0,6);
-            gp.add(new Label( ((OffertaTrasporto)offerta).getTipologia()),1,6);
+            gp.add(textField,1,6);
 
             Button ok = new Button("OK");
             ok.setMaxWidth(100.0);
@@ -1013,8 +1142,11 @@ public class AccessoCatalogoView implements CbColleague{
 
         if(offerta instanceof OffertaEvento)
         {
+            textField = new TextField(((OffertaEvento)offerta).getTipologia());
+            textField.setEditable(false);
+
             gp.add(new Label("Tipologia"),0,4);
-            gp.add(new Label( ((OffertaEvento)offerta).getTipologia()),1,4);
+            gp.add(textField,1,4);
 
             Button ok = new Button("OK");
             ok.setMaxWidth(100.0);
@@ -1023,13 +1155,21 @@ public class AccessoCatalogoView implements CbColleague{
             gp.add(ok,1,7,2,1);
         }
 
+        double percentageWidth = 0.20;
+        double percentageHeight = 0.30;
 
-        Scene dialogScene = new Scene(gp, 300, 200);
+        Rectangle2D screenSize = Screen.getPrimary().getBounds();
+        percentageWidth *= screenSize.getWidth();
+        percentageHeight *= screenSize.getHeight();
+
+        Scene dialogScene = new Scene(gp, percentageWidth, percentageHeight);
         dialog.setScene(dialogScene);
         dialog.show();
 
     }
 
+    /* mostra o elimina le checkbox e radiobutton
+     */
     public void showCheckBox(boolean show)
     {
 

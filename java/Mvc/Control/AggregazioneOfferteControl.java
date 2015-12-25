@@ -99,6 +99,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         pacchetto.setOffertaPernotto(offertaPernotto);
         pacchetto.setOffertaTrasporto(offertaTrasporto);
         pacchetto.setOffertaEvento(offertaEvento);
+        pacchetto.setStato(false);
 
         pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
         pacchetto.setPrezzo( Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));

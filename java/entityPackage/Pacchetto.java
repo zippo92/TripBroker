@@ -14,6 +14,7 @@ public class Pacchetto {
     private List<OffertaEvento> offertaEvento;
     private String nome;
     private Integer prezzo;
+    private Boolean stato;
 
     @GeneratedValue
     @Id
@@ -68,5 +69,14 @@ public class Pacchetto {
 
     public void setPrezzo(Integer prezzo) {
         this.prezzo = prezzo;
+    }
+
+    @Basic
+    public Boolean getStato() {
+        return stato;
+    }
+
+    public void setStato(Boolean stato) {
+        this.stato = stato;
     }
 }
