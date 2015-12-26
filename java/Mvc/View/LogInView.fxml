@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mvc.Control.LogInControl" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/null" >
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/null" fx:controller="Mvc.Control.LogInControl">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -16,13 +16,13 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField fx:id="nameField" prefHeight="41.0" prefWidth="300.0" promptText="Nome Utente" GridPane.rowIndex="1" />
-      <TextField fx:id="passwordField" prefHeight="37.0" prefWidth="300.0" promptText="Password" GridPane.rowIndex="2" ></TextField>
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="TRIP BROKER LOG IN">
+      <TextField fx:id="nameField" focusTraversable="false" prefHeight="41.0" prefWidth="300.0" promptText="Nome Utente" GridPane.rowIndex="1" />
+      <TextField fx:id="passwordField" focusTraversable="false" prefHeight="37.0" prefWidth="300.0" promptText="Password" GridPane.rowIndex="2" />
+      <TextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" text="          Trip Broker" wrapText="true">
          <font>
-            <Font name="Arial Bold" size="22.0" />
+            <Font name="Segoe Print Bold" size="22.0" />
          </font>
       </TextArea>
-      <Button fx:id="button" mnemonicParsing="false" onAction="#LogInAction" prefHeight="25.0" prefWidth="139.0" text="Log In" GridPane.rowIndex="3" />
+      <Button fx:id="button" defaultButton="true" mnemonicParsing="false" onAction="#LogInAction" prefHeight="25.0" prefWidth="139.0" text="Log In" GridPane.rowIndex="3" />
    </children>
 </GridPane>

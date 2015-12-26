@@ -3,20 +3,21 @@ package Patterns.DAOFactory;
 import DAO.OffertaDAO;
 import DAO.PacchettoDAO;
 import DAO.UserDAO;
+import Mvc.TipoOfferta;
 
 /**
  * Created by Simone on 23/12/2015.
  */
 public  abstract class DAOFactory {
 
-    public static DAOFactory getDAOFactory(String tipo) {
+    public static DAOFactory getDAOFactory(TipoOfferta tipo) {
 
         switch (tipo) {
-            case "OffertaPernotto":
+            case OffertaPernotto:
                 return new OffertaPernottoDAOImpl();
-            case "OffertaTrasporto":
+            case OffertaTrasporto:
                 return new OffertaTrasportoDAOImpl();
-            case "OffertaEvento":
+            case OffertaEvento:
                 return new OffertaEventoDAOImpl();
             default:
                 return null;

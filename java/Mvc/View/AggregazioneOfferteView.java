@@ -39,6 +39,11 @@ public class AggregazioneOfferteView implements GpColleague {
     private GpMediatorImpl gpMediator;
     private AggregazioneOfferteControl aggregazioneOfferteControl;
 
+
+    /*
+    * è una split pane con linea orizzontale, sopra varie info del pacchetto ,sotto le offerte contenute
+    *
+    * */
     public AggregazioneOfferteView(Stage stage ,List<OffertaEvento> offertaEvento,OffertaPernotto offertaPernotto,OffertaTrasporto offertaTrasporto,GpMediatorImpl mediator,
                                    AggregazioneOfferteControl control)
     {
@@ -75,6 +80,10 @@ public class AggregazioneOfferteView implements GpColleague {
         stage.show();
     }
 
+
+    /*
+    * funzioni per il mediator, per inviare una gridPane
+    * */
     public void send(GridPane gp) {
         gpMediator.send(gp,this);
     }
@@ -84,6 +93,9 @@ public class AggregazioneOfferteView implements GpColleague {
         //Never Reched
     }
 
+    /*
+    *  costruisce la parte superiore
+    * */
     private void buildtop()
     {
         sp1 = new StackPane();
@@ -137,7 +149,9 @@ public class AggregazioneOfferteView implements GpColleague {
     }
 
 
-
+    /*
+    * Costruisce la parte inferiore utilizzando le offerte inviategli nel costruttore
+    * */
     private void buildbot()
     {
         GridPane gp = new GridPane();

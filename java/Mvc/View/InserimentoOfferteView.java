@@ -35,6 +35,12 @@ public class InserimentoOfferteView implements GpColleague {
     private InserimentoOfferteControl inserimentoOfferteControl;
     private GpMediatorImpl gpMediator;
 
+
+    /*
+    * è formato da una split pane con linea centrale verticale ,a sinistra le informazioni comuni a tutte le offerte
+    * a destra invece quelle relative all'offerta selezionata nel radiogroup
+    *
+    * */
     public InserimentoOfferteView(Stage stage, InserimentoOfferteControl control, GpMediatorImpl mediator) throws IOException {
 
         gpMediator = mediator;
@@ -63,6 +69,9 @@ public class InserimentoOfferteView implements GpColleague {
 //        final StackPane sp2 = buildRight();
     }
 
+    /*
+    *
+    * */
     public void send(GridPane gp) {
             gpMediator.send(gp,this);
             }
@@ -72,6 +81,10 @@ public class InserimentoOfferteView implements GpColleague {
         //Never Reched
     }
 
+
+    /*
+    *  Builda la zona a destra a seconda del valore passatogli, 0 OffertaPernotto 1 OffertaTrasporto 2 OffertaEvento
+    * */
     public void buildRight(int val)
     {
         sp2.getChildren().clear();
@@ -180,6 +193,14 @@ public class InserimentoOfferteView implements GpColleague {
 
     }
 
+
+    /*
+    *
+    *  costruisce la zona a sinistra, comune a tutte le offerte
+    *
+    *   i radiobutton hanno un listener nel controllore che permette di far apparire le informazioni specifiche
+    *   nell'altra colonna
+    * */
     private StackPane buildLeft()
     {
 //        final StackPane sp1 = new StackPane();
@@ -197,9 +218,6 @@ public class InserimentoOfferteView implements GpColleague {
                 Priority.ALWAYS, HPos.LEFT, true);
         gp.getColumnConstraints().addAll(cc, cc);
 
-//       RowConstraints rc = new RowConstraints(5, 5, Double.MAX_VALUE,
-//                Priority.ALWAYS, VPos.TOP, true);
-//       gp.getRowConstraints().addAll(rc, rc);
         gp.setHgap(10); //horizontal gap in pixels => that's what you are asking for
         gp.setVgap(10);
 

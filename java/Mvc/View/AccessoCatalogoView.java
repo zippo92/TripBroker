@@ -1,6 +1,7 @@
 package Mvc.View;
 
 import Mvc.Control.AccessoCatalogoControl;
+import Mvc.TipoOfferta;
 import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
@@ -341,7 +342,7 @@ public class AccessoCatalogoView implements CbColleague{
 
 //        offerte = accessoCatalogoControl.getOffEven();
 
-        offerte = (List<OffertaEvento>) accessoCatalogoControl.getAllOff("OffertaEvento");
+        offerte = (List<OffertaEvento>) accessoCatalogoControl.getAllOff(TipoOfferta.OffertaEvento);
 
         gpEveRow=2;
         int app;
@@ -402,7 +403,7 @@ public class AccessoCatalogoView implements CbColleague{
 
         infoTras = new ArrayList<ImageView>();
 
-        offerte = (List<OffertaTrasporto>) accessoCatalogoControl.getAllOff("OffertaTrasporto");
+        offerte = (List<OffertaTrasporto>) accessoCatalogoControl.getAllOff(TipoOfferta.OffertaTrasporto);
 
 //        offerte = accessoCatalogoControl.getOffTras();
 
@@ -467,7 +468,7 @@ public class AccessoCatalogoView implements CbColleague{
         List<OffertaPernotto> offerte  = new ArrayList<OffertaPernotto>();
         infoPern = new ArrayList<ImageView>();
 
-        offerte = (List<OffertaPernotto>) accessoCatalogoControl.getAllOff("OffertaPernotto");
+        offerte = (List<OffertaPernotto>) accessoCatalogoControl.getAllOff(TipoOfferta.OffertaPernotto);
 
 
 //        offerte = accessoCatalogoControl.getOffPern();

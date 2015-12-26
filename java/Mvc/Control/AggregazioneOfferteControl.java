@@ -39,6 +39,10 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
 
 
+/*
+*   gli vengono passate le offerte da aggregare ,istanzia il medietor tra AggregazioneOfferteControl e AggregazioneOfferteView
+*
+* */
     public AggregazioneOfferteControl(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control){
 
         this.offertaPernotto = per ;
@@ -54,6 +58,18 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         aggregazioneOfferteModel = new AggregazioneOfferteModel();
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        aggregazioneOfferteView = new AggregazioneOfferteView(primaryStage,offertaEvento,offertaPernotto,offertaTrasporto,mediator,this);
+
+
+    }
+
+
+    /*
+    *  funzioni per ricevere la gridpane della view attraverso il mediator
+    * */
     public void send(GridPane gp) {
         //Never Reached
     }
@@ -65,6 +81,13 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
     }
 
+
+    /*
+    *
+    *  funzioni dell'observer per notificare ad AccessoCatalogoView che è stata aggiunta una riga nella tabella dei pacchetti
+    *
+    *
+    * */
     public void addPackObserver(PackObserver observer) {
         list.add( observer );
     }
@@ -81,14 +104,11 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
 
-        aggregazioneOfferteView = new AggregazioneOfferteView(primaryStage,offertaEvento,offertaPernotto,offertaTrasporto,mediator,this);
-
-
-    }
-
+    /*
+    *
+    *   Listener del pulsante "Conferma Pacchetto" che permette di inserire il pacchetto nel db e di fare la notifica all'observer
+    * */
 
     public void creaPacchetto(ActionEvent event)
     {

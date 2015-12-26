@@ -54,7 +54,10 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     private List<OffObserver> list = new ArrayList<OffObserver>();
 
 
-
+/*
+*
+* istanzia il mediator ,aggiunge l'observer delle offerte
+* */
     public InserimentoOfferteControl(AccessoCatalogoControl back)
     {
          mediator = new GpMediatorImpl();
@@ -66,9 +69,18 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
         this.addOffObserver(accessoCatalogoControl);
 
-
-
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        inserimentoOfferteView = new InserimentoOfferteView(primaryStage,this,mediator);
+    }
+
+    /*
+    *
+    * funzioni per il mediator, riceve le gridpane dell'inserimentoOfferteView( sinistra e destra )
+    *
+    * */
 
     public void send(GridPane gp) {
         //Never Reached
@@ -84,11 +96,12 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
             gpLeft = gp;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        inserimentoOfferteView = new InserimentoOfferteView(primaryStage,this,mediator);
-    }
 
+    /*
+    * Funzioni per l'observer delle offerte ,notifica all'accessoCatalogoControl che è stata ggiunta una nuova offerta
+    *
+    *
+    * */
 
     public void addOffObserver(OffObserver observer) {
         list.add( observer );
@@ -106,7 +119,14 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
 
 
-
+/*
+*   Listener del radiogroup che specifica il tipo dell'offerta
+*
+*   a seconda del tipo richiama buildRight() dell'inserimentoOfferteView che costruisce la parte
+*   destra della splitpane
+*
+*
+* */
     public void radioListener (ActionEvent event)
     {
         RadioButton o = (RadioButton) event.getSource();
@@ -119,6 +139,7 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
             inserimentoOfferteView.buildRight(2);
     }
 
+    /*crea l'offerta*/
     private OffertaTrasporto creaOffertaTrasporto()
     {
         OffertaTrasporto offerta = new OffertaTrasporto();
@@ -131,9 +152,9 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setTipologia(this.trasp);
         offerta.setDurata(this.durata);
 
-//        this.notifyOffObserver(offerta);
         return offerta;
     }
+    /*crea l'offerta*/
 
     private OffertaPernotto creaOffertaPernotto()
     {
@@ -147,9 +168,10 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setStelle(this.stelle);
         offerta.setTipologia(tipo);
 
-//        this.notifyOffObserver(offerta);
         return offerta;
     }
+        /*crea l'offerta*/
+
     private OffertaEvento creaOffertaEvento()
     {
         OffertaEvento offerta = new OffertaEvento();
@@ -159,19 +181,24 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setDataScadenza(this.data);
         offerta.setTipologia(evento);
 
-//        this.notifyOffObserver(offerta);
 
         return offerta;
     }
+
+
+
+    /*
+    *
+    * Listener del pulsante "OK" nell'inserimento delle offerte
+    *
+    * Esegue un controllo su ogni elemento della gridpane , controlla se i dati sono stati inseriti o no
+    *
+    * e se sono del formato giusto . Se non vanno bene applica un bordo rosso per segnalare l'errore.
+    *
+    * se tutto è andato bene richiama il model per inserire l'offerta nel db e notifica l'observer delle offerte
+    *
+    * */
     public void inserimentoListener (ActionEvent event){
-
-//        final SplitPane sp = (SplitPane) ((Node) (event.getSource())).getScene().getRoot();
-//
-//
-//        final StackPane stackPane1 = (StackPane) sp.getItems().get(0);
-//
-//        final GridPane gp1 = (GridPane) stackPane1.getChildren().get(0);
-
 
         final GridPane gp1 = gpLeft;
 
@@ -230,11 +257,6 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
             }
         }
 
-//        System.out.println(nome + " " + prezzo + " " + città + " " + data);
-//
-//        StackPane stackPane2 = (StackPane) sp.getItems().get(1);
-//
-//        GridPane gp2 = (GridPane) stackPane2.getChildren().get(0);
 
         final GridPane gp2 = gpRight;
 

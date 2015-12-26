@@ -1,5 +1,6 @@
 package Mvc.Model;
 
+import Mvc.TipoOfferta;
 import Patterns.DAOFactory.DAOFactory;
 import entityPackage.Pacchetto;
 
@@ -11,17 +12,28 @@ import java.util.List;
 public class AccessoCatalogoModel {
 
 
-
-    public Object getOff(String tipo)
+    /*
+    * restituisce tutte le offerte di quel tipo
+    *
+    * */
+    public Object getOff(TipoOfferta tipo)
     {
         return DAOFactory.getDAOFactory(tipo).getOffertaDAO().getList();
     }
 
-    public Object findOff(String id,String tipo)
+    /*
+    * restituisce l'offerta di quel tipo con quel id
+    *
+    * */
+    public Object findOff(String id,TipoOfferta tipo)
     {
         return DAOFactory.getDAOFactory(tipo).getOffertaDAO().findOff(id);
     }
 
+    /*
+    * restituisce tutti i pacchetti
+    *
+    * */
     public List<Pacchetto> getPack() {
         return DAOFactory.getPacchettoDAO().getList();
     }

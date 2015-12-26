@@ -9,6 +9,7 @@ import entityPackage.Pacchetto;
 public class AggregazioneOfferteModel {
 
 
+    /* Salva il pacchetto nel db*/
     public void creaPacchetto(Pacchetto pacchetto)
     {
         DAOFactory.getPacchettoDAO().store(pacchetto);
