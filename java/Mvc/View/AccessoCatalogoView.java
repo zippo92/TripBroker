@@ -1183,6 +1183,76 @@ public class AccessoCatalogoView implements CbColleague{
     }
 
 
+    public void upPack(Pacchetto pacchetto)
+
+    {
+        int row = 0;
+        int i=0;
+        for(List<Label> labell : packRow)
+        {
+            if( Integer.parseInt(labell.get(0).getText()) == pacchetto.getId()) {
+                row = i;
+                break;
+            }
+
+            i++;
+        }
+
+        if(pacchetto.getNome()!=null)
+            packRow.get(row).get(1).setText(pacchetto.getNome());
+
+
+        if(pacchetto.getPrezzo()!=null)
+            packRow.get(row).get(2).setText(Integer.toString(pacchetto.getPrezzo()));
+
+        if(pacchetto.getOffertaPernotto()!=null) {
+            //TODO
+//            packRow.get(row).get(3).setText(pacchetto.getOffertaPernotto().getCittà());
+//            packRow.get(row).get(4).setText(pacchetto.getOffertaPernotto().getTipologia());
+//            packRow.get(row).get(5).setText(Integer.toString(pacchetto.getOffertaPernotto().getStelle()));
+//            packRow.get(row).get(6).setText(Integer.toString(pacchetto.getOffertaPernotto().getNumeroNotti()));
+
+        if(pacchetto.getOffertaTrasporto()!=null)
+        {
+            //TODO
+        }
+
+        if(pacchetto.getOffertaPernotto()!=null)
+        {
+            //TODO
+        }
+
+        }
+
+        for(Label label : packRow.get(row))
+        {
+            if(pacchetto.getStato())
+                label.setStyle("-fx-text-fill: blue;");
+            else
+                label.setStyle("-fx-text-fill: red;");
+        }
+
+    }
 
 
 }
+//
+//gpPack.add(new Label(pack.getNome()), 0, gpPackRow);
+//        gpPack.add(new Label(Integer.toString(pack.getPrezzo())), 1, gpPackRow);
+//        gpPack.add(new Label(pack.getOffertaPernotto().getCittà()), 2, gpPackRow);
+//        gpPack.add(new Label(pack.getOffertaPernotto().getTipologia()), 4, gpPackRow);
+//        gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getStelle())), 5, gpPackRow);
+//        gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getNumeroNotti())), 6, gpPackRow);
+//        gpPack.add(new Label(pack.getOffertaTrasporto().getCittàPartenza()), 8, gpPackRow);
+//        gpPack.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, gpPackRow);
+//        gpPack.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, gpPackRow);
+//
+//
+//        int j=0;
+//        for (OffertaEvento events : pack.getOffertaEvento()) {
+//        gpPack.add(new Label(events.getNome()), 12, gpPackRow);
+//        gpPack.add(new Label(events.getTipologia()), 13, gpPackRow);
+//
+//        j+=2;
+//        gpPackRow++;
+//        }

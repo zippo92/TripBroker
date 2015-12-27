@@ -84,7 +84,6 @@ public class ConfermaPacchettiView implements GpColleague {
             gridPane.add(new Label("Offerte contenute:"), 0, i+3);
 
             TextField textField = new TextField(pack.getNome());
-            textField.setEditable(false);
             textField.setFocusTraversable(false);
             gridPane.add(textField,1,i);
 
@@ -94,7 +93,6 @@ public class ConfermaPacchettiView implements GpColleague {
             gridPane.add(textField,1,i+1);
 
             textField = new TextField(Integer.toString(pack.getPrezzo()));
-            textField.setEditable(false);
             textField.setFocusTraversable(false);
             gridPane.add(textField,1,i+2);
 

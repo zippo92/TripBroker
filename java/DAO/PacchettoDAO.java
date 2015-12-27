@@ -4,6 +4,7 @@ import Mvc.Model.DBResourcesManager;
 import entityPackage.Pacchetto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -46,14 +47,37 @@ public class PacchettoDAO {
 
     public  List<Pacchetto> findNotApproved() {
         Session s = DBResourcesManager.getSession();
-        String query = "from Pacchetto pacchetto where pacchetto.stato=false" ;
+        String query = "from Pacchetto pacchetto where pacchetto.stato=false";
         @SuppressWarnings("unchecked")
         List<Pacchetto> packs = s.createQuery(query).list();
-        if(packs.size()>0)
+        if (packs.size() > 0)
             return packs;
         else
             return null;
+    }
+
+
+     public void modPack(int id , String nome, int prezzo,boolean stato)
+    {
+        Session s = DBResourcesManager.getSession();
+
+        Transaction tx = null;
+        try{
+            tx = s.beginTransaction();
+            Pacchetto pacchetto = (Pacchetto)s.get(Pacchetto.class , id);
+
+            pacchetto.setNome(nome);
+            pacchetto.setPrezzo(prezzo);
+            pacchetto.setStato(stato);
+
+            s.update(pacchetto);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }
 
     }
+
 
 }

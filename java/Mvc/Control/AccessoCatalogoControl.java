@@ -115,6 +115,12 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
+    @Override
+    public void upPack(Pacchetto pacchetto)
+    {
+        accessoCatalogoView.upPack(pacchetto);
+    }
+
 
     /*
     * Listener del pulsante "inserimento offerte" dello scout , fa partire inserimentoOfferteControl

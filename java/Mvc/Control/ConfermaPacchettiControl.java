@@ -5,6 +5,8 @@ import Mvc.View.ConfermaPacchettiView;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
+import Patterns.PackObserver.PackObserver;
+import Patterns.PackObserver.PackSubject;
 import entityPackage.Pacchetto;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,18 +17,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Simone on 27/12/2015.
  */
-public class ConfermaPacchettiControl implements GpColleague{
+public class ConfermaPacchettiControl implements GpColleague,PackSubject{
 
     ConfermaPacchettiModel confermaPacchettiModel;
     ConfermaPacchettiView confermaPacchettiView;
     AccessoCatalogoControl accessoCatalogoControl;
     GpMediatorImpl gpMediator;
     GridPane confGp;
+    private List<PackObserver> list = new ArrayList<PackObserver>();
 
 
     public ConfermaPacchettiControl(AccessoCatalogoControl control,Stage primaryStage)
@@ -37,6 +41,8 @@ public class ConfermaPacchettiControl implements GpColleague{
         gpMediator = new GpMediatorImpl();
 
         gpMediator.addColleague(this);
+
+        this.addPackObserver(accessoCatalogoControl);
 
 
         confermaPacchettiView = new ConfermaPacchettiView(this,gpMediator);
@@ -62,6 +68,23 @@ public class ConfermaPacchettiControl implements GpColleague{
     {
 
         return confermaPacchettiModel.findNotApproved();
+    }
+
+
+
+
+    public void addPackObserver(PackObserver observer) {
+        list.add( observer );
+    }
+
+    public void removePackObserver(PackObserver observer) {
+        list.remove( observer );
+    }
+
+    public void notifyPackObserver(Pacchetto pacchetto) {
+        for(PackObserver observer: list) {
+            observer.upPack(pacchetto);
+        }
     }
 
 
@@ -100,11 +123,14 @@ public class ConfermaPacchettiControl implements GpColleague{
 
 
 
+
     public void confirmPack(ActionEvent event)
     {
         Button o = (Button) event.getSource();
 
         confermaPacchettiView.delPack(o.getId());
+
+        this.updatePack(o.getId(),true);
     }
 
 
@@ -113,10 +139,19 @@ public class ConfermaPacchettiControl implements GpColleague{
 
         Button o = (Button) event.getSource();
 
-        String id = o.getId();
 
+        this.updatePack(o.getId(),false);
+
+
+
+    }
+
+    public void updatePack(String id,boolean stato)
+    {
         int i=0;
         int from =0;
+        int prezzo = 0;
+        String nome = null;
         for(Node node : confGp.getChildren()){
             if(node instanceof Separator)
                 from = i;
@@ -124,18 +159,27 @@ public class ConfermaPacchettiControl implements GpColleague{
             if(node instanceof Button)
                 if(node.getId().equals(id) && i%2==0) {
 
+                    nome=((TextField)confGp.getChildren().get(from+5)).getText();
+
+                    prezzo= Integer.parseInt( ((TextField)confGp.getChildren().get(from+7)).getText());
 
 
-                    System.out.println(((TextField)confGp.getChildren().get(from+5)).getText());
-
-                    System.out.println(((TextField)confGp.getChildren().get(from+6)).getText());
-
-                    System.out.println(((TextField)confGp.getChildren().get(from+7)).getText());
 
                     break;
                 }
             i++;
         }
+
+        confermaPacchettiModel.updatePack(Integer.parseInt(id),nome,prezzo,stato);
+
+        Pacchetto pack = new Pacchetto();
+
+        pack.setNome(nome);
+        pack.setPrezzo(prezzo);
+        pack.setId(Integer.parseInt(id));
+        pack.setStato(stato);
+
+        this.notifyPackObserver(pack);
 
     }
 

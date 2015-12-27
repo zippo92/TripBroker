@@ -9,4 +9,6 @@ public interface PackObserver {
 
     void addPack(Pacchetto pacchetto);
 
+    void upPack(Pacchetto pacchetto);
+
 }

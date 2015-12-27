@@ -15,4 +15,10 @@ public class ConfermaPacchettiModel {
         return DAOFactory.getPacchettoDAO().findNotApproved();
 
     }
+
+    public void updatePack(int id,String nome,int prezzo,boolean stato)
+    {
+        DAOFactory.getPacchettoDAO().modPack(id,nome,prezzo,stato);
+
+    }
 }
