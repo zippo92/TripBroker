@@ -80,7 +80,6 @@ public class AccessoCatalogoView implements CbColleague{
         percentageWidth *= screenSize.getWidth();
         percentageHeight *= screenSize.getHeight();
 
-        image = new Image("search.png");
 
         this.scene = new Scene(componentLayout, percentageWidth, percentageHeight);
         buildLeft();
@@ -91,6 +90,7 @@ public class AccessoCatalogoView implements CbColleague{
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
     }
 
@@ -206,7 +206,6 @@ public class AccessoCatalogoView implements CbColleague{
                 log.setText("Visualizza log");
                 log.setFont(new Font(Dim_Butt));
                 log.setMaxWidth(Double.MAX_VALUE);
-
 
                 buttonBox.getChildren().addAll(aggiorna,andamento,log);
 
@@ -1182,6 +1181,8 @@ public class AccessoCatalogoView implements CbColleague{
 
 
     }
+
+
 
 
 }

@@ -32,6 +32,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     String utente;
     private AccessoCatalogoView accessoCatalogoView;
     private InserimentoOfferteControl inserimentoOfferteControl;
+    private ConfermaPacchettiControl confermaPacchettiControl;
     private AccessoCatalogoModel accessoCatalogoModel;
     private AggregazioneOfferteControl aggregazioneOfferteControl;
     private CbMediatorImpl mediator;
@@ -56,6 +57,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         offertaEvento = new ArrayList<OffertaEvento>();
 
+
     }
 
 
@@ -66,6 +68,12 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     @Override
     public void start(Stage primaryStage) throws Exception {
         accessoCatalogoView = new AccessoCatalogoView(primaryStage,utente,this,mediator);
+
+        if(utente.equals("Admin")) {
+
+            confermaPacchettiControl = new ConfermaPacchettiControl(this,primaryStage);
+        }
+
     }
 
 
@@ -256,6 +264,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         ((Node)(event.getSource())).getScene().getWindow().hide();
 
     }
+
+
 
 
     public void okButton(ActionEvent event)

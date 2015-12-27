@@ -38,4 +38,6 @@ public class AccessoCatalogoModel {
         return DAOFactory.getPacchettoDAO().getList();
     }
 
+
+
 }

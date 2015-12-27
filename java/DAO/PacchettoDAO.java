@@ -44,4 +44,16 @@ public class PacchettoDAO {
 
     }
 
+    public  List<Pacchetto> findNotApproved() {
+        Session s = DBResourcesManager.getSession();
+        String query = "from Pacchetto pacchetto where pacchetto.stato=false" ;
+        @SuppressWarnings("unchecked")
+        List<Pacchetto> packs = s.createQuery(query).list();
+        if(packs.size()>0)
+            return packs;
+        else
+            return null;
+
+    }
+
 }
