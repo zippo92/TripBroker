@@ -29,7 +29,7 @@ public class LogInControl  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        logInView = new LogInView(primaryStage);
+        logInView = new LogInView(primaryStage,this);
         logInModel = new LogInModel();
     }
 
@@ -41,19 +41,29 @@ public class LogInControl  extends Application {
         if(users != null){
             ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
             accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
+
+            try {
+                accessoCatalogoControl.start(new Stage());
+            }    catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
         else{
             System.out.println("Errore in LogIn");
+//            logInView.showPopup("Utente sconosciuto");
+
         }
 
-        try {
-            accessoCatalogoControl.start(new Stage());
-        }    catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
+    public void okListener (ActionEvent event)  {
 
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+
+    }
 
 }
 

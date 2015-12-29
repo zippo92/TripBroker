@@ -6,6 +6,8 @@ import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
 import entityPackage.OffertaEvento;
 import entityPackage.Pacchetto;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -29,6 +32,7 @@ public class ConfermaPacchettiView implements GpColleague {
     private ConfermaPacchettiControl confermaPacchettiControl;
     private GridPane gridPane;
     private GpMediatorImpl gpMediator;
+    private Stage dialog;
 
 
     public ConfermaPacchettiView(ConfermaPacchettiControl control,GpMediatorImpl mediator)
@@ -56,14 +60,14 @@ public class ConfermaPacchettiView implements GpColleague {
     public void adminPopup(Stage stage)
     {
 
-
         List<Pacchetto> daApprovare = confermaPacchettiControl.findNotApproved();
 
-        final Stage dialog = new Stage();
+        dialog = new Stage();
         dialog.sizeToScene();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initModality(Modality.WINDOW_MODAL);
         dialog.initOwner(stage);
 
+        StackPane stackPane = new StackPane();
         ScrollPane scrollPane = new ScrollPane();
 
         gridPane = new GridPane();
@@ -149,6 +153,20 @@ public class ConfermaPacchettiView implements GpColleague {
         scrollPane.setContent(gridPane);
 
         this.send(gridPane);
+
+
+        Button esci = new Button("Esci");
+        esci.setPrefWidth(100);
+        esci.setPrefHeight(25);
+        esci.setOnAction(confermaPacchettiControl::okListener);
+
+        stackPane.getChildren().add(scrollPane);
+        stackPane.getChildren().add(esci);
+
+        StackPane.setAlignment(esci,Pos.BOTTOM_LEFT);
+
+        StackPane.setMargin(scrollPane,new Insets(0,0,25,0));
+
         double percentageWidth = 0.25;
         double percentageHeight = 0.30;
 
@@ -156,7 +174,7 @@ public class ConfermaPacchettiView implements GpColleague {
         percentageWidth *= screenSize.getWidth();
         percentageHeight *= screenSize.getHeight();
 
-        Scene dialogScene = new Scene(scrollPane, percentageWidth, percentageHeight);
+        Scene dialogScene = new Scene(stackPane, percentageWidth, percentageHeight);
         dialog.setScene(dialogScene);
         dialog.show();
 
@@ -176,6 +194,8 @@ public class ConfermaPacchettiView implements GpColleague {
             if(node instanceof Button)
                 if(node.getId().equals(id) && i%2==0) {
                     gridPane.getChildren().remove(from +1, i + 3);
+                    if(gridPane.getChildren().size() == 1)
+                        this.dialog.getScene().getWindow().hide();
                     break;
                 }
             i++;

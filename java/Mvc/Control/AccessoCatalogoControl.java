@@ -40,7 +40,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     private List<OffertaEvento> offertaEvento;
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
-
+    private AggiornaCostiControl aggiornaCostiControl;
 
 /*
 *
@@ -264,6 +264,26 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     *
     * */
     public List<Pacchetto> getPack(){ return accessoCatalogoModel.getPack();}
+
+
+
+    public void aggiornaCosti(ActionEvent event)
+    {
+        aggiornaCostiControl = new AggiornaCostiControl();
+
+        try {
+            aggiornaCostiControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+
 
     public void okListener (ActionEvent event)  {
 

@@ -16,7 +16,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField fx:id="nameField" focusTraversable="false" prefHeight="41.0" prefWidth="300.0" promptText="Nome Utente" GridPane.rowIndex="1" />
+      <TextField fx:id="nameField" prefHeight="41.0" prefWidth="300.0" promptText="Nome Utente" GridPane.rowIndex="1" />
       <TextField fx:id="passwordField" focusTraversable="false" prefHeight="37.0" prefWidth="300.0" promptText="Password" GridPane.rowIndex="2" />
       <TextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" text="          Trip Broker" wrapText="true">
          <font>

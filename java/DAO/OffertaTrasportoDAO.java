@@ -2,7 +2,9 @@ package DAO;
 
 import Mvc.Model.DBResourcesManager;
 import entityPackage.OffertaTrasporto;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -38,4 +40,27 @@ public class OffertaTrasportoDAO extends OffertaDAO {
 
     }
 
+    @Override
+    public void modPrezzo(int trasID,int percent)
+    {
+        Session s = DBResourcesManager.getSession();
+        int val;
+
+        Transaction tx = null;
+        try{
+            tx = s.beginTransaction();
+            OffertaTrasporto offertaTrasporto = (OffertaTrasporto) s.get(OffertaTrasporto.class,trasID);
+
+            val = offertaTrasporto.getPrezzo();
+
+            offertaTrasporto.setPrezzo(val + val*percent/100);
+
+            s.update(offertaTrasporto);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }
+
+    }
 }

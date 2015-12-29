@@ -2,7 +2,9 @@ package DAO;
 
 import Mvc.Model.DBResourcesManager;
 import entityPackage.OffertaPernotto;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -39,5 +41,29 @@ public class OffertaPernottoDAO extends OffertaDAO {
             return null;
 
     }
+
+    @Override
+    public void modPrezzo(int perID,int percent)
+    {
+        Session s = DBResourcesManager.getSession();
+        int val;
+        Transaction tx = null;
+        try{
+            tx = s.beginTransaction();
+            OffertaPernotto offertaPernotto = (OffertaPernotto) s.get(OffertaPernotto.class,perID);
+
+
+            val = offertaPernotto.getPrezzo();
+
+            offertaPernotto.setPrezzo(val + val*percent/100);
+            s.update(offertaPernotto);
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

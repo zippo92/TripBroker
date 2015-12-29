@@ -128,9 +128,11 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     {
         Button o = (Button) event.getSource();
 
-        confermaPacchettiView.delPack(o.getId());
 
         this.updatePack(o.getId(),true);
+
+        confermaPacchettiView.delPack(o.getId());
+
     }
 
 
@@ -156,17 +158,18 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
             if(node instanceof Separator)
                 from = i;
 
-            if(node instanceof Button)
-                if(node.getId().equals(id) && i%2==0) {
-
-                    nome=((TextField)confGp.getChildren().get(from+5)).getText();
-
-                    prezzo= Integer.parseInt( ((TextField)confGp.getChildren().get(from+7)).getText());
+            if(node instanceof Button) {
 
 
+                if (node.getId().equals(id) && i % 2 == 0) {
+
+                    nome = ((TextField) confGp.getChildren().get(from + 5)).getText();
+
+                    prezzo = Integer.parseInt(((TextField) confGp.getChildren().get(from + 7)).getText());
 
                     break;
                 }
+            }
             i++;
         }
 
@@ -184,4 +187,9 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     }
 
 
+    public void okListener (ActionEvent event)  {
+
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+
+    }
 }

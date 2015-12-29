@@ -194,6 +194,7 @@ public class AccessoCatalogoView implements CbColleague{
             case "Admin":
                 Button aggiorna = new Button() ;
                 aggiorna.setText("Aggiorna offerte con criterio");
+                aggiorna.setOnAction(accessoCatalogoControl::aggiornaCosti);
                 aggiorna.setFont(new Font(Dim_Butt));
                 aggiorna.setMaxWidth(Double.MAX_VALUE);
 
@@ -208,6 +209,7 @@ public class AccessoCatalogoView implements CbColleague{
                 log.setMaxWidth(Double.MAX_VALUE);
 
                 buttonBox.getChildren().addAll(aggiorna,andamento,log);
+                break;
 
             case "Agente":
                 Button prenotazione = new Button() ;
@@ -215,6 +217,7 @@ public class AccessoCatalogoView implements CbColleague{
                 prenotazione.setMaxWidth(Double.MAX_VALUE);
                 prenotazione.setFont(new Font(20));
                 buttonBox.getChildren().addAll(prenotazione);
+                break;
 
         }
         return buttonBox;
