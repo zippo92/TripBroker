@@ -1,11 +1,11 @@
 package Mvc.Control;
 
-import Mvc.Model.AccessoCatalogoModel;
 import Mvc.TipoOfferta;
 import Mvc.View.AccessoCatalogoView;
 import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
+import Patterns.DAOFactory.DAOFactory;
 import Patterns.OffObserver.OffObserver;
 import Patterns.PackObserver.PackObserver;
 import entityPackage.OffertaEvento;
@@ -33,7 +33,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     private AccessoCatalogoView accessoCatalogoView;
     private InserimentoOfferteControl inserimentoOfferteControl;
     private ConfermaPacchettiControl confermaPacchettiControl;
-    private AccessoCatalogoModel accessoCatalogoModel;
+//    private AccessoCatalogoModel accessoCatalogoModel;
     private AggregazioneOfferteControl aggregazioneOfferteControl;
     private CbMediatorImpl mediator;
     private List<CheckBox> checkBoxes;
@@ -50,7 +50,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         utente = user;
         inserimentoOfferteControl = new InserimentoOfferteControl(this);
-        accessoCatalogoModel = new AccessoCatalogoModel();
+//        accessoCatalogoModel = new AccessoCatalogoModel();
 
         mediator = new CbMediatorImpl();
         mediator.addColleague(this);
@@ -156,7 +156,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
 
         RadioButton o = (RadioButton) event.getSource();
-        offertaTrasporto = (OffertaTrasporto) (accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaTrasporto));
+//        offertaTrasporto = (OffertaTrasporto) (accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaTrasporto));
+        offertaTrasporto = (OffertaTrasporto)DAOFactory.getDAOFactory(TipoOfferta.OffertaTrasporto).getOffertaDAO().findOff(o.getId());
         accessoCatalogoView.setEffect(3,offertaTrasporto.getCittà());
 
     }
@@ -171,8 +172,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     {
 
         RadioButton o = (RadioButton) event.getSource();
-        offertaPernotto = (OffertaPernotto)  accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaPernotto);
-
+//        offertaPernotto = (OffertaPernotto)  accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaPernotto);
+        offertaPernotto = (OffertaPernotto) DAOFactory.getDAOFactory(TipoOfferta.OffertaPernotto).getOffertaDAO().findOff(o.getId());
         accessoCatalogoView.setEffect(2,offertaPernotto.getCittà());
     }
 
@@ -188,7 +189,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         accessoCatalogoView.setEffect(0,null);
         for(CheckBox checkBox : checkBoxes)
             if(checkBox.isSelected()) {
-                offertaEvento.add((OffertaEvento) (accessoCatalogoModel.findOff(checkBox.getId(),TipoOfferta.OffertaEvento)));
+//                offertaEvento.add((OffertaEvento) (accessoCatalogoModel.findOff(checkBox.getId(),TipoOfferta.OffertaEvento)));
+                  offertaEvento.add((OffertaEvento) DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().findOff(checkBox.getId()));
             }
 
         accessoCatalogoView.showCheckBox(false);
@@ -215,8 +217,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         ImageView o = (ImageView) event.getSource();
 
 
-        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaTrasporto));
-
+//        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaTrasporto));
+          accessoCatalogoView.mostraOfferta(DAOFactory.getDAOFactory(TipoOfferta.OffertaTrasporto).getOffertaDAO().findOff(o.getId()));
 
     }
     /*
@@ -230,8 +232,9 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
 
 
-        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaEvento));
+//        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaEvento));
 
+        accessoCatalogoView.mostraOfferta(DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().findOff(o.getId()));
 
     }
     /*
@@ -243,7 +246,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         ImageView o = (ImageView) event.getSource();
 
-        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaPernotto));
+//        accessoCatalogoView.mostraOfferta(accessoCatalogoModel.findOff(o.getId(),TipoOfferta.OffertaPernotto));
+        accessoCatalogoView.mostraOfferta(DAOFactory.getDAOFactory(TipoOfferta.OffertaPernotto).getOffertaDAO().findOff(o.getId()));
 
     }
 
@@ -255,7 +259,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     public Object getAllOff(TipoOfferta offerta)
     {
 
-        return accessoCatalogoModel.getOff(offerta);
+//        return accessoCatalogoModel.getOff(offerta);
+        return DAOFactory.getDAOFactory(offerta).getOffertaDAO().getList();
     }
 
     /*
@@ -263,7 +268,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     * Richiama il model per ottenere tutti i pacchetti
     *
     * */
-    public List<Pacchetto> getPack(){ return accessoCatalogoModel.getPack();}
+    public List<Pacchetto> getPack(){ return DAOFactory.getPacchettoDAO().getList();}
 
 
 

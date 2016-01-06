@@ -1,7 +1,7 @@
 package Mvc.Control;
 
-import Mvc.Model.AggregazioneOfferteModel;
 import Mvc.View.AggregazioneOfferteView;
+import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -31,7 +31,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
     private AggregazioneOfferteView aggregazioneOfferteView;
-    private AggregazioneOfferteModel aggregazioneOfferteModel;
+//    private AggregazioneOfferteModel aggregazioneOfferteModel;
     private AccessoCatalogoControl accessoCatalogoControl;
     private GpMediatorImpl mediator;
     private GridPane gridPane;
@@ -55,7 +55,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
         this.addPackObserver(accessoCatalogoControl);
 
-        aggregazioneOfferteModel = new AggregazioneOfferteModel();
+//        aggregazioneOfferteModel = new AggregazioneOfferteModel();
     }
 
     @Override
@@ -124,7 +124,10 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
         pacchetto.setPrezzo( Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
 
-        aggregazioneOfferteModel.creaPacchetto(pacchetto);
+//        aggregazioneOfferteModel.creaPacchetto(pacchetto);
+
+        DAOFactory.getPacchettoDAO().store(pacchetto);
+
 
         this.notifyPackObserver(pacchetto);
 

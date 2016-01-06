@@ -1,7 +1,7 @@
 package Mvc.Control;
 
-import Mvc.Model.ConfermaPacchettiModel;
 import Mvc.View.ConfermaPacchettiView;
+import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ConfermaPacchettiControl implements GpColleague,PackSubject{
 
-    ConfermaPacchettiModel confermaPacchettiModel;
+//    ConfermaPacchettiModel confermaPacchettiModel;
     ConfermaPacchettiView confermaPacchettiView;
     AccessoCatalogoControl accessoCatalogoControl;
     GpMediatorImpl gpMediator;
@@ -36,7 +36,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     public ConfermaPacchettiControl(AccessoCatalogoControl control,Stage primaryStage)
     {
         accessoCatalogoControl = control;
-        confermaPacchettiModel = new ConfermaPacchettiModel();
+//        confermaPacchettiModel = new ConfermaPacchettiModel();
 
         gpMediator = new GpMediatorImpl();
 
@@ -67,7 +67,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     public List<Pacchetto> findNotApproved()
     {
 
-        return confermaPacchettiModel.findNotApproved();
+        return DAOFactory.getPacchettoDAO().findNotApproved();
     }
 
 
@@ -173,7 +173,9 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
             i++;
         }
 
-        confermaPacchettiModel.updatePack(Integer.parseInt(id),nome,prezzo,stato);
+//        confermaPacchettiModel.updatePack(Integer.parseInt(id),nome,prezzo,stato);
+
+        DAOFactory.getPacchettoDAO().modPack(Integer.parseInt(id),nome,prezzo,stato);
 
         Pacchetto pack = new Pacchetto();
 

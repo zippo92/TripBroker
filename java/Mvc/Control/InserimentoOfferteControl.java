@@ -1,5 +1,8 @@
 package Mvc.Control;
 
+import DAO.OffertaEventoDAO;
+import DAO.OffertaPernottoDAO;
+import DAO.OffertaTrasportoDAO;
 import Mvc.Model.InserimentoOfferteModel;
 import Mvc.View.InserimentoOfferteView;
 import Patterns.GpMediator.GpColleague;
@@ -311,7 +314,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 }
                 if(!red)
                 {   offertaTrasporto = this.creaOffertaTrasporto();
-                    inserimentoOfferteModel.InsertTrasporto(offertaTrasporto);
+//                    inserimentoOfferteModel.InsertTrasporto(offertaTrasporto);
+                    OffertaTrasportoDAO.store(offertaTrasporto);
                     this.notifyOffObserver(offertaTrasporto);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }
@@ -360,7 +364,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 }
                 if(!red)
                 {   offertaPernotto = this.creaOffertaPernotto();
-                    inserimentoOfferteModel.InsertPernotto(offertaPernotto);
+//                    inserimentoOfferteModel.InsertPernotto(offertaPernotto);
+                    OffertaPernottoDAO.store(offertaPernotto);
                     this.notifyOffObserver(offertaPernotto);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }
@@ -382,7 +387,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 }
                 if(!red)
                 {   offertaEvento = this.creaOffertaEvento();
-                    inserimentoOfferteModel.InsertEvento(offertaEvento);
+//                    inserimentoOfferteModel.InsertEvento(offertaEvento);
+                    OffertaEventoDAO.store(offertaEvento);
                     this.notifyOffObserver(offertaEvento);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }

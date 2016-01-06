@@ -15,6 +15,7 @@ public class InserimentoOfferteModel {
 /*
 *  inserisce l'evento il trasporto il pernotto
 * */
+
     public void InsertEvento(OffertaEvento offertaEvento){
         OffertaEventoDAO.store(offertaEvento);
     }

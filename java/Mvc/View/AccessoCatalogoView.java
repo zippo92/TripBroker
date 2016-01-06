@@ -76,6 +76,8 @@ public class AccessoCatalogoView implements CbColleague{
 
         packRow = new ArrayList<List<Label>>();
 
+        image = new Image("search.png");
+
         Rectangle2D screenSize = Screen.getPrimary().getBounds();
         percentageWidth *= screenSize.getWidth();
         percentageHeight *= screenSize.getHeight();
