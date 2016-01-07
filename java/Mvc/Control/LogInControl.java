@@ -2,12 +2,15 @@ package Mvc.Control;
 
 import Mvc.Model.LogInModel;
 import Mvc.View.LogInView;
+import Patterns.GpMediator.GpColleague;
+import Patterns.GpMediator.GpMediator;
+import Patterns.GpMediator.GpMediatorImpl;
 import entityPackage.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,45 +19,73 @@ import java.util.List;
 /**
  * Created by Simone on 01/12/2015.
  */
-public class LogInControl  extends Application {
+public class LogInControl  extends Application implements GpColleague{
 
-    @FXML
-    TextField nameField;
-    @FXML
-    TextField passwordField;
+
     private LogInView logInView;
     private LogInModel logInModel;
     private AccessoCatalogoControl accessoCatalogoControl;
     private String utente;
+    private GpMediatorImpl mediator;
+    private GridPane gridPane;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        logInView = new LogInView(primaryStage,this);
+
+
+        mediator = new GpMediatorImpl();
+
+        mediator.addColleague(this);
+
+
+        logInView = new LogInView(primaryStage,this,mediator);
         logInModel = new LogInModel();
     }
 
-    @FXML
-        private void LogInAction(ActionEvent actionEvent) throws IOException {
-        String user = nameField.getText();
-        String pass = passwordField.getText();
-        List<User> users = LogInModel.searchForName(user,pass);
-        if(users != null){
-            ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-            accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
-
-            try {
-                accessoCatalogoControl.start(new Stage());
-            }    catch (Exception e) {
-                e.printStackTrace();
-            }
 
 
+    /*
+    *  funzioni per ricevere la gridpane della view attraverso il mediator
+    * */
+    public void send(GridPane gp) {
+        //Never Reached
+    }
+
+    public GpMediator getGpMediator() {return mediator;}
+
+    public void receive(GridPane gp) {
+        this.gridPane = gp;
+
+    }
+
+
+
+    public void logInAction(ActionEvent actionEvent) {
+
+
+      String user = ((TextField) gridPane.getChildren().get(1)).getText();
+
+        String psw = ((TextField) gridPane.getChildren().get(2)).getText();
+
+
+    List<User> users = LogInModel.searchForName(user,psw);
+    if(users != null){
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+        accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
+
+        try {
+            accessoCatalogoControl.start(new Stage());
+        }    catch (Exception e) {
+            e.printStackTrace();
         }
-        else{
-            System.out.println("Errore in LogIn");
-//            logInView.showPopup("Utente sconosciuto");
 
-        }
+
+    }
+    else{
+        System.out.println("Errore in LogIn");
+        logInView.showPopup("Utente sconosciuto");
+
+    }
 
 
     }

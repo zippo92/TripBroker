@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,9 +151,19 @@ public class AccessoCatalogoView implements CbColleague{
 
 //        Dipendente dipendente = Dipendente.valueOf(dep);
 
+        Button logout;
+
         switch (dep) {
 
             case "Scout":
+
+
+                logout = new Button() ;
+                logout.setText("Log out");
+                logout.setFont(new Font(Dim_Butt));
+                logout.setMaxWidth(Double.MAX_VALUE);
+                logout.setOnAction(accessoCatalogoControl::logout);
+
 
                 Button offerte = new Button() ;
                 offerte.setText("Inserimento offerte");
@@ -170,10 +181,16 @@ public class AccessoCatalogoView implements CbColleague{
                 ricerca.setText("Ricerca offerte");
                 ricerca.setFont(new Font(Dim_Butt));
                 ricerca.setMaxWidth(Double.MAX_VALUE);
-                buttonBox.getChildren().addAll(offerte, contratti, ricerca);
+                buttonBox.getChildren().addAll(logout,offerte, contratti, ricerca);
                 break;
 
             case "Designer":
+
+                logout = new Button() ;
+                logout.setText("Log out");
+                logout.setFont(new Font(Dim_Butt));
+                logout.setMaxWidth(Double.MAX_VALUE);
+                logout.setOnAction(accessoCatalogoControl::logout);
 
 
                 Button aggrega = new Button() ;
@@ -190,10 +207,18 @@ public class AccessoCatalogoView implements CbColleague{
 
 
 
-                buttonBox.getChildren().addAll(aggrega, costi);
+                buttonBox.getChildren().addAll(logout,aggrega, costi);
                 break;
 
             case "Admin":
+
+
+                logout = new Button() ;
+                logout.setText("Log out");
+                logout.setFont(new Font(Dim_Butt));
+                logout.setMaxWidth(Double.MAX_VALUE);
+                logout.setOnAction(accessoCatalogoControl::logout);
+
                 Button aggiorna = new Button() ;
                 aggiorna.setText("Aggiorna offerte con criterio");
                 aggiorna.setOnAction(accessoCatalogoControl::aggiornaCosti);
@@ -210,15 +235,23 @@ public class AccessoCatalogoView implements CbColleague{
                 log.setFont(new Font(Dim_Butt));
                 log.setMaxWidth(Double.MAX_VALUE);
 
-                buttonBox.getChildren().addAll(aggiorna,andamento,log);
+                buttonBox.getChildren().addAll(logout,aggiorna,andamento,log);
                 break;
 
             case "Agente":
+
+                logout = new Button() ;
+                logout.setText("Log out");
+                logout.setFont(new Font(Dim_Butt));
+                logout.setMaxWidth(Double.MAX_VALUE);
+                logout.setOnAction(accessoCatalogoControl::logout);
+
+
                 Button prenotazione = new Button() ;
                 prenotazione.setText("Prenotazione viaggio");
                 prenotazione.setMaxWidth(Double.MAX_VALUE);
                 prenotazione.setFont(new Font(20));
-                buttonBox.getChildren().addAll(prenotazione);
+                buttonBox.getChildren().addAll(logout,prenotazione);
                 break;
 
         }
@@ -803,7 +836,7 @@ public class AccessoCatalogoView implements CbColleague{
     private void showPopup(String message)
     {
         final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(stage);
         VBox dialogVbox = new VBox(20);
         dialogVbox.getChildren().add(new Text(message));

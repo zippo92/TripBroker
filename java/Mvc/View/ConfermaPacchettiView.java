@@ -17,9 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class ConfermaPacchettiView implements GpColleague {
 
         dialog = new Stage();
         dialog.sizeToScene();
-        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(stage);
 
         StackPane stackPane = new StackPane();
@@ -74,9 +74,7 @@ public class ConfermaPacchettiView implements GpColleague {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        Label text = new Label("Ci sono questi pacchetti da approvare:");
-        text.setFont(new Font("Arial",20));
-        gridPane.add(text,0,0,4,1);
+
 
         int i=1;
         int j;
@@ -160,12 +158,19 @@ public class ConfermaPacchettiView implements GpColleague {
         esci.setPrefHeight(25);
         esci.setOnAction(confermaPacchettiControl::okListener);
 
+
+
+        Label text = new Label("Ci sono questi pacchetti da approvare:");
+        text.setFont(new Font("Arial",20));
+
+        stackPane.getChildren().add(text);
         stackPane.getChildren().add(scrollPane);
         stackPane.getChildren().add(esci);
 
+        StackPane.setAlignment(text,Pos.TOP_CENTER);
         StackPane.setAlignment(esci,Pos.BOTTOM_LEFT);
 
-        StackPane.setMargin(scrollPane,new Insets(0,0,25,0));
+        StackPane.setMargin(scrollPane,new Insets(25,0,25,0));
 
         double percentageWidth = 0.25;
         double percentageHeight = 0.30;

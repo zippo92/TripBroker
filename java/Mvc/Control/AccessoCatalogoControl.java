@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -305,6 +306,20 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         accessoCatalogoView.setEffect(0,null);
 
         accessoCatalogoView.showCheckBox(false);
+
+    }
+
+
+    public void logout(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+
+        LogInControl logInControl = new LogInControl();
+
+        try {
+            logInControl.start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

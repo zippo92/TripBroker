@@ -112,27 +112,61 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
     public void creaPacchetto(ActionEvent event)
     {
+        boolean red = false;
+
+        String nome = null;
+        int prezzo = 0;
+
+        if(! (((TextField) gridPane.getChildren().get(1)).getText().equals("")) ) {
+            nome = ((TextField) gridPane.getChildren().get(1)).getText();
+            gridPane.getChildren().get(1).setStyle("");
+        }
+        else
+        {
+            red = true;
+            gridPane.getChildren().get(3).setStyle("-fx-border-color: red");
+        }
 
 
-        Pacchetto pacchetto = new Pacchetto();
+        if(!  (((TextField) gridPane.getChildren().get(3)).getText().equals(""))) {
+            try{
+                prezzo = Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText());
+                gridPane.getChildren().get(3).setStyle("");
+            } catch (NumberFormatException e)
+            {
+                red = true;
+                gridPane.getChildren().get(3).setStyle("-fx-border-color: red");
+            }
+        }
+        else
+        {
+            red = true;
+            gridPane.getChildren().get(3).setStyle("-fx-border-color: red");
+        }
 
-        pacchetto.setOffertaPernotto(offertaPernotto);
-        pacchetto.setOffertaTrasporto(offertaTrasporto);
-        pacchetto.setOffertaEvento(offertaEvento);
-        pacchetto.setStato(false);
 
-        pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
-        pacchetto.setPrezzo( Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
+        if(!red) {
+
+
+            Pacchetto pacchetto = new Pacchetto();
+
+            pacchetto.setOffertaPernotto(offertaPernotto);
+            pacchetto.setOffertaTrasporto(offertaTrasporto);
+            pacchetto.setOffertaEvento(offertaEvento);
+            pacchetto.setStato(false);
+
+            pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
+            pacchetto.setPrezzo(Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
 
 //        aggregazioneOfferteModel.creaPacchetto(pacchetto);
 
-        DAOFactory.getPacchettoDAO().store(pacchetto);
+            DAOFactory.getPacchettoDAO().store(pacchetto);
 
 
-        this.notifyPackObserver(pacchetto);
+            this.notifyPackObserver(pacchetto);
 
-        ((Node)(event.getSource())).getScene().getWindow().hide();
-
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
 
     }
 }
