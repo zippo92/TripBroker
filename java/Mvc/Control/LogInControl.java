@@ -1,7 +1,8 @@
 package Mvc.Control;
 
-import Mvc.Model.LogInModel;
+import Mvc.Model.DBResourcesManager;
 import Mvc.View.LogInView;
+import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -23,7 +24,6 @@ public class LogInControl  extends Application implements GpColleague{
 
 
     private LogInView logInView;
-    private LogInModel logInModel;
     private AccessoCatalogoControl accessoCatalogoControl;
     private String utente;
     private GpMediatorImpl mediator;
@@ -32,6 +32,7 @@ public class LogInControl  extends Application implements GpColleague{
     @Override
     public void start(Stage primaryStage) throws IOException {
 
+        DBResourcesManager.initHibernate();
 
         mediator = new GpMediatorImpl();
 
@@ -39,7 +40,6 @@ public class LogInControl  extends Application implements GpColleague{
 
 
         logInView = new LogInView(primaryStage,this,mediator);
-        logInModel = new LogInModel();
     }
 
 
@@ -65,10 +65,11 @@ public class LogInControl  extends Application implements GpColleague{
 
       String user = ((TextField) gridPane.getChildren().get(1)).getText();
 
-        String psw = ((TextField) gridPane.getChildren().get(2)).getText();
+
+      String psw = ((TextField) gridPane.getChildren().get(2)).getText();
 
 
-    List<User> users = LogInModel.searchForName(user,psw);
+    List<User> users = DAOFactory.getUserDAO().findSelectedUser(user,psw);
     if(users != null){
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
         accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
