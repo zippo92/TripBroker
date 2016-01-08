@@ -219,6 +219,13 @@ public class AccessoCatalogoView implements CbColleague{
                 logout.setMaxWidth(Double.MAX_VALUE);
                 logout.setOnAction(accessoCatalogoControl::logout);
 
+                Button conferma = new Button() ;
+                conferma.setText("Conferma pacchetti");
+                conferma.setOnAction(accessoCatalogoControl::confermaPacchetti);
+                conferma.setFont(new Font(Dim_Butt));
+                conferma.setMaxWidth(Double.MAX_VALUE);
+
+
                 Button aggiorna = new Button() ;
                 aggiorna.setText("Aggiorna offerte con criterio");
                 aggiorna.setOnAction(accessoCatalogoControl::aggiornaCosti);
@@ -235,7 +242,7 @@ public class AccessoCatalogoView implements CbColleague{
                 log.setFont(new Font(Dim_Butt));
                 log.setMaxWidth(Double.MAX_VALUE);
 
-                buttonBox.getChildren().addAll(logout,aggiorna,andamento,log);
+                buttonBox.getChildren().addAll(logout,conferma,aggiorna,andamento,log);
                 break;
 
             case "Agente":

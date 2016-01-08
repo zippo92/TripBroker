@@ -11,6 +11,22 @@ import java.util.List;
 
 public class UserDAO {
 
+    private static UserDAO instance;
+
+    private UserDAO(){}
+
+    public static UserDAO getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new UserDAO();
+        }
+
+        return instance;
+    }
+
+
+
     public void store(User e) {
         // start a session
         Session s = DBResourcesManager.getSession();

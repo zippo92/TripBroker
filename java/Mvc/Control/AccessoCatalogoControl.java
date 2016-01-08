@@ -30,6 +30,7 @@ import java.util.List;
  */
 public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
 
+    private static AccessoCatalogoControl instance ;
     String utente;
     private AccessoCatalogoView accessoCatalogoView;
     private InserimentoOfferteControl inserimentoOfferteControl;
@@ -43,14 +44,17 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     private OffertaTrasporto offertaTrasporto;
     private AggiornaCostiControl aggiornaCostiControl;
 
+    private Stage primaryStage;
+
 /*
 *
 *  Instanzia i vari componenti e il mediator per le CheckBox
 * */
-    public AccessoCatalogoControl(String user){
+    private AccessoCatalogoControl(String user){
+
 
         utente = user;
-        inserimentoOfferteControl = new InserimentoOfferteControl(this);
+        inserimentoOfferteControl = InserimentoOfferteControl.getInstance(this);
 //        accessoCatalogoModel = new AccessoCatalogoModel();
 
         mediator = new CbMediatorImpl();
@@ -62,13 +66,24 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     }
 
 
-    /*
-    *
-    *
-    * */
+    public static AccessoCatalogoControl getInstance(String user)
+    {
+        if (instance == null)
+        {
+            instance = new AccessoCatalogoControl(user);
+        }
+
+        return instance;
+    }
+
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         accessoCatalogoView = new AccessoCatalogoView(primaryStage,utente,this,mediator);
+
+        this.primaryStage = primaryStage;
 
         if(utente.equals("Admin")) {
 
@@ -196,7 +211,9 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         accessoCatalogoView.showCheckBox(false);
 
-        aggregazioneOfferteControl = new AggregazioneOfferteControl(offertaPernotto,offertaTrasporto,offertaEvento,this);
+
+        aggregazioneOfferteControl = AggregazioneOfferteControl.getInstance(offertaPernotto,offertaTrasporto,offertaEvento,this);
+
 
         try {
             aggregazioneOfferteControl.start(new Stage());
@@ -275,7 +292,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     public void aggiornaCosti(ActionEvent event)
     {
-        aggiornaCostiControl = new AggiornaCostiControl();
+        aggiornaCostiControl = AggiornaCostiControl.getInstance();
 
         try {
             aggiornaCostiControl.start(new Stage());
@@ -287,7 +304,11 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
 
 
+    public void confermaPacchetti(ActionEvent event)
+    {
+        confermaPacchettiControl = new ConfermaPacchettiControl(this,primaryStage);
 
+    }
 
 
 

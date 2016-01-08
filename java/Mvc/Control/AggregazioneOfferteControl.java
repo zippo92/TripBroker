@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class AggregazioneOfferteControl extends Application implements GpColleague,PackSubject {
 
-
+    private static AggregazioneOfferteControl instance;
     private List<OffertaEvento> offertaEvento;
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
@@ -37,13 +37,11 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
     private GridPane gridPane;
     private List<PackObserver> list = new ArrayList<PackObserver>();
 
-
-
 /*
 *   gli vengono passate le offerte da aggregare ,istanzia il medietor tra AggregazioneOfferteControl e AggregazioneOfferteView
 *
 * */
-    public AggregazioneOfferteControl(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control){
+    private AggregazioneOfferteControl(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control){
 
         this.offertaPernotto = per ;
         this.offertaTrasporto = tras;
@@ -58,6 +56,16 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 //        aggregazioneOfferteModel = new AggregazioneOfferteModel();
     }
 
+    public static AggregazioneOfferteControl getInstance(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control)
+    {
+        if (instance == null)
+        {
+            instance = new AggregazioneOfferteControl(per,tras,even,control);
+        }
+
+        return instance;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -65,7 +73,6 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 
 
     }
-
 
     /*
     *  funzioni per ricevere la gridpane della view attraverso il mediator

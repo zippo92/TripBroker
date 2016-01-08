@@ -17,11 +17,25 @@ import javafx.stage.Stage;
  */
 public class AggiornaCostiControl extends Application implements GpColleague {
 
-
+    private static AggiornaCostiControl instance;
     private AggiornaCostiModel aggiornaCostiModel;
     private AggiornaCostiView aggiornaCostiView;
     private GridPane gridPane;
     private GpMediatorImpl gpMediator;
+
+    private AggiornaCostiControl(){
+
+    }
+
+    public static AggiornaCostiControl getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new AggiornaCostiControl();
+        }
+
+        return instance;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -32,12 +46,6 @@ public class AggiornaCostiControl extends Application implements GpColleague {
         gpMediator.addColleague(this);
 
         aggiornaCostiView = new AggiornaCostiView(primaryStage,this,gpMediator);
-
-
-
-
-
-
 
     }
 

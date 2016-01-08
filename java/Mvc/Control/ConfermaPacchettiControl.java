@@ -151,7 +151,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     public void updatePack(String id,boolean stato)
     {
         int i=0;
-        int from =0;
+        int from =-1;
         int prezzo = 0;
         String nome = null;
         for(Node node : confGp.getChildren()){
@@ -161,7 +161,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
             if(node instanceof Button) {
 
 
-                if (node.getId().equals(id) && i % 2 == 0) {
+                if (node.getId().equals(id) && i % 2 != 0) {
 
                     nome = ((TextField) confGp.getChildren().get(from + 5)).getText();
 

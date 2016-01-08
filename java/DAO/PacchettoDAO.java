@@ -14,6 +14,21 @@ import java.util.List;
 public class PacchettoDAO {
 
 
+    private static PacchettoDAO instance;
+
+    private PacchettoDAO(){}
+
+    public static PacchettoDAO getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new PacchettoDAO();
+        }
+
+        return instance;
+    }
+
+
     public void store(Pacchetto e) {
         // start a session
         Session s = DBResourcesManager.getSession();

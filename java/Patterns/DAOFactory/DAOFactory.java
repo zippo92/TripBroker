@@ -14,11 +14,11 @@ public  abstract class DAOFactory {
 
         switch (tipo) {
             case OffertaPernotto:
-                return new OffertaPernottoDAOImpl();
+                return OffertaPernottoDAOImpl.getInstance();
             case OffertaTrasporto:
-                return new OffertaTrasportoDAOImpl();
+                return  OffertaTrasportoDAOImpl.getInstance();
             case OffertaEvento:
-                return new OffertaEventoDAOImpl();
+                return  OffertaEventoDAOImpl.getInstance();
             default:
                 return null;
         }
@@ -26,12 +26,12 @@ public  abstract class DAOFactory {
 
     public static PacchettoDAO getPacchettoDAO()
     {
-        return new PacchettoDAO();
+        return PacchettoDAO.getInstance();
     }
 
     public static UserDAO getUserDAO()
     {
-        return new UserDAO();
+        return UserDAO.getInstance();
     }
 
     public abstract OffertaDAO getOffertaDAO();

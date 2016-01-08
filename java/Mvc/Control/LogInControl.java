@@ -44,6 +44,7 @@ public class LogInControl  extends Application implements GpColleague{
 
 
 
+
     /*
     *  funzioni per ricevere la gridpane della view attraverso il mediator
     * */
@@ -72,7 +73,7 @@ public class LogInControl  extends Application implements GpColleague{
     List<User> users = DAOFactory.getUserDAO().findSelectedUser(user,psw);
     if(users != null){
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        accessoCatalogoControl = new AccessoCatalogoControl(users.get(0).getRuolo());
+        accessoCatalogoControl = AccessoCatalogoControl.getInstance(users.get(0).getRuolo());
 
         try {
             accessoCatalogoControl.start(new Stage());

@@ -42,6 +42,8 @@ public class OffertaPernottoDAO extends OffertaDAO {
 
     }
 
+
+
     @Override
     public void modPrezzo(int perID,int percent)
     {

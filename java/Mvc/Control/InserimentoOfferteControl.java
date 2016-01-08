@@ -33,6 +33,8 @@ import java.util.Locale;
  */
 public class InserimentoOfferteControl extends Application implements GpColleague,OffSubject {
 
+
+    private static InserimentoOfferteControl instance;
     private InserimentoOfferteView inserimentoOfferteView;
     private InserimentoOfferteModel inserimentoOfferteModel;
     private AccessoCatalogoControl accessoCatalogoControl;
@@ -61,7 +63,7 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 *
 * istanzia il mediator ,aggiunge l'observer delle offerte
 * */
-    public InserimentoOfferteControl(AccessoCatalogoControl back)
+    private InserimentoOfferteControl(AccessoCatalogoControl back)
     {
          mediator = new GpMediatorImpl();
          mediator.addColleague(this);
@@ -72,6 +74,16 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
         this.addOffObserver(accessoCatalogoControl);
 
+    }
+
+    public static InserimentoOfferteControl getInstance(AccessoCatalogoControl back)
+    {
+        if (instance == null)
+        {
+            instance = new InserimentoOfferteControl(back);
+        }
+
+        return instance;
     }
 
     @Override

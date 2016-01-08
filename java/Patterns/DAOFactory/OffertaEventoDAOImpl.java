@@ -8,6 +8,23 @@ import DAO.OffertaEventoDAO;
  */
 public class OffertaEventoDAOImpl extends DAOFactory {
 
+
+
+
+    private static OffertaEventoDAOImpl instance;
+
+    private OffertaEventoDAOImpl(){}
+
+    public static OffertaEventoDAOImpl getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new OffertaEventoDAOImpl();
+        }
+
+        return instance;
+    }
+
     public OffertaDAO getOffertaDAO(){
 
         return new OffertaEventoDAO();

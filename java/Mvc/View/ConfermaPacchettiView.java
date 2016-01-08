@@ -183,6 +183,9 @@ public class ConfermaPacchettiView implements GpColleague {
         dialog.setScene(dialogScene);
         dialog.show();
 
+         i = 0;
+        
+
 
     }
 
@@ -197,8 +200,8 @@ public class ConfermaPacchettiView implements GpColleague {
                 from = i;
 
             if(node instanceof Button)
-                if(node.getId().equals(id) && i%2==0) {
-                    gridPane.getChildren().remove(from +1, i + 3);
+                if(node.getId().equals(id) && i%2!=0) {
+                    gridPane.getChildren().remove(from, i + 3);
                     if(gridPane.getChildren().size() == 1)
                         this.dialog.getScene().getWindow().hide();
                     break;
