@@ -66,6 +66,8 @@ public class ConfermaPacchettiView implements GpColleague {
         dialog.sizeToScene();
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(stage);
+        dialog.getIcons().add(new Image("icon.png"));
+
 
         StackPane stackPane = new StackPane();
         ScrollPane scrollPane = new ScrollPane();
@@ -133,14 +135,14 @@ public class ConfermaPacchettiView implements GpColleague {
 
 
 
-            Button modifica  = new Button("Modifica");
-            modifica.setId(Integer.toString(pack.getId()));
-            modifica.setOnAction(confermaPacchettiControl::modPack);
+            Button elimina  = new Button("Elimina");
+            elimina.setId(Integer.toString(pack.getId()));
+            elimina.setOnAction(confermaPacchettiControl::deletePack);
 
 
-            gridPane.add(modifica,0,i+j+1);
+            gridPane.add(conferma,0,i+j+1);
 
-            gridPane.add(conferma,1,i+j+1);
+            gridPane.add(elimina,1,i+j+1);
 
             gridPane.add(new Separator(),0,i+j+2,2,1);
 
@@ -180,6 +182,10 @@ public class ConfermaPacchettiView implements GpColleague {
         percentageHeight *= screenSize.getHeight();
 
         Scene dialogScene = new Scene(stackPane, percentageWidth, percentageHeight);
+
+        dialogScene.getStylesheets().add("JMetroLightTheme.css");
+
+
         dialog.setScene(dialogScene);
         dialog.show();
 

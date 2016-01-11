@@ -11,4 +11,7 @@ public interface PackObserver {
 
     void upPack(Pacchetto pacchetto);
 
+    void delPack(int id);
+
+
 }

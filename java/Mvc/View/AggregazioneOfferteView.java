@@ -1,6 +1,7 @@
 package Mvc.View;
 
 import Mvc.Control.AggregazioneOfferteControl;
+import Mvc.LimitedTextField;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -14,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -75,6 +76,11 @@ public class AggregazioneOfferteView implements GpColleague {
 
         this.scene = new Scene(layout, percentageWidth, percentageHeight);
 
+        this.scene.getStylesheets().add("JMetroLightTheme.css");
+
+
+        stage.getIcons().add(new Image("icon.png"));
+
         stage.setTitle("Inserimento nuovo pacchetto");
         stage.setScene(scene);
         stage.show();
@@ -113,11 +119,11 @@ public class AggregazioneOfferteView implements GpColleague {
 
         Label citta = new Label("Città");
 
-        TextField textField = new TextField(offertaPernotto.getCittà());
-        textField.setEditable(false);
+        LimitedTextField LimitedTextField = new LimitedTextField(offertaPernotto.getCittà());
+        LimitedTextField.setEditable(false);
 
 
-        TextField priceField = new TextField();
+        LimitedTextField priceField = new LimitedTextField();
 
         int somma= offertaPernotto.getPrezzo() + offertaTrasporto.getPrezzo();
 
@@ -126,7 +132,7 @@ public class AggregazioneOfferteView implements GpColleague {
 
         priceField.setPromptText(Integer.toString(somma));
 
-        TextField nameField = new TextField();
+        LimitedTextField nameField = new LimitedTextField();
 
 
         gp.add(name,0,0);
@@ -136,7 +142,7 @@ public class AggregazioneOfferteView implements GpColleague {
         gp.add(priceField,1,1);
 
         gp.add(citta,0,2);
-        gp.add(textField,1,2);
+        gp.add(LimitedTextField,1,2);
 
         Pane blank = new Pane();
 

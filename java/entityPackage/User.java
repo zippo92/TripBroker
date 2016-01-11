@@ -1,6 +1,8 @@
 package entityPackage;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by Alessandro on 09/12/2015.
@@ -12,10 +14,21 @@ public class User {
     private String usID;
 
     private String Nome;
+    private String Cognome;
+    private String password;
+    @Basic
+    private String ruolo;
+
+    protected User() {
+        super();
+    }
+
+    public User(String usID, String ruolo){this.usID = usID; this.ruolo = ruolo;}
 
     public String getUsID(){
         return this.usID;
     }
+
     @Basic
     public String getNome() {
         return Nome;
@@ -24,8 +37,6 @@ public class User {
     public void setNome(String nome) {
         Nome = nome;
     }
-
-    private String Cognome;
 
     @Basic
     public String getCognome() {
@@ -36,8 +47,6 @@ public class User {
         Cognome = cognome;
     }
 
-    private String password;
-
     @Basic
     public String getPassword() {
         return password;
@@ -47,15 +56,6 @@ public class User {
         this.password = password;
     }
 
-    protected User() {
-        super();
-    }
-
-    public User(String usID, String ruolo){this.usID = usID; this.ruolo = ruolo;}
-
-    @Basic
-    private String ruolo;
-
     public String getRuolo() {
         return ruolo;
     }
@@ -63,4 +63,5 @@ public class User {
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
+
 }

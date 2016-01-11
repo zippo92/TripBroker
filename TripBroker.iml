@@ -107,5 +107,6 @@
     <orderEntry type="library" name="Simple Logging Facade for Java:1.7.10" level="project" />
     <orderEntry type="library" name="org.daisy.libs:servlet-api:2.5.0" level="project" />
     <orderEntry type="library" name="org.hibernate:hibernate-core:4.3.8.Final" level="project" />
+    <orderEntry type="library" name="EasyOnTheEyes" level="project" />
   </component>
 </module>

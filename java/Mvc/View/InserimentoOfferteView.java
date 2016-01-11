@@ -1,6 +1,7 @@
 package Mvc.View;
 
 import Mvc.Control.InserimentoOfferteControl;
+import Mvc.LimitedTextField;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -12,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -62,6 +64,8 @@ public class InserimentoOfferteView implements GpColleague {
         layout.getItems().addAll(sp1, sp2);
         layout.setDividerPositions(0.5f, 0.5f);
 
+        scene.getStylesheets().add("JMetroLightTheme.css");
+        stage.getIcons().add(new Image("icon.png"));
 
         stage.setTitle("Inserimento offerte");
         stage.setScene(scene);
@@ -106,7 +110,7 @@ public class InserimentoOfferteView implements GpColleague {
             Label notti = new Label("Numero notti");
             notti.setFont(new Font("Arial",15));
 
-            TextField nottiFIeld = new TextField();
+            LimitedTextField nottiFIeld = new LimitedTextField();
 
             Label tipo = new Label("Tipologia");
             tipo.setFont(new Font("Arial",15));
@@ -141,7 +145,7 @@ public class InserimentoOfferteView implements GpColleague {
                 Label citta = new Label("Città di partenza");
                 citta.setFont(new Font("Arial",15));
 
-                TextField cittaField = new TextField();
+                LimitedTextField cittaField = new LimitedTextField();
 
                 Label tipoTras = new Label("Tipologia");
                 tipoTras.setFont(new Font("Arial",15));
@@ -156,7 +160,7 @@ public class InserimentoOfferteView implements GpColleague {
                 Label durata = new Label("Durata viaggio");
                 durata.setFont(new Font("Arial",15));
 
-                TextField durataField = new TextField();
+                LimitedTextField durataField = new LimitedTextField();
 
                 gp.add(citta,0,0);
                 gp.add(cittaField,1,0);
@@ -238,9 +242,11 @@ public class InserimentoOfferteView implements GpColleague {
 
 
 
-        TextField priceField = new TextField();
-        TextField nameField = new TextField();
-        TextField cittaField = new TextField();
+        LimitedTextField priceField = new LimitedTextField();
+
+        LimitedTextField nameField = new LimitedTextField();
+        
+        LimitedTextField cittaField = new LimitedTextField();
 
         ToggleGroup group = new ToggleGroup();
         RadioButton pernottoB = new RadioButton("Pernotto");

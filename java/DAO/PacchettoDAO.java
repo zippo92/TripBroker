@@ -94,5 +94,17 @@ public class PacchettoDAO {
 
     }
 
+    public void delPack(int id)
+    {
+        Session s = DBResourcesManager.getSession();
+
+        Transaction tx = null;
+        tx = s.beginTransaction();
+        Pacchetto pacchetto = (Pacchetto)s.get(Pacchetto.class , id);
+
+        s.delete(pacchetto);
+        tx.commit();
+
+    }
 
 }

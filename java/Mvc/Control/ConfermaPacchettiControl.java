@@ -81,10 +81,19 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
         list.remove( observer );
     }
 
-    public void notifyPackObserver(Pacchetto pacchetto) {
+    public void notifyPackObserver(boolean delete,Pacchetto pacchetto) {
+
+
+       if(!delete)
         for(PackObserver observer: list) {
             observer.upPack(pacchetto);
         }
+
+        else
+           for(PackObserver observer: list) {
+               observer.delPack(pacchetto.getId());
+           }
+
     }
 
 
@@ -136,15 +145,20 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
     }
 
 
-    public void modPack(ActionEvent event)
+    public void deletePack(ActionEvent event)
     {
 
         Button o = (Button) event.getSource();
 
 
-        this.updatePack(o.getId(),false);
+        Pacchetto pacchetto = new Pacchetto();
+        pacchetto.setId(Integer.parseInt(o.getId()));
 
+        notifyPackObserver(true,pacchetto);
 
+        confermaPacchettiView.delPack(o.getId());
+
+        DAOFactory.getPacchettoDAO().delPack(Integer.parseInt(o.getId()));
 
     }
 
@@ -184,7 +198,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
         pack.setId(Integer.parseInt(id));
         pack.setStato(stato);
 
-        this.notifyPackObserver(pack);
+        this.notifyPackObserver(false,pack);
 
     }
 

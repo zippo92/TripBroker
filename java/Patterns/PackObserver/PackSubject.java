@@ -11,5 +11,5 @@ public interface PackSubject {
 
     void removePackObserver(PackObserver observer);
 
-    void notifyPackObserver (Pacchetto pacchetto);
+    void notifyPackObserver (boolean delete,Pacchetto pacchetto);
 }

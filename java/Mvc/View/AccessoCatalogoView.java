@@ -16,6 +16,8 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -64,6 +66,9 @@ public class AccessoCatalogoView implements CbColleague{
 
     public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException {
 
+
+
+
         cbMediator = mediator;
         cbMediator.addColleague(this);
         check = false ;
@@ -72,8 +77,10 @@ public class AccessoCatalogoView implements CbColleague{
         double percentageWidth = 0.98;
         double percentageHeight = 0.90;
         componentLayout = new BorderPane();
-        componentLayout.setPadding(new Insets(20,0,20,20));
+
         stage = primaryStage;
+        stage.getIcons().add(new Image("icon.png"));
+
 
         packRow = new ArrayList<List<Label>>();
 
@@ -90,7 +97,10 @@ public class AccessoCatalogoView implements CbColleague{
         buildTop();
 
 
-        primaryStage.setTitle("Hello World");
+        scene.getStylesheets().add("JMetroLightTheme.css");
+
+
+        primaryStage.setTitle("TripBroker");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -119,7 +129,7 @@ public class AccessoCatalogoView implements CbColleague{
 
         BorderPane leftLayout = new BorderPane();
 
-        leftLayout.setStyle("-fx-background-color: cadetblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+        leftLayout.setStyle("-fx-background-color:  #008287;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
 
 
         // Create a faux border-right effect using a Label.
@@ -282,11 +292,23 @@ public class AccessoCatalogoView implements CbColleague{
         title.setText("TRIP BROKER");
         title.setFont(new Font("Segoe Print",50));
 
-        //Add Title label to titleBox
+//
+//        Image trip = new Image("banner.jpg");
+//        ImageView imageView = new ImageView(trip);
+
+
+//
+//        //Add Title label to titleBox
+//        titleBox.getChildren().add(imageView);
+//
+//        //Add Title label to titleBox
         titleBox.getChildren().add(title);
 
         //Add Title Box (with label) to topLayout
+//        topLayout.setCenter(imageView);
+
         topLayout.setCenter(titleBox);
+
         topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
 
 
@@ -331,12 +353,20 @@ public class AccessoCatalogoView implements CbColleague{
         SplitPane sp = new SplitPane();
 
 
-
         of1 = BuildOffertePernotto();
+
+        of1.setPadding(new Insets(0,0,0,5.0));
+
 
         of2 =BuildOfferteTrasporto();
 
+        of2.setPadding(new Insets(0,0,0,5.0));
+
+
         of3 = buildOfferteEventi();
+
+        of3.setPadding(new Insets(0,0,0,5.0));
+
 
         sp.setDividerPositions(0.33f, 0.66f, 0.99f);
         sp.getItems().addAll(of1,of2,of3);
@@ -355,7 +385,7 @@ public class AccessoCatalogoView implements CbColleague{
         StackPane sp = new StackPane();
 
         Label evLabel = new Label("Offerte di eventi");
-        evLabel.setFont(new Font("Arial",20));
+        evLabel.getStyleClass().add("text-titlebig");
         gpEve = new GridPane();
 
         gpEve.setHgap(25);
@@ -365,16 +395,16 @@ public class AccessoCatalogoView implements CbColleague{
         gpEve.add(evLabel,1,0,3,1);
 
         Label nome = new Label("Nome");
-        nome.setFont(new Font("Arial",15));
+        nome.getStyleClass().add("text-title");
 
         Label prezzo = new Label("Prezzo");
-        prezzo.setFont(new Font("Arial",15));
+        prezzo.getStyleClass().add("text-title");
 
         Label citta = new Label("Città");
-        citta.setFont(new Font("Arial",15));
+        citta.getStyleClass().add("text-title");
 
         Label tipo = new Label("Tipo");
-        tipo.setFont(new Font("Arial",15));
+        tipo.getStyleClass().add("text-title");
 
         gpEve.add(nome,0,1);
         gpEve.add(prezzo,1,1);
@@ -411,7 +441,7 @@ public class AccessoCatalogoView implements CbColleague{
         StackPane sp = new StackPane();
 
         Label trasLabel = new Label("Offerte di Trasporto");
-        trasLabel.setFont(new Font("Arial",20));
+        trasLabel.getStyleClass().add("text-titlebig");
 
 
         gpTras = new GridPane();
@@ -423,19 +453,19 @@ public class AccessoCatalogoView implements CbColleague{
         gpTras.add(trasLabel,1,0,3,1);
 
         Label nome = new Label("Nome");
-        nome.setFont(new Font("Arial",15));
+        nome.getStyleClass().add("text-title");
 
         Label prezzo = new Label("Prezzo");
-        prezzo.setFont(new Font("Arial",15));
+        prezzo.getStyleClass().add("text-title");
 
         Label citta = new Label("Città");
-        citta.setFont(new Font("Arial",15));
+        citta.getStyleClass().add("text-title");
 
         Label cittaP = new Label("Città Partenza");
-        citta.setFont(new Font("Arial",15));
+        cittaP.getStyleClass().add("text-title");
 
         Label tipo = new Label("Tipo");
-        tipo.setFont(new Font("Arial",15));
+        tipo.getStyleClass().add("text-title");
 
         gpTras.add(nome,0,1);
         gpTras.add(prezzo,1,1);
@@ -474,7 +504,7 @@ public class AccessoCatalogoView implements CbColleague{
         StackPane sp = new StackPane();
 
         Label pernLabel = new Label("Offerte di Pernotto");
-        pernLabel.setFont(new Font("Arial",20));
+        pernLabel.getStyleClass().add("text-titlebig");
 
 
         gpPern = new GridPane();
@@ -487,19 +517,19 @@ public class AccessoCatalogoView implements CbColleague{
         gpPern.add(pernLabel,1,0,3,1);
 
         Label nome = new Label("Nome");
-        nome.setFont(new Font("Arial",15));
+        nome.getStyleClass().add("text-title");
 
         Label prezzo = new Label("Prezzo");
-        prezzo.setFont(new Font("Arial",15));
+        prezzo.getStyleClass().add("text-title");
 
         Label citta = new Label("Città");
-        citta.setFont(new Font("Arial",15));
+        citta.getStyleClass().add("text-title");
 
         Label tipo = new Label("Tipo");
-        tipo.setFont(new Font("Arial",15));
+        tipo.getStyleClass().add("text-title");
 
         Label notti = new Label("Notti");
-        notti.setFont(new Font("Arial",15));
+        notti.getStyleClass().add("text-title");
 
 
         gpPern.add(nome,0,1);
@@ -629,8 +659,9 @@ public class AccessoCatalogoView implements CbColleague{
     * */
     private void addDesignerBox()
     {
+
         Label selPern = new Label("Aggiungi");
-        selPern.setFont(new Font("Arial",15));
+        selPern.getStyleClass().add("text-title");
         gpPern.add(selPern,6,1);
         ToggleGroup groupPern, groupTras;
 
@@ -650,7 +681,7 @@ public class AccessoCatalogoView implements CbColleague{
         }
 
         Label selTras = new Label("Aggiungi");
-        selTras.setFont(new Font("Arial",15));
+        selTras.getStyleClass().add("text-title");
 
         gpTras.add(selTras,6,1);
 
@@ -669,7 +700,7 @@ public class AccessoCatalogoView implements CbColleague{
         }
 
         Label selEve = new Label("Aggiungi");
-        selEve.setFont(new Font("Arial",15));
+        selEve.getStyleClass().add("text-title");
 
         gpEve.add(selEve,5,1);
 
@@ -851,7 +882,10 @@ public class AccessoCatalogoView implements CbColleague{
         button.setPrefWidth(100);
         button.setOnAction(accessoCatalogoControl::okButton);
         dialogVbox.getChildren().add(button);
+        dialog.getIcons().add(new Image("icon.png"));
+
         Scene dialogScene = new Scene(dialogVbox, 200, 100);
+
         dialog.setScene(dialogScene);
         dialog.show();
 
@@ -866,7 +900,10 @@ public class AccessoCatalogoView implements CbColleague{
     private StackPane buildPacchetti(){
         StackPane sp = new StackPane();
 
-        gpPackRow = 2;
+        sp.setPadding(new Insets(0,0,0,5.0));
+
+
+        gpPackRow = 1;
 
         gpPack = new GridPane();
 
@@ -875,78 +912,103 @@ public class AccessoCatalogoView implements CbColleague{
         gpPack.setVgap(10);
 
 
+        Circle red = new Circle();
+        red.setRadius(5.0f);
+        red.setFill(Color.RED);
+
+
+        Circle blue = new Circle();
+        blue.setRadius(5.0f);
+        blue.setFill(Color.BLUE);
+
+
+        Label redLabel = new Label("        Pacchetti non approvati");
+
+        Label blueLabel = new Label("        Pacchetti approvati");
+
 
 
         Label name = new Label("Nome Pacchetto");
-        name.setFont(new Font("Arial",15));
+        name.getStyleClass().add("text-title");
 
         Label price = new Label("Prezzo");
-        price.setFont(new Font("Arial",15));
+        price.getStyleClass().add("text-title");
 
         Label citta = new Label("Città");
-        citta.setFont(new Font("Arial",15));
+        citta.getStyleClass().add("text-title");
 
         Label tipoPern= new Label ("Tipologia");
-        tipoPern.setFont(new Font("Arial",15));
+        tipoPern.getStyleClass().add("text-title");
 
         Label stelle= new Label ("Stelle");
-        stelle.setFont(new Font("Arial",15));
+        stelle.getStyleClass().add("text-title");
 
         Label notti = new Label("Numero notti");
-        notti.setFont(new Font("Arial",15));
+        notti.getStyleClass().add("text-title");
 
-        Label cittaP = new Label("Città di partenza");
-        cittaP.setFont(new Font("Arial",15));
+        Label cittaP = new Label("Partenza");
+        cittaP.getStyleClass().add("text-title");
 
         Label tipoTras = new Label("Tipologia");
-        tipoTras.setFont(new Font("Arial",15));
+        tipoTras.getStyleClass().add("text-title");
 
         Label durata = new Label ("Durata");
-        durata.setFont(new Font("Arial",15));
+        durata.getStyleClass().add("text-title");
 
         Label evento = new Label("Nome evento");
-        evento.setFont(new Font("Arial",15));
+        evento.getStyleClass().add("text-title");
 
         Label tipoEven = new Label ("Tipologia");
-        tipoEven.setFont(new Font("Arial",15));
+        tipoEven.getStyleClass().add("text-title");
 
         Label pernotto = new Label("Pernotto");
-        pernotto.setFont(new Font("Arial",20));
+        pernotto.getStyleClass().add("text-titlebig");
 
         Label trasporto = new Label("Trasporto");
-        trasporto.setFont(new Font("Arial",20));
+        trasporto.getStyleClass().add("text-titlebig");
 
         Label eventi = new Label("Eventi");
-        eventi.setFont(new Font("Arial",20));
+        eventi.getStyleClass().add("text-titlebig");
 
         Label pacchetto = new Label ("Pacchetto");
-        pacchetto.setFont(new Font("Arial",20));
+        pacchetto.getStyleClass().add("text-titlebig");
+
+
+
+        gpPack.add(red,1,0,2,1);
+        gpPack.add(redLabel,1,0,2,1);
+        gpPack.add(blue,3,0,2,1);
+        gpPack.add(blueLabel,3,0,2,1);
+
+        Separator separator = new Separator();
+        gpPack.add(separator,0,gpPackRow,15,1);
+        gpPackRow++;
 
 
 
 
-        gpPack.add(pacchetto,1,0,3,1);
-        gpPack.add(pernotto,4,0,3,1);
-        gpPack.add(trasporto,9,0,2,1);
-        gpPack.add(eventi,12,0,2,1);
+        gpPack.add(pacchetto,1,2,3,1);
+        gpPack.add(pernotto,4,2,3,1);
+        gpPack.add(trasporto,8,2,2,1);
+        gpPack.add(eventi,12,2,2,1);
 
-        gpPack.add(name,0,1);
-        gpPack.add(price,1,1);
-        gpPack.add(citta,2,1);
-
-
-        gpPack.add(tipoPern,4,1);
-        gpPack.add(stelle,5,1);
-        gpPack.add(notti,6,1);
-
-        gpPack.add(cittaP,8,1);
-        gpPack.add(tipoTras,9,1);
-        gpPack.add(durata,10,1);
+        gpPack.add(name,0,3);
+        gpPack.add(price,1,3);
+        gpPack.add(citta,2,3);
 
 
+        gpPack.add(tipoPern,4,3);
+        gpPack.add(stelle,5,3);
+        gpPack.add(notti,6,3);
 
-        gpPack.add(evento,12,1);
-        gpPack.add(tipoEven,13,1);
+        gpPack.add(cittaP,8,3);
+        gpPack.add(tipoTras,9,3);
+        gpPack.add(durata,10,3);
+
+
+
+        gpPack.add(evento,12,3);
+        gpPack.add(tipoEven,13,3);
 
         Separator separator1 = new Separator();
         separator1.setOrientation(Orientation.VERTICAL);
@@ -960,10 +1022,18 @@ public class AccessoCatalogoView implements CbColleague{
         Separator separator4 = new Separator();
         separator4.setOrientation(Orientation.VERTICAL);
 
-        gpPack.add(separator1,3,0,1,4);
-        gpPack.add(separator2,7,0,1,4);
-        gpPack.add(separator3,11,0,1,4);
-        gpPack.add(separator4,14,0,1,4);
+        gpPack.add(separator1,3,1,1,5);
+        gpPack.add(separator2,7,1,1,5);
+        gpPack.add(separator3,11,1,1,5);
+        gpPack.add(separator4,14,1,1,5);
+
+        gpPackRow+=2;
+
+        Separator separator5 = new Separator();
+        gpPack.add(separator5,0,gpPackRow,15,1);
+        gpPackRow++;
+
+
 
 
         List<Pacchetto> pacchetti= accessoCatalogoControl.getPack();
@@ -977,6 +1047,9 @@ public class AccessoCatalogoView implements CbColleague{
 
 
             sp.getChildren().add(gpPack);
+
+
+
         return sp;
     }
 
@@ -993,7 +1066,7 @@ public class AccessoCatalogoView implements CbColleague{
             int i;
 
             int from = gpPack.getChildren().size();
-
+            int fromRow = gpPackRow;
 
 
             gpPack.add(new Label(pack.getNome()), 0, gpPackRow);
@@ -1039,10 +1112,10 @@ public class AccessoCatalogoView implements CbColleague{
              Separator separator4 = new Separator();
             separator4.setOrientation(Orientation.VERTICAL);
 
-            gpPack.add(separator1,3,gpPackRow,1,pack.getOffertaEvento().size());
-            gpPack.add(separator2,7,gpPackRow,1,pack.getOffertaEvento().size());
-            gpPack.add(separator3,11,gpPackRow,1,pack.getOffertaEvento().size());
-            gpPack.add(separator4,14,gpPackRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator1,3,fromRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator2,7,fromRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator3,11,fromRow,1,pack.getOffertaEvento().size());
+            gpPack.add(separator4,14,fromRow,1,pack.getOffertaEvento().size());
 
 
             packRow.add(labels);
@@ -1098,6 +1171,8 @@ public class AccessoCatalogoView implements CbColleague{
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(stage);
         dialog.setTitle("Descrizione Offerta");
+        dialog.getIcons().add(new Image("icon.png"));
+
         GridPane gp = new GridPane();
         gp.setPadding(new Insets(20,0,20,20));
 
@@ -1106,23 +1181,28 @@ public class AccessoCatalogoView implements CbColleague{
 
         textField = new TextField( ((Offerta)offerta).getNome());
         textField.setEditable(false);
+        textField.setFocusTraversable(false);
+
         gp.add(new Label("Nome:"),0,0);
         gp.add(textField,1,0);
 
         textField = new TextField(Integer.toString(((Offerta)offerta).getPrezzo()));
         textField.setEditable(false);
+        textField.setFocusTraversable(false);
 
         gp.add(new Label("Prezzo:"),0,1);
         gp.add(textField,1,1);
 
         textField =new TextField(((Offerta)offerta).getCittà());
         textField.setEditable(false);
+        textField.setFocusTraversable(false);
 
         gp.add(new Label("Città:"),0,2);
         gp.add(textField,1,2);
 
         textField = new TextField(((Offerta)offerta).getDataScadenza());
         textField.setEditable(false);
+        textField.setFocusTraversable(false);
 
         gp.add(new Label("Data:"),0,3);
         gp.add(textField,1,3);
@@ -1132,18 +1212,21 @@ public class AccessoCatalogoView implements CbColleague{
         {
             textField = new TextField(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti()));
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
 
             gp.add(new Label("Numero notti:"),0,4);
             gp.add(textField,1,4);
 
             textField = new TextField(Integer.toString (((OffertaPernotto)offerta).getNumeroNotti()));
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
 
             gp.add(new Label("Stelle: "),0,5);
             gp.add(textField,1,5);
 
             textField = new TextField(((OffertaPernotto)offerta).getTipologia());
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
 
             gp.add(new Label("Tipologia"),0,6);
             gp.add(textField,1,6);
@@ -1161,18 +1244,23 @@ public class AccessoCatalogoView implements CbColleague{
 
             textField = new TextField(((OffertaTrasporto) offerta).getCittàPartenza());
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
 
             gp.add(new Label("Città di partenza"), 0, 4);
             gp.add(textField, 1, 4);
 
             textField = new TextField( Integer.toString  (((OffertaTrasporto)offerta).getDurata()));
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
+
 
             gp.add(new Label("Durata:"),0,5);
             gp.add(textField,1,5);
 
+
             textField = new TextField( ((OffertaTrasporto)offerta).getTipologia());
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
 
             gp.add(new Label("Tipologia"),0,6);
             gp.add(textField,1,6);
@@ -1189,6 +1277,8 @@ public class AccessoCatalogoView implements CbColleague{
         {
             textField = new TextField(((OffertaEvento)offerta).getTipologia());
             textField.setEditable(false);
+            textField.setFocusTraversable(false);
+
 
             gp.add(new Label("Tipologia"),0,4);
             gp.add(textField,1,4);
@@ -1276,6 +1366,39 @@ public class AccessoCatalogoView implements CbColleague{
             else
                 label.setStyle("-fx-text-fill: red;");
         }
+
+    }
+
+    public void delPack(int id)
+    {
+
+
+        int row = 0;
+        int i=0;
+        int tot=0;
+
+        for(List<Label> labell : packRow)
+        {
+            if( Integer.parseInt(labell.get(0).getText()) == id) {
+                row = i;
+                break;
+            }
+            tot+=(labell.size() -1 +4);
+
+
+
+
+            i++;
+        }
+
+
+
+
+
+        int from = 26 + tot;
+
+        gpPack.getChildren().remove(from-1,from + packRow.get(row).size()+3);
+
 
     }
 

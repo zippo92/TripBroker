@@ -132,6 +132,13 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     }
 
     @Override
+    public void delPack (int id) {
+        accessoCatalogoView.delPack(id);
+
+    }
+
+
+    @Override
     public void upPack(Pacchetto pacchetto)
     {
         accessoCatalogoView.upPack(pacchetto);
@@ -334,6 +341,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     public void logout(ActionEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().hide();
 
+
+        instance = null;
         LogInControl logInControl = new LogInControl();
 
         try {

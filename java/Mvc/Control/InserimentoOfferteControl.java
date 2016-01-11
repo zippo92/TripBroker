@@ -202,6 +202,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
 
 
+
+
     /*
     *
     * Listener del pulsante "OK" nell'inserimento delle offerte

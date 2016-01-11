@@ -10,25 +10,24 @@ import org.hibernate.Session;
  */
 public abstract class OffertaDAO {
 
-    String type;
 
     public static void store(Offerta e) {
-        // start a session
-        Session s = DBResourcesManager.getSession();
-        // in the given session, start a transaction
-        s.beginTransaction();
+            // start a session
+            Session s = DBResourcesManager.getSession();
+            // in the given session, start a transaction
+            s.beginTransaction();
 
-        // within the transaction, save the event
-        try {
-            s.save(e); //might throw exception
-        } catch (HibernateException ex) {
-        }
+            // within the transaction, save the event
+            try {
+                s.save(e); //might throw exception
+            } catch (HibernateException ex) {
+            }
 
-        // commit the current transaction of the session
-        s.getTransaction().commit();
+            // commit the current transaction of the session
+            s.getTransaction().commit();
 
-        // close session
-        s.close();
+            // close session
+            s.close();
     }
 
     public abstract Object getList();

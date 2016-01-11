@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,6 +32,11 @@ public class LogInView implements GpColleague{
 
     public LogInView(Stage primaryStage, LogInControl control, GpMediatorImpl mediator) throws IOException {
         stage = primaryStage;
+
+
+        stage.getIcons().add(new Image("icon.png"));
+
+
         logInControl = control;
 
         gpMediator = mediator;
@@ -70,7 +76,7 @@ public class LogInView implements GpColleague{
 
         //Add Title Box (with label) to topLayout
         topLayout.setCenter(titleBox);
-        topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
+//        topLayout.setStyle("-fx-background-color: lightgrey;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
 
 
 
@@ -98,8 +104,8 @@ public class LogInView implements GpColleague{
         gpMediator.send(gp,this);
 
         primaryStage.setTitle("Trip Broker");
-        double percentageWidth = 0.19;
-        double percentageHeight = 0.18;
+        double percentageWidth = 0.30;
+        double percentageHeight = 0.25;
 
 
 
@@ -109,6 +115,10 @@ public class LogInView implements GpColleague{
 
 
         Scene scene = new Scene(gp, percentageWidth, percentageHeight);
+
+        scene.getStylesheets().add("JMetroLightTheme.css");
+
+
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -131,6 +141,8 @@ public class LogInView implements GpColleague{
         final Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initOwner(stage);
+        dialog.getIcons().add(new Image("icon.png"));
+
         VBox dialogVbox = new VBox(20);
         dialogVbox.getChildren().add(new Text(message));
         Button button = new Button("OK");

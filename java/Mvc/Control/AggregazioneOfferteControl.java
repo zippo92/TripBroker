@@ -103,7 +103,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         list.remove( observer );
     }
 
-    public void notifyPackObserver(Pacchetto pacchetto) {
+    public void notifyPackObserver(boolean delete,Pacchetto pacchetto) {
         for(PackObserver observer: list) {
             observer.addPack(pacchetto);
         }
@@ -170,7 +170,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
             DAOFactory.getPacchettoDAO().store(pacchetto);
 
 
-            this.notifyPackObserver(pacchetto);
+            this.notifyPackObserver(false,pacchetto);
 
             ((Node) (event.getSource())).getScene().getWindow().hide();
         }

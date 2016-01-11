@@ -8,6 +8,7 @@ import Patterns.GpMediator.GpMediatorImpl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -64,11 +65,11 @@ public class AggiornaCostiControl extends Application implements GpColleague {
 
     public void aggiorna(ActionEvent event)
     {
-        String text =(  (TextField) gridPane.getChildren().get(1)).getText();
+        Integer val =(  (Spinner<Integer>) gridPane.getChildren().get(1)).getValue();
 
 
 
-        aggiornaCostiModel.aggiornaCosti( Integer.parseInt(text));
+        aggiornaCostiModel.aggiornaCosti( val);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
 

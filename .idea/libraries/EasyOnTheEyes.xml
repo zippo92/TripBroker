@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="EasyOnTheEyes">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/EasyOnTheEyes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$USER_HOME$/Downloads/EasyOnTheEyes.jar!/" recursive="false" />
+  </library>
+</component>
