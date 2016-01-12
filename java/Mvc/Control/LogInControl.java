@@ -73,7 +73,7 @@ public class LogInControl  extends Application implements GpColleague{
     List<User> users = DAOFactory.getUserDAO().findSelectedUser(user,psw);
     if(users != null){
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        accessoCatalogoControl = AccessoCatalogoControl.getInstance(users.get(0).getRuolo());
+        accessoCatalogoControl = AccessoCatalogoControl.getInstance(users.get(0));
 
         try {
             accessoCatalogoControl.start(new Stage());

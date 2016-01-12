@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,6 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     private int prezzo;
     private  String città ;
     private String radioButton ;
-    private String data ;
     private  String cittaP ;
     private   String trasp ;
     private   int durata ;
@@ -52,6 +52,7 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     private   int stelle;
     private  String evento;
     private GpMediatorImpl mediator;
+    private Date data;
 
     private GridPane gpLeft;
     private GridPane gpRight;
@@ -270,7 +271,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
             if (GridPane.getColumnIndex(node) == 1 && GridPane.getRowIndex(node) == 6) {
 
-                data = ((DatePicker) node).getValue().format(formatter);
+                 data = Date.valueOf(((DatePicker)node).getValue());
+
             }
         }
 
@@ -330,6 +332,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 {   offertaTrasporto = this.creaOffertaTrasporto();
 //                    inserimentoOfferteModel.InsertTrasporto(offertaTrasporto);
                     OffertaTrasportoDAO.store(offertaTrasporto);
+                    accessoCatalogoControl.addLog(offertaTrasporto,null);
+
                     this.notifyOffObserver(offertaTrasporto);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }
@@ -380,6 +384,9 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 {   offertaPernotto = this.creaOffertaPernotto();
 //                    inserimentoOfferteModel.InsertPernotto(offertaPernotto);
                     OffertaPernottoDAO.store(offertaPernotto);
+                    accessoCatalogoControl.addLog(offertaPernotto,null);
+
+
                     this.notifyOffObserver(offertaPernotto);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }
@@ -403,6 +410,9 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
                 {   offertaEvento = this.creaOffertaEvento();
 //                    inserimentoOfferteModel.InsertEvento(offertaEvento);
                     OffertaEventoDAO.store(offertaEvento);
+                    accessoCatalogoControl.addLog(offertaEvento,null);
+
+
                     this.notifyOffObserver(offertaEvento);
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                 }

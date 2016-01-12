@@ -41,7 +41,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 *   gli vengono passate le offerte da aggregare ,istanzia il medietor tra AggregazioneOfferteControl e AggregazioneOfferteView
 *
 * */
-    private AggregazioneOfferteControl(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control){
+    public AggregazioneOfferteControl(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control){
 
         this.offertaPernotto = per ;
         this.offertaTrasporto = tras;
@@ -56,15 +56,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
 //        aggregazioneOfferteModel = new AggregazioneOfferteModel();
     }
 
-    public static AggregazioneOfferteControl getInstance(OffertaPernotto per,OffertaTrasporto tras,List<OffertaEvento> even,AccessoCatalogoControl control)
-    {
-        if (instance == null)
-        {
-            instance = new AggregazioneOfferteControl(per,tras,even,control);
-        }
 
-        return instance;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -166,6 +158,8 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
             pacchetto.setPrezzo(Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
 
 //        aggregazioneOfferteModel.creaPacchetto(pacchetto);
+
+            accessoCatalogoControl.addLog(pacchetto,"aggiunto");
 
             DAOFactory.getPacchettoDAO().store(pacchetto);
 

@@ -23,9 +23,12 @@ public class User {
         super();
     }
 
-    public User(String usID, String ruolo){this.usID = usID; this.ruolo = ruolo;}
+    public User(String usID, String ruolo) {
+        this.usID = usID;
+        this.ruolo = ruolo;
+    }
 
-    public String getUsID(){
+    public String getUsID() {
         return this.usID;
     }
 
@@ -65,3 +68,5 @@ public class User {
     }
 
 }
+
+

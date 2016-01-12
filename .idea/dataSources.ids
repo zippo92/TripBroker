@@ -8,197 +8,155 @@
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
       <schema id="1" name="myfirsthibernatedb"/>
-      <table id="2" parent="1" name="offertaevento"/>
-      <table id="3" parent="1" name="offertapernotto"/>
-      <table id="4" parent="1" name="offertatrasporto"/>
-      <table id="5" parent="1" name="user"/>
-      <table id="6" parent="1" name="pacchetto"/>
-      <table id="7" parent="1" name="pacchetto_offertaevento"/>
-      <column id="8" parent="2" name="eveID">
+      <table id="2" parent="1" name="log"/>
+      <table id="3" parent="1" name="offertaevento"/>
+      <table id="4" parent="1" name="offertapernotto"/>
+      <table id="5" parent="1" name="offertatrasporto"/>
+      <table id="6" parent="1" name="user"/>
+      <column id="7" parent="2" name="logId">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="9" parent="2" name="città">
+      <column id="8" parent="2" name="Azione">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="10" parent="2" name="dataScadenza">
+      <column id="9" parent="2" name="user_usID">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="11" parent="2" name="nome">
-        <data-type>varchar(255)</data-type>
+      <column id="10" parent="2" name="Date">
+        <data-type>date</data-type>
       </column>
-      <column id="12" parent="2" name="ofID">
-        <data-type>varchar(255)</data-type>
+      <column id="11" parent="2" name="time">
+        <data-type>time</data-type>
       </column>
-      <column id="13" parent="2" name="prezzo">
+      <index id="12" parent="2" name="FK_g7j31flbu3lqig029es69w6uj">
+        <columns>user_usID</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="13" parent="2" name="PRIMARY">
+        <columns>logId</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="14" parent="2" name="FK_g7j31flbu3lqig029es69w6uj">
+        <columns>user_usID</columns>
+        <ref-key>~.user.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="15" parent="3" name="eveID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="14" parent="2" name="tipologia">
+      <column id="16" parent="3" name="città">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="15" parent="2" name="PRIMARY">
+      <column id="17" parent="3" name="dataScadenza">
+        <data-type>date</data-type>
+      </column>
+      <column id="18" parent="3" name="nome">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="19" parent="3" name="ofID">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="20" parent="3" name="prezzo">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="21" parent="3" name="tipologia">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="22" parent="3" name="PRIMARY">
         <columns>eveID</columns>
         <primary>1</primary>
       </key>
-      <column id="16" parent="3" name="perID">
+      <column id="23" parent="4" name="perID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="17" parent="3" name="città">
+      <column id="24" parent="4" name="città">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="18" parent="3" name="dataScadenza">
+      <column id="25" parent="4" name="dataScadenza">
+        <data-type>date</data-type>
+      </column>
+      <column id="26" parent="4" name="nome">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="19" parent="3" name="nome">
+      <column id="27" parent="4" name="ofID">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="20" parent="3" name="ofID">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="21" parent="3" name="prezzo">
+      <column id="28" parent="4" name="prezzo">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="22" parent="3" name="numeroNotti">
+      <column id="29" parent="4" name="numeroNotti">
         <data-type>int(11)</data-type>
       </column>
-      <column id="23" parent="3" name="stelle">
+      <column id="30" parent="4" name="stelle">
         <data-type>int(11)</data-type>
       </column>
-      <column id="24" parent="3" name="tipologia">
+      <column id="31" parent="4" name="tipologia">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="25" parent="3" name="PRIMARY">
+      <key id="32" parent="4" name="PRIMARY">
         <columns>perID</columns>
         <primary>1</primary>
       </key>
-      <column id="26" parent="4" name="trasID">
+      <column id="33" parent="5" name="trasID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="27" parent="4" name="città">
+      <column id="34" parent="5" name="città">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="28" parent="4" name="dataScadenza">
+      <column id="35" parent="5" name="dataScadenza">
+        <data-type>date</data-type>
+      </column>
+      <column id="36" parent="5" name="nome">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="29" parent="4" name="nome">
+      <column id="37" parent="5" name="ofID">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="30" parent="4" name="ofID">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="31" parent="4" name="prezzo">
+      <column id="38" parent="5" name="prezzo">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="32" parent="4" name="cittàPartenza">
+      <column id="39" parent="5" name="cittàPartenza">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="33" parent="4" name="durata">
+      <column id="40" parent="5" name="durata">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="34" parent="4" name="tipologia">
+      <column id="41" parent="5" name="tipologia">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="35" parent="4" name="PRIMARY">
+      <key id="42" parent="5" name="PRIMARY">
         <columns>trasID</columns>
         <primary>1</primary>
       </key>
-      <column id="36" parent="5" name="usID">
+      <column id="43" parent="6" name="usID">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="37" parent="5" name="Cognome">
+      <column id="44" parent="6" name="Cognome">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="38" parent="5" name="Nome">
+      <column id="45" parent="6" name="Nome">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="39" parent="5" name="password">
+      <column id="46" parent="6" name="password">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="40" parent="5" name="ruolo">
+      <column id="47" parent="6" name="ruolo">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="41" parent="5" name="PRIMARY">
+      <key id="48" parent="6" name="PRIMARY">
         <columns>usID</columns>
         <primary>1</primary>
       </key>
-      <column id="42" parent="6" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="43" parent="6" name="nome">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="44" parent="6" name="prezzo">
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="45" parent="6" name="stato">
-        <data-type>bit(1)</data-type>
-      </column>
-      <column id="46" parent="6" name="offertaPernotto_perID">
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="47" parent="6" name="offertaTrasporto_trasID">
-        <data-type>int(11)</data-type>
-      </column>
-      <index id="48" parent="6" name="FK_99w9cjkjnw1cxykbiyshrm6qf">
-        <columns>offertaPernotto_perID</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="49" parent="6" name="FK_nu3085b8vs60llpt9v1jf831f">
-        <columns>offertaTrasporto_trasID</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="50" parent="6" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="51" parent="6" name="FK_99w9cjkjnw1cxykbiyshrm6qf">
-        <columns>offertaPernotto_perID</columns>
-        <ref-key>~.offertapernotto.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="52" parent="6" name="FK_nu3085b8vs60llpt9v1jf831f">
-        <columns>offertaTrasporto_trasID</columns>
-        <ref-key>~.offertatrasporto.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="53" parent="7" name="Pacchetto_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="54" parent="7" name="offertaEvento_eveID">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <index id="55" parent="7" name="FK_4770xdnj2hpcqbagipkigd0ae">
-        <columns>Pacchetto_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="56" parent="7" name="FK_4gguip6ohf8d9pcjqo5h3eyrf">
-        <columns>offertaEvento_eveID</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <foreign-key id="57" parent="7" name="FK_4770xdnj2hpcqbagipkigd0ae">
-        <columns>Pacchetto_id</columns>
-        <ref-key>~.pacchetto.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="58" parent="7" name="FK_4gguip6ohf8d9pcjqo5h3eyrf">
-        <columns>offertaEvento_eveID</columns>
-        <ref-key>~.offertaevento.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
     </database-model>
   </data-source>
 </component>

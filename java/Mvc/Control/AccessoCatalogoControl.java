@@ -8,10 +8,7 @@ import Patterns.CbMediator.CbMediatorImpl;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.OffObserver.OffObserver;
 import Patterns.PackObserver.PackObserver;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
-import entityPackage.Pacchetto;
+import entityPackage.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -22,6 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import java.util.List;
 public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
 
     private static AccessoCatalogoControl instance ;
-    String utente;
+    User user;
     private AccessoCatalogoView accessoCatalogoView;
     private InserimentoOfferteControl inserimentoOfferteControl;
     private ConfermaPacchettiControl confermaPacchettiControl;
@@ -43,17 +44,20 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
     private AggiornaCostiControl aggiornaCostiControl;
-
+    private VisualizzaLogControl visualizzaLogControl;
     private Stage primaryStage;
 
 /*
 *
 *  Instanzia i vari componenti e il mediator per le CheckBox
 * */
-    private AccessoCatalogoControl(String user){
+    private AccessoCatalogoControl(User user){
 
 
-        utente = user;
+        this.user = user;
+
+        this.addLog(null,"login");
+
         inserimentoOfferteControl = InserimentoOfferteControl.getInstance(this);
 //        accessoCatalogoModel = new AccessoCatalogoModel();
 
@@ -66,7 +70,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     }
 
 
-    public static AccessoCatalogoControl getInstance(String user)
+    public static AccessoCatalogoControl getInstance(User user)
     {
         if (instance == null)
         {
@@ -81,11 +85,11 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        accessoCatalogoView = new AccessoCatalogoView(primaryStage,utente,this,mediator);
+        accessoCatalogoView = new AccessoCatalogoView(primaryStage,user.getRuolo(),this,mediator);
 
         this.primaryStage = primaryStage;
 
-        if(utente.equals("Admin")) {
+        if(user.getRuolo().equals("Admin")) {
 
             confermaPacchettiControl = new ConfermaPacchettiControl(this,primaryStage);
         }
@@ -165,6 +169,10 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     * */
     public void aggregazioneOfferte(ActionEvent event)
     {
+        offertaEvento = null;
+        offertaEvento = new ArrayList<OffertaEvento>();
+        offertaPernotto = null;
+        offertaTrasporto = null ;
         accessoCatalogoView.showCheckBox(false);
         accessoCatalogoView.showCheckBox(true);
     }
@@ -219,7 +227,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         accessoCatalogoView.showCheckBox(false);
 
 
-        aggregazioneOfferteControl = AggregazioneOfferteControl.getInstance(offertaPernotto,offertaTrasporto,offertaEvento,this);
+        aggregazioneOfferteControl = new AggregazioneOfferteControl(offertaPernotto,offertaTrasporto,offertaEvento,this);
 
 
         try {
@@ -341,6 +349,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     public void logout(ActionEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().hide();
 
+        this.addLog(null,"logout");
 
         instance = null;
         LogInControl logInControl = new LogInControl();
@@ -350,6 +359,59 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void visualizzalog(ActionEvent event)
+    {
+        visualizzaLogControl = new VisualizzaLogControl();
+
+        try {
+            visualizzaLogControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void addLog(Object object,String other)
+    {
+
+        Log log = new Log();
+
+        log.setUser(user);
+
+        String azione = null;
+
+
+
+        if(object instanceof  Offerta)
+            azione = "Lo scout '" + user.getNome() + "' ha inserito l'offerta " + ((Offerta) object).getNome();
+
+        else if(object instanceof Pacchetto) {
+            if (other.equals("aggiunto"))
+                azione = "Il designer '" + user.getNome() + "' ha inserito il pacchetto " + ((Pacchetto) object).getNome();
+            if (other.equals("conferma"))
+                azione = "L'admin '" + user.getNome() + "' ha confermato il pacchetto " + ((Pacchetto) object).getNome();
+            if (other.equals("rimuovi"))
+                azione = "L'admin '" + user.getNome() + "' ha eliminato il pacchetto " + ((Pacchetto) object).getId();
+        }
+        else {
+            if (other.equals("login"))
+                azione = user.getRuolo() + " '" + user.getNome() + "' ha effettuato il log in";
+            if (other.equals("logout"))
+                azione = user.getRuolo() + " '" + user.getNome() + "' ha effettuato il log out";
+        }
+            log.setAzione(azione);
+
+
+        log.setDate(Date.valueOf(LocalDate.now()));
+
+        log.setTime(Time.valueOf(LocalTime.now()));
+
+         DAOFactory.getLogDAO().store(log);
+
 
     }
 

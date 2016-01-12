@@ -158,6 +158,8 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
 
         confermaPacchettiView.delPack(o.getId());
 
+        accessoCatalogoControl.addLog(pacchetto,"rimuovi");
+
         DAOFactory.getPacchettoDAO().delPack(Integer.parseInt(o.getId()));
 
     }
@@ -197,6 +199,8 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
         pack.setPrezzo(prezzo);
         pack.setId(Integer.parseInt(id));
         pack.setStato(stato);
+
+        accessoCatalogoControl.addLog(pack,"conferma");
 
         this.notifyPackObserver(false,pack);
 

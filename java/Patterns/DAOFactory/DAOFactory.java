@@ -1,5 +1,6 @@
 package Patterns.DAOFactory;
 
+import DAO.LogDAO;
 import DAO.OffertaDAO;
 import DAO.PacchettoDAO;
 import DAO.UserDAO;
@@ -32,6 +33,11 @@ public  abstract class DAOFactory {
     public static UserDAO getUserDAO()
     {
         return UserDAO.getInstance();
+    }
+
+    public static LogDAO getLogDAO()
+    {
+        return LogDAO.getInstance();
     }
 
     public abstract OffertaDAO getOffertaDAO();

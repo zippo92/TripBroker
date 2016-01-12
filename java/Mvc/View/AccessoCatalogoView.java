@@ -155,6 +155,8 @@ public class AccessoCatalogoView implements CbColleague{
     {
         VBox buttonBox = new VBox();
 
+        buttonBox.setPadding(new Insets(7,0,0,0));
+
         buttonBox.setAlignment(Pos.TOP_CENTER);
 
         buttonBox.setSpacing(10);
@@ -251,6 +253,7 @@ public class AccessoCatalogoView implements CbColleague{
                 log.setText("Visualizza log");
                 log.setFont(new Font(Dim_Butt));
                 log.setMaxWidth(Double.MAX_VALUE);
+                log.setOnAction(accessoCatalogoControl::visualizzalog);
 
                 buttonBox.getChildren().addAll(logout,conferma,aggiorna,andamento,log);
                 break;
@@ -1200,7 +1203,7 @@ public class AccessoCatalogoView implements CbColleague{
         gp.add(new Label("Città:"),0,2);
         gp.add(textField,1,2);
 
-        textField = new TextField(((Offerta)offerta).getDataScadenza());
+        textField = new TextField(((Offerta)offerta).getDataScadenza().toString());
         textField.setEditable(false);
         textField.setFocusTraversable(false);
 

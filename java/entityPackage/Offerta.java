@@ -2,6 +2,7 @@ package entityPackage;
 
 import javax.persistence.Basic;
 import javax.persistence.MappedSuperclass;
+import java.sql.Date;
 
 /**
  * Created by Simone on 15/12/2015.
@@ -14,17 +15,10 @@ public class Offerta {
     private String ofID;
     private String nome;
     private int prezzo;
-    private String dataScadenza;
+    private Date dataScadenza;
     private String città;
 
-//    @Id
-//    public String getOfID() {
-//        return ofID;
-//    }
-//
-//    public void setOfID(String id) {
-//        this.ofID = id;
-//    }
+
 
     public Offerta(){super();}
 
@@ -47,11 +41,11 @@ public class Offerta {
     }
 
     @Basic
-    public String getDataScadenza() {
+    public Date getDataScadenza() {
         return dataScadenza;
     }
 
-    public void setDataScadenza(String dataScadenza) {
+    public void setDataScadenza(Date dataScadenza) {
         this.dataScadenza = dataScadenza;
     }
 
