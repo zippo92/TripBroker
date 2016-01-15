@@ -1,12 +1,12 @@
 package Mvc.Control;
 
 import Mvc.Model.DBResourcesManager;
+import Mvc.Model.entityPackage.User;
 import Mvc.View.LogInView;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
-import entityPackage.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

@@ -1,7 +1,7 @@
 package Mvc.Model;
 
+import Mvc.Model.entityPackage.User;
 import Patterns.DAOFactory.DAOFactory;
-import entityPackage.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

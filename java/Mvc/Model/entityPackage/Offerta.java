@@ -1,4 +1,4 @@
-package entityPackage;
+package Mvc.Model.entityPackage;
 
 import javax.persistence.Basic;
 import javax.persistence.MappedSuperclass;

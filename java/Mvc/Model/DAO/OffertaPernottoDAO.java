@@ -1,7 +1,7 @@
-package DAO;
+package Mvc.Model.DAO;
 
 import Mvc.Model.DBResourcesManager;
-import entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaPernotto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

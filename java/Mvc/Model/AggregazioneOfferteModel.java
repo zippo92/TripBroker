@@ -1,7 +1,7 @@
 package Mvc.Model;
 
+import Mvc.Model.entityPackage.Pacchetto;
 import Patterns.DAOFactory.DAOFactory;
-import entityPackage.Pacchetto;
 
 /**
  * Created by Simone on 22/12/2015.

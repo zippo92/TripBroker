@@ -1,5 +1,6 @@
 package Mvc.Control;
 
+import Mvc.Model.entityPackage.Pacchetto;
 import Mvc.View.ConfermaPacchettiView;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
@@ -7,7 +8,6 @@ import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
 import Patterns.PackObserver.PackObserver;
 import Patterns.PackObserver.PackSubject;
-import entityPackage.Pacchetto;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

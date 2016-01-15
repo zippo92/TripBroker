@@ -1,18 +1,18 @@
 package Mvc.Control;
 
-import DAO.OffertaEventoDAO;
-import DAO.OffertaPernottoDAO;
-import DAO.OffertaTrasportoDAO;
+import Mvc.Model.DAO.OffertaEventoDAO;
+import Mvc.Model.DAO.OffertaPernottoDAO;
+import Mvc.Model.DAO.OffertaTrasportoDAO;
 import Mvc.Model.InserimentoOfferteModel;
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaTrasporto;
 import Mvc.View.InserimentoOfferteView;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
 import Patterns.OffObserver.OffObserver;
 import Patterns.OffObserver.OffSubject;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

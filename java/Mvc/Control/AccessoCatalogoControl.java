@@ -1,5 +1,6 @@
 package Mvc.Control;
 
+import Mvc.Model.entityPackage.*;
 import Mvc.TipoOfferta;
 import Mvc.View.AccessoCatalogoView;
 import Patterns.CbMediator.CbColleague;
@@ -8,7 +9,6 @@ import Patterns.CbMediator.CbMediatorImpl;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.OffObserver.OffObserver;
 import Patterns.PackObserver.PackObserver;
-import entityPackage.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

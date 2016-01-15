@@ -1,11 +1,11 @@
 package Mvc.View;
 
 import Mvc.Control.AccessoCatalogoControl;
+import Mvc.Model.entityPackage.*;
 import Mvc.TipoOfferta;
 import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
-import entityPackage.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;

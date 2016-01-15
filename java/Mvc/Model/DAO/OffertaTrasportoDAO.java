@@ -1,7 +1,7 @@
-package DAO;
+package Mvc.Model.DAO;
 
 import Mvc.Model.DBResourcesManager;
-import entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaTrasporto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,14 +11,15 @@ import java.util.List;
 /**
  * Created by Simone on 16/12/2015.
  */
-public class OffertaEventoDAO extends OffertaDAO {
+public class OffertaTrasportoDAO extends OffertaDAO {
 
     @Override
-    public  Object getList() {
+    public Object getList() {
         Session s = DBResourcesManager.getSession();
-        String query = "from OffertaEvento";
+
+        String query = "from OffertaTrasporto";
         @SuppressWarnings("unchecked")
-        List<OffertaEvento> offerte = s.createQuery(query).list();
+        List<OffertaTrasporto> offerte = s.createQuery(query).list();
         if(offerte.size()>0)
             return offerte;
         else
@@ -27,11 +28,11 @@ public class OffertaEventoDAO extends OffertaDAO {
     }
 
     @Override
-    public Object findOff(String id) {
+    public  Object findOff(String id) {
         Session s = DBResourcesManager.getSession();
-        String query = "from OffertaEvento offertaEvento where offertaEvento.eveID = '"+id+"'";
+        String query = "from OffertaTrasporto offertaTrasporto where offertaTrasporto.trasID = '"+id+"'";
         @SuppressWarnings("unchecked")
-        List<OffertaEvento> offerte = s.createQuery(query).list();
+        List<OffertaTrasporto> offerte = s.createQuery(query).list();
         if(offerte.size()>0)
             return offerte.get(0);
         else
@@ -39,22 +40,22 @@ public class OffertaEventoDAO extends OffertaDAO {
 
     }
 
-
     @Override
-    public void modPrezzo(int eveID,int percent)
+    public void modPrezzo(int trasID,int percent)
     {
         Session s = DBResourcesManager.getSession();
         int val;
+
         Transaction tx = null;
         try{
             tx = s.beginTransaction();
-            OffertaEvento offertaEvento = (OffertaEvento)s.get(OffertaEvento.class,eveID);
+            OffertaTrasporto offertaTrasporto = (OffertaTrasporto) s.get(OffertaTrasporto.class,trasID);
 
+            val = offertaTrasporto.getPrezzo();
 
-            val = offertaEvento.getPrezzo();
+            offertaTrasporto.setPrezzo(val + val*percent/100);
 
-            offertaEvento.setPrezzo(val + val*percent/100);
-            s.update(offertaEvento);
+            s.update(offertaTrasporto);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -62,5 +63,4 @@ public class OffertaEventoDAO extends OffertaDAO {
         }
 
     }
-
 }

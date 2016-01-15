@@ -1,7 +1,7 @@
 package Patterns.DAOFactory;
 
-import DAO.OffertaDAO;
-import DAO.OffertaEventoDAO;
+import Mvc.Model.DAO.OffertaDAO;
+import Mvc.Model.DAO.OffertaEventoDAO;
 
 /**
  * Created by Simone on 23/12/2015.

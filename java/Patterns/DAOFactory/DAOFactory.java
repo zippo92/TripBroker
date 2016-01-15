@@ -1,9 +1,9 @@
 package Patterns.DAOFactory;
 
-import DAO.LogDAO;
-import DAO.OffertaDAO;
-import DAO.PacchettoDAO;
-import DAO.UserDAO;
+import Mvc.Model.DAO.LogDAO;
+import Mvc.Model.DAO.OffertaDAO;
+import Mvc.Model.DAO.PacchettoDAO;
+import Mvc.Model.DAO.UserDAO;
 import Mvc.TipoOfferta;
 
 /**

@@ -1,11 +1,11 @@
 package Mvc.View;
 
 import Mvc.Control.VisualizzaLogControl;
+import Mvc.Model.entityPackage.Log;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
-import entityPackage.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

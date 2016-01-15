@@ -2,12 +2,12 @@ package Mvc.View;
 
 import Mvc.Control.AggregazioneOfferteControl;
 import Mvc.LimitedTextField;
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaTrasporto;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;

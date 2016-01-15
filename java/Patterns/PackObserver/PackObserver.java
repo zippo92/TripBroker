@@ -1,6 +1,6 @@
 package Patterns.PackObserver;
 
-import entityPackage.Pacchetto;
+import Mvc.Model.entityPackage.Pacchetto;
 
 /**
  * Created by Simone on 24/12/2015.

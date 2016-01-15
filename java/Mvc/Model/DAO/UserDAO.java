@@ -1,9 +1,9 @@
-package DAO; /**
+package Mvc.Model.DAO; /**
  * Created by Alessandro on 09/12/2015.
  */
 
 import Mvc.Model.DBResourcesManager;
-import entityPackage.User;
+import Mvc.Model.entityPackage.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 

@@ -12,13 +12,13 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Enable debug information -->
         <property name="show_sql">true</property>
-        <mapping class="entityPackage.User"/>
-        <mapping class="entityPackage.Offerta"/>
-        <mapping class="entityPackage.OffertaPernotto"/>
-        <mapping class="entityPackage.OffertaTrasporto"/>
-        <mapping class="entityPackage.OffertaEvento"/>
-        <mapping class="entityPackage.Pacchetto"/>
-        <mapping class="entityPackage.Log"/>
+        <mapping class="Mvc.Model.entityPackage.User"/>
+        <mapping class="Mvc.Model.entityPackage.Offerta"/>
+        <mapping class="Mvc.Model.entityPackage.OffertaPernotto"/>
+        <mapping class="Mvc.Model.entityPackage.OffertaTrasporto"/>
+        <mapping class="Mvc.Model.entityPackage.OffertaEvento"/>
+        <mapping class="Mvc.Model.entityPackage.Pacchetto"/>
+        <mapping class="Mvc.Model.entityPackage.Log"/>
 
     </session-factory>
 </hibernate-configuration>

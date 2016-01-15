@@ -1,10 +1,10 @@
 package Mvc.Model;
 
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaTrasporto;
 import Mvc.TipoOfferta;
 import Patterns.DAOFactory.DAOFactory;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
 
 import java.util.List;
 

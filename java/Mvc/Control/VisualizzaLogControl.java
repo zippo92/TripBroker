@@ -1,11 +1,11 @@
 package Mvc.Control;
 
+import Mvc.Model.entityPackage.Log;
 import Mvc.View.VisualizzaLogView;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
-import entityPackage.Log;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;

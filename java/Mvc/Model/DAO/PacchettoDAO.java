@@ -1,7 +1,7 @@
-package DAO;
+package Mvc.Model.DAO;
 
 import Mvc.Model.DBResourcesManager;
-import entityPackage.Pacchetto;
+import Mvc.Model.entityPackage.Pacchetto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

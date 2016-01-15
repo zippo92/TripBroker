@@ -1,11 +1,11 @@
 package Mvc.Model;
 
-import DAO.OffertaEventoDAO;
-import DAO.OffertaPernottoDAO;
-import DAO.OffertaTrasportoDAO;
-import entityPackage.OffertaEvento;
-import entityPackage.OffertaPernotto;
-import entityPackage.OffertaTrasporto;
+import Mvc.Model.DAO.OffertaEventoDAO;
+import Mvc.Model.DAO.OffertaPernottoDAO;
+import Mvc.Model.DAO.OffertaTrasportoDAO;
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaTrasporto;
 
 /**
  * Created by Simone on 16/12/2015.

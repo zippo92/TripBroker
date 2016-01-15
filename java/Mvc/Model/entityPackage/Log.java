@@ -1,4 +1,4 @@
-package entityPackage;
+package Mvc.Model.entityPackage;
 
 import javax.persistence.*;
 import java.sql.Time;

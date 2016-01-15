@@ -1,11 +1,11 @@
 package Mvc.View;
 
 import Mvc.Control.ConfermaPacchettiControl;
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.Pacchetto;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
-import entityPackage.OffertaEvento;
-import entityPackage.Pacchetto;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
