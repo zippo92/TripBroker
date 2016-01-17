@@ -107,4 +107,15 @@ public class PacchettoDAO {
 
     }
 
+    public Pacchetto getPackByID(int id){
+        Session s = DBResourcesManager.getSession();
+
+        Transaction tx = null;
+        tx = s.beginTransaction();
+        Pacchetto pacchetto = (Pacchetto)s.get(Pacchetto.class , id);
+        tx.commit();
+        return pacchetto;
+    }
+
+
 }

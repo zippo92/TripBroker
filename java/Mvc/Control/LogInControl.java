@@ -42,8 +42,9 @@ public class LogInControl  extends Application implements GpColleague{
         logInView = new LogInView(primaryStage,this,mediator);
     }
 
-
-
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     /*
     *  funzioni per ricevere la gridpane della view attraverso il mediator

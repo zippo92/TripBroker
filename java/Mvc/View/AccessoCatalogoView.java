@@ -266,12 +266,25 @@ public class AccessoCatalogoView implements CbColleague{
                 logout.setMaxWidth(Double.MAX_VALUE);
                 logout.setOnAction(accessoCatalogoControl::logout);
 
+                Button viaggioGruppo = new Button() ;
+                viaggioGruppo.setText("Crea viaggio di gruppo");
+                viaggioGruppo.setMaxWidth(Double.MAX_VALUE);
+                viaggioGruppo.setFont(new Font(20));
+                viaggioGruppo.setOnAction(accessoCatalogoControl::creaViaggioGruppo);
 
                 Button prenotazione = new Button() ;
                 prenotazione.setText("Prenotazione viaggio");
                 prenotazione.setMaxWidth(Double.MAX_VALUE);
                 prenotazione.setFont(new Font(20));
-                buttonBox.getChildren().addAll(logout,prenotazione);
+                prenotazione.setOnAction(accessoCatalogoControl::prenotaViaggioGruppo);
+
+                Button acquisto = new Button() ;
+                acquisto.setText("Acquisto viaggio");
+                acquisto.setMaxWidth(Double.MAX_VALUE);
+                acquisto.setFont(new Font(20));
+                acquisto.setOnAction(accessoCatalogoControl::acquistaViaggioGruppo);
+
+                buttonBox.getChildren().addAll(logout,viaggioGruppo,prenotazione,acquisto);
                 break;
 
         }

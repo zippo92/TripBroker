@@ -415,4 +415,32 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
+    public void creaViaggioGruppo(ActionEvent event){
+        ViaggioGruppoControl viaggioGruppoControl = ViaggioGruppoControl.getInstance();
+        try {
+            viaggioGruppoControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void prenotaViaggioGruppo(ActionEvent event){
+        PrenotaViaggioControl prenotaViaggioControl = PrenotaViaggioControl.getInstance();
+        try {
+            prenotaViaggioControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void acquistaViaggioGruppo(ActionEvent event){
+        AcquistaViaggioControl acquistaViaggioControl = AcquistaViaggioControl.getInstance();
+        try {
+            acquistaViaggioControl.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
