@@ -6,17 +6,17 @@ import Mvc.TipoOfferta;
 /**
  * Created by Simone on 23/12/2015.
  */
-public  abstract class DAOFactory {
+public abstract class DAOFactory {
 
     public static DAOFactory getDAOFactory(TipoOfferta tipo) {
 
         switch (tipo) {
             case OffertaPernotto:
-                return OffertaPernottoDAOImpl.getInstance();
+                return ConcreteFactoryOffertaPernottoDAO.getInstance();
             case OffertaTrasporto:
-                return  OffertaTrasportoDAOImpl.getInstance();
+                return  ConcreteFactoryOffertaTrasportoDAO.getInstance();
             case OffertaEvento:
-                return  OffertaEventoDAOImpl.getInstance();
+                return  ConcreteFactoryOffertaEventoDAO.getInstance();
             default:
                 return null;
         }

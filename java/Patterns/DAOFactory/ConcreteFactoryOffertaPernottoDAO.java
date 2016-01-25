@@ -6,18 +6,18 @@ import Mvc.Model.DAO.OffertaPernottoDAO;
 /**
  * Created by Simone on 23/12/2015.
  */
-public class OffertaPernottoDAOImpl extends DAOFactory {
+public class ConcreteFactoryOffertaPernottoDAO extends DAOFactory {
 
-    private static OffertaPernottoDAOImpl instance;
+    private static ConcreteFactoryOffertaPernottoDAO instance;
 
 
-    private OffertaPernottoDAOImpl() {}
+    private ConcreteFactoryOffertaPernottoDAO() {}
 
-    public static OffertaPernottoDAOImpl getInstance()
+    public static ConcreteFactoryOffertaPernottoDAO getInstance()
     {
         if (instance == null)
         {
-            instance = new OffertaPernottoDAOImpl();
+            instance = new ConcreteFactoryOffertaPernottoDAO();
         }
 
         return instance;

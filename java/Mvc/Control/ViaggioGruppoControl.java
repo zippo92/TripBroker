@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -60,9 +61,9 @@ public class ViaggioGruppoControl extends Application implements GpColleague{
 
     public void addTrip(ActionEvent event){
         ViaggioGruppo vg = new ViaggioGruppo();
-        vg.setMinP(Integer.parseInt(((TextField)this.gp.getChildren().get(1)).getText()));
-        vg.setMaxP(Integer.parseInt(((TextField)this.gp.getChildren().get(3)).getText()));
-        vg.setDiscount(Double.parseDouble(((TextField)this.gp.getChildren().get(5)).getText()));
+        vg.setMinP(((Spinner<Integer>)this.gp.getChildren().get(1)).getValue());
+        vg.setMaxP(((Spinner<Integer>)this.gp.getChildren().get(3)).getValue());
+        vg.setDiscount(((Spinner<Double>)this.gp.getChildren().get(5)).getValue());
         vg.setNumreserved(0);
 
         Pacchetto pacchetto = DAOFactory.getPacchettoDAO().getPackByID(Integer.parseInt(((Button)event.getSource()).getId()));

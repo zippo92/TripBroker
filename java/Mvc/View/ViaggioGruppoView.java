@@ -46,19 +46,24 @@ public class ViaggioGruppoView implements GpColleague{
 
         this.tg = new ToggleGroup();
 
-        double percentageWidth = 0.40;
+        double percentageWidth = 0.55;
         double percentageHeight = 0.40;
         layout = new SplitPane();
         layout.setPadding(new Insets(20,0,20,20));
-        layout.setOrientation(Orientation.HORIZONTAL);
+        layout.setOrientation(Orientation.VERTICAL);
         Rectangle2D screenSize = Screen.getPrimary().getBounds();
         percentageWidth *= screenSize.getWidth();
         percentageHeight *= screenSize.getHeight();
 
         sp1 = buildLeft();
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPadding(new Insets(0,0,20,0));
         scrollPane.setContent(sp1);
+
+
+
         sp2 = new StackPane();
+
 
         layout.getItems().addAll(scrollPane, sp2);
         layout.setDividerPositions(0.5f, 0.5f);
@@ -71,6 +76,7 @@ public class ViaggioGruppoView implements GpColleague{
         stage.setTitle("Creazione Viaggio Gruppo");
         stage.setScene(scene);
         stage.show();
+
 
     }
 
@@ -144,9 +150,31 @@ public class ViaggioGruppoView implements GpColleague{
         Label maxL = new Label("Massimo numero partecipanti");
         Label discountL = new Label("Sconto da applicare");
 
-        TextField txmin = new TextField();
-        TextField txmax = new TextField();
-        TextField txdiscount = new TextField();
+
+        SpinnerValueFactory svf1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100);
+
+
+        Spinner<Integer> txmin = new Spinner<Integer>();
+        txmin.setValueFactory(svf1);
+        txmin.setEditable(true);
+
+        SpinnerValueFactory svf2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100);
+
+
+        Spinner<Integer> txmax = new Spinner<Integer>();
+        txmax.setValueFactory(svf2);
+        txmax.setEditable(true);
+
+        SpinnerValueFactory svf3 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1.0,0,0.1);
+
+
+        Spinner<Double> txdiscount = new Spinner<Double>();
+        txdiscount.setValueFactory(svf3);
+        txdiscount.setEditable(true);
+
+        //        TextField txmin = new TextField();
+//        TextField txmax = new TextField();
+//        TextField txdiscount = new TextField();
 
         gp.add(minL,0,0);
         gp.add(txmin,1,0);

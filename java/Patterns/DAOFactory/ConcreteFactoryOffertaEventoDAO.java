@@ -6,20 +6,20 @@ import Mvc.Model.DAO.OffertaEventoDAO;
 /**
  * Created by Simone on 23/12/2015.
  */
-public class OffertaEventoDAOImpl extends DAOFactory {
+public class ConcreteFactoryOffertaEventoDAO extends DAOFactory {
 
 
 
 
-    private static OffertaEventoDAOImpl instance;
+    private static ConcreteFactoryOffertaEventoDAO instance;
 
-    private OffertaEventoDAOImpl(){}
+    private ConcreteFactoryOffertaEventoDAO(){}
 
-    public static OffertaEventoDAOImpl getInstance()
+    public static ConcreteFactoryOffertaEventoDAO getInstance()
     {
         if (instance == null)
         {
-            instance = new OffertaEventoDAOImpl();
+            instance = new ConcreteFactoryOffertaEventoDAO();
         }
 
         return instance;

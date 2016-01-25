@@ -34,6 +34,6 @@ public abstract class OffertaDAO {
 
     public abstract Object findOff(String id);
 
-    public abstract void modPrezzo(int id,int prezzo);
+    public abstract void modPrice(int id, int prezzo);
 
 }

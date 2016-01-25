@@ -41,7 +41,7 @@ public class OffertaEventoDAO extends OffertaDAO {
 
 
     @Override
-    public void modPrezzo(int eveID,int percent)
+    public void modPrice(int eveID, int percent)
     {
         Session s = DBResourcesManager.getSession();
         int val;

@@ -6,17 +6,17 @@ import Mvc.Model.DAO.OffertaTrasportoDAO;
 /**
  * Created by Simone on 23/12/2015.
  */
-public class OffertaTrasportoDAOImpl extends DAOFactory {
+public class ConcreteFactoryOffertaTrasportoDAO extends DAOFactory {
 
-    private static OffertaTrasportoDAOImpl instance;
+    private static ConcreteFactoryOffertaTrasportoDAO instance;
 
-    private OffertaTrasportoDAOImpl(){}
+    private ConcreteFactoryOffertaTrasportoDAO(){}
 
-    public static OffertaTrasportoDAOImpl getInstance()
+    public static ConcreteFactoryOffertaTrasportoDAO getInstance()
     {
         if (instance == null)
         {
-            instance = new OffertaTrasportoDAOImpl();
+            instance = new ConcreteFactoryOffertaTrasportoDAO();
         }
 
         return instance;

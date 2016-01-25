@@ -66,6 +66,7 @@ public class PrenotaViaggioView implements GpColleague{
         sp1 = buildLeft();
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(sp1);
+
         sp2 = new StackPane();
 
         layout.getItems().addAll(scrollPane, sp2);
