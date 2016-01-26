@@ -1,15 +1,13 @@
 package Mvc.View;
 
-import Mvc.Control.AccessoCatalogoControl;
+import Mvc.Control.*;
+import Mvc.Dipendenti;
 import Mvc.Model.entityPackage.*;
 import Mvc.TipoOfferta;
 import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -26,6 +24,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class AccessoCatalogoView implements CbColleague{
     *
     * */
 
-    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException {
+    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
 
 
@@ -125,7 +126,7 @@ public class AccessoCatalogoView implements CbColleague{
 
 
     /*buildLeft costruisce la zona a sinistra, con i button relativi alla specializzazione dell'utente*/
-    private void buildLeft() {
+    private void buildLeft() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
         BorderPane leftLayout = new BorderPane();
 
@@ -151,144 +152,14 @@ public class AccessoCatalogoView implements CbColleague{
 
     /*setButtonBox sceglie quali button inserire (dep può essere Scout,Designer,Administrator,Agente)*/
 
-    private VBox setButtonBox(String dep)
-    {
-        VBox buttonBox = new VBox();
+    private VBox setButtonBox(String dep) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        buttonBox.setPadding(new Insets(7,0,0,0));
+        Class<?> classType = Class.forName (Dipendenti.valueOf(dep).getSideBar());
+        Constructor constructor = classType.getConstructor(AccessoCatalogoControl.class);
+        SideBar sideBar = (SideBar) constructor.newInstance(accessoCatalogoControl);
 
-        buttonBox.setAlignment(Pos.TOP_CENTER);
-
-        buttonBox.setSpacing(10);
-
-//        Dipendente dipendente = Dipendente.valueOf(dep);
-
-        Button logout;
-
-        switch (dep) {
-
-            case "Scout":
-
-
-                logout = new Button() ;
-                logout.setText("Log out");
-                logout.setFont(new Font(Dim_Butt));
-                logout.setMaxWidth(Double.MAX_VALUE);
-                logout.setOnAction(accessoCatalogoControl::logout);
-
-
-                Button offerte = new Button() ;
-                offerte.setText("Inserimento offerte");
-                offerte.setFont(new Font(Dim_Butt));
-                offerte.setMaxWidth(Double.MAX_VALUE);
-                offerte.setOnAction(accessoCatalogoControl::inserimentoOfferte);
-
-                Button contratti = new Button();
-                contratti.setText("Gestione contratti");
-                contratti.setFont(new Font(Dim_Butt));
-                contratti.setMaxWidth(Double.MAX_VALUE);
-
-
-                Button ricerca = new Button();
-                ricerca.setText("Ricerca offerte");
-                ricerca.setFont(new Font(Dim_Butt));
-                ricerca.setMaxWidth(Double.MAX_VALUE);
-                buttonBox.getChildren().addAll(logout,offerte, contratti, ricerca);
-                break;
-
-            case "Designer":
-
-                logout = new Button() ;
-                logout.setText("Log out");
-                logout.setFont(new Font(Dim_Butt));
-                logout.setMaxWidth(Double.MAX_VALUE);
-                logout.setOnAction(accessoCatalogoControl::logout);
-
-
-                Button aggrega = new Button() ;
-                aggrega.setText("Aggregazione Offerte");
-                aggrega.setFont(new Font(Dim_Butt));
-                aggrega.setMaxWidth(Double.MAX_VALUE);
-                aggrega.setOnAction(accessoCatalogoControl::aggregazioneOfferte);
-
-
-                Button costi = new Button();
-                costi.setText("Aggiorna costi offerte");
-                costi.setFont(new Font(Dim_Butt));
-                costi.setMaxWidth(Double.MAX_VALUE);
-
-
-
-                buttonBox.getChildren().addAll(logout,aggrega, costi);
-                break;
-
-            case "Admin":
-
-
-                logout = new Button() ;
-                logout.setText("Log out");
-                logout.setFont(new Font(Dim_Butt));
-                logout.setMaxWidth(Double.MAX_VALUE);
-                logout.setOnAction(accessoCatalogoControl::logout);
-
-                Button conferma = new Button() ;
-                conferma.setText("Conferma pacchetti");
-                conferma.setOnAction(accessoCatalogoControl::confermaPacchetti);
-                conferma.setFont(new Font(Dim_Butt));
-                conferma.setMaxWidth(Double.MAX_VALUE);
-
-
-                Button aggiorna = new Button() ;
-                aggiorna.setText("Aggiorna offerte con criterio");
-                aggiorna.setOnAction(accessoCatalogoControl::aggiornaCosti);
-                aggiorna.setFont(new Font(Dim_Butt));
-                aggiorna.setMaxWidth(Double.MAX_VALUE);
-
-                Button andamento = new Button();
-                andamento.setText("Visualizza andamento economico");
-                andamento.setFont(new Font(Dim_Butt));
-                andamento.setMaxWidth(Double.MAX_VALUE);
-
-                Button log = new Button();
-                log.setText("Visualizza log");
-                log.setFont(new Font(Dim_Butt));
-                log.setMaxWidth(Double.MAX_VALUE);
-                log.setOnAction(accessoCatalogoControl::visualizzalog);
-
-                buttonBox.getChildren().addAll(logout,conferma,aggiorna,andamento,log);
-                break;
-
-            case "Agente":
-
-                logout = new Button() ;
-                logout.setText("Log out");
-                logout.setFont(new Font(Dim_Butt));
-                logout.setMaxWidth(Double.MAX_VALUE);
-                logout.setOnAction(accessoCatalogoControl::logout);
-
-                Button viaggioGruppo = new Button() ;
-                viaggioGruppo.setText("Crea viaggio di gruppo");
-                viaggioGruppo.setMaxWidth(Double.MAX_VALUE);
-                viaggioGruppo.setFont(new Font(20));
-                viaggioGruppo.setOnAction(accessoCatalogoControl::creaViaggioGruppo);
-
-                Button prenotazione = new Button() ;
-                prenotazione.setText("Prenotazione viaggio");
-                prenotazione.setMaxWidth(Double.MAX_VALUE);
-                prenotazione.setFont(new Font(20));
-                prenotazione.setOnAction(accessoCatalogoControl::prenotaViaggioGruppo);
-
-                Button acquisto = new Button() ;
-                acquisto.setText("Acquisto viaggio");
-                acquisto.setMaxWidth(Double.MAX_VALUE);
-                acquisto.setFont(new Font(20));
-                acquisto.setOnAction(accessoCatalogoControl::acquistaViaggioGruppo);
-
-                buttonBox.getChildren().addAll(logout,viaggioGruppo,prenotazione,acquisto);
-                break;
-
-        }
-        return buttonBox;
+        sideBar.draw();
+        return sideBar.getButtonBox();
     }
 
     /*buildTop costruisce la barra del titolo in alto*/

@@ -31,34 +31,32 @@ import java.util.List;
  */
 public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
 
-    private static AccessoCatalogoControl instance ;
-    User user;
-    private AccessoCatalogoView accessoCatalogoView;
-    private InserimentoOfferteControl inserimentoOfferteControl;
-    private ConfermaPacchettiControl confermaPacchettiControl;
+    protected User user;
+    protected AccessoCatalogoView accessoCatalogoView;
+    protected InserimentoOfferteControl inserimentoOfferteControl;
+    protected ConfermaPacchettiControl confermaPacchettiControl;
 //    private AccessoCatalogoModel accessoCatalogoModel;
-    private AggregazioneOfferteControl aggregazioneOfferteControl;
-    private CbMediatorImpl mediator;
-    private List<CheckBox> checkBoxes;
-    private List<OffertaEvento> offertaEvento;
-    private OffertaPernotto offertaPernotto;
-    private OffertaTrasporto offertaTrasporto;
-    private AggiornaCostiControl aggiornaCostiControl;
-    private VisualizzaLogControl visualizzaLogControl;
-    private Stage primaryStage;
+    protected AggregazioneOfferteControl aggregazioneOfferteControl;
+    protected CbMediatorImpl mediator;
+    protected List<CheckBox> checkBoxes;
+    protected List<OffertaEvento> offertaEvento;
+    protected OffertaPernotto offertaPernotto;
+    protected OffertaTrasporto offertaTrasporto;
+    protected AggiornaCostiControl aggiornaCostiControl;
+    protected VisualizzaLogControl visualizzaLogControl;
+    protected Stage primaryStage;
 
-/*
+    protected static AccessoCatalogoControl instance;
+
+
+    /*
 *
 *  Instanzia i vari componenti e il mediator per le CheckBox
 * */
-    private AccessoCatalogoControl(User user){
+    protected AccessoCatalogoControl(){
 
 
-        this.user = user;
 
-        this.addLog(null,"login");
-
-        inserimentoOfferteControl = InserimentoOfferteControl.getInstance(this);
 //        accessoCatalogoModel = new AccessoCatalogoModel();
 
         mediator = new CbMediatorImpl();
@@ -66,21 +64,7 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
         offertaEvento = new ArrayList<OffertaEvento>();
 
-
     }
-
-
-    public static AccessoCatalogoControl getInstance(User user)
-    {
-        if (instance == null)
-        {
-            instance = new AccessoCatalogoControl(user);
-        }
-
-        return instance;
-    }
-
-
 
 
     @Override
@@ -96,13 +80,15 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
-
+    public static AccessoCatalogoControl getInstance() {
+        return instance;
+    }
 
     /*
-    * funzioni per il mediator delle checkbox, che permette al controllore di ricevere la lista delle checkbox
-     * delle OfferteEvento utili al designer
-    *
-    * */
+        * funzioni per il mediator delle checkbox, che permette al controllore di ricevere la lista delle checkbox
+         * delle OfferteEvento utili al designer
+        *
+        * */
     public void send(List<CheckBox> checkBoxes) {
         //Never Reached
     }
@@ -152,30 +138,9 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     /*
     * Listener del pulsante "inserimento offerte" dello scout , fa partire inserimentoOfferteControl
     * */
-    public void inserimentoOfferte (ActionEvent event)  {
 
-        try {
-            inserimentoOfferteControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    /*
-    * Listener del pulsante "Aggregazione Offerte" , mostra i radiobutton e le checkbox per selezionare quali
-    *
-    * offerte aggregare (per sicurezza prima elimina le checkbox e radiobutton se gia esistono )
-    *
-    * */
-    public void aggregazioneOfferte(ActionEvent event)
-    {
-        offertaEvento = null;
-        offertaEvento = new ArrayList<OffertaEvento>();
-        offertaPernotto = null;
-        offertaTrasporto = null ;
-        accessoCatalogoView.showCheckBox(false);
-        accessoCatalogoView.showCheckBox(true);
-    }
+
 
 
     /*
@@ -305,25 +270,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
 
 
-    public void aggiornaCosti(ActionEvent event)
-    {
-        aggiornaCostiControl = AggiornaCostiControl.getInstance();
-
-        try {
-            aggiornaCostiControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
-
-    public void confermaPacchetti(ActionEvent event)
-    {
-        confermaPacchettiControl = new ConfermaPacchettiControl(this,primaryStage);
-
-    }
 
 
 
@@ -346,6 +294,8 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
     }
 
 
+
+
     public void logout(ActionEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().hide();
 
@@ -359,19 +309,6 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void visualizzalog(ActionEvent event)
-    {
-        visualizzaLogControl = new VisualizzaLogControl();
-
-        try {
-            visualizzaLogControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
     }
 
@@ -415,32 +352,6 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
-    public void creaViaggioGruppo(ActionEvent event){
-        ViaggioGruppoControl viaggioGruppoControl = ViaggioGruppoControl.getInstance();
-        try {
-            viaggioGruppoControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void prenotaViaggioGruppo(ActionEvent event){
-        PrenotaViaggioControl prenotaViaggioControl = PrenotaViaggioControl.getInstance();
-        try {
-            prenotaViaggioControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void acquistaViaggioGruppo(ActionEvent event){
-        AcquistaViaggioControl acquistaViaggioControl = AcquistaViaggioControl.getInstance();
-        try {
-            acquistaViaggioControl.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

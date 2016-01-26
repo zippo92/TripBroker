@@ -1,5 +1,6 @@
 package Mvc.Control;
 
+import Mvc.Dipendenti;
 import Mvc.Model.DBResourcesManager;
 import Mvc.Model.entityPackage.User;
 import Mvc.View.LogInView;
@@ -15,6 +16,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -65,22 +68,64 @@ public class LogInControl  extends Application implements GpColleague{
     public void logInAction(ActionEvent actionEvent) {
 
 
-      String user = ((TextField) gridPane.getChildren().get(1)).getText();
+        String user = ((TextField) gridPane.getChildren().get(1)).getText();
+        String psw = ((TextField) gridPane.getChildren().get(2)).getText();
 
 
-      String psw = ((TextField) gridPane.getChildren().get(2)).getText();
+        List<User> users = DAOFactory.getUserDAO().findSelectedUser(user,psw);
+        if(users != null) {
+
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
 
 
-    List<User> users = DAOFactory.getUserDAO().findSelectedUser(user,psw);
-    if(users != null){
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        accessoCatalogoControl = AccessoCatalogoControl.getInstance(users.get(0));
+        try {
+
+            Class<?> classType = Class.forName((Dipendenti.valueOf(users.get(0).getRuolo()).getAccessoCatalogoControl()));
+            Method method = classType.getMethod("getInstance",User.class);
+            accessoCatalogoControl = (AccessoCatalogoControl) method.invoke(classType.getClass(),users.get(0));
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }  catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+//        accessoCatalogoControl = classType.getClass().getInstance(users.get(0));
+
+
+//        switch (Dipendenti.valueOf(users.get(0).getRuolo())) {
+//
+//            case Scout:
+//                accessoCatalogoControl =  AccessoCatalogoScoutControl.getInstance(users.get(0));
+//                break;
+//
+//            case Designer:
+//                accessoCatalogoControl =  AccessoCatalogoDesignerControl.getInstance(users.get(0));
+//                break;
+//
+//            case Admin:
+//                accessoCatalogoControl =  AccessoCatalogoAdminControl.getInstance(users.get(0));
+//                break;
+//
+//            case Agent:
+//                accessoCatalogoControl =  AccessoCatalogoAgentControl.getInstance(users.get(0));
+//                break;
+//
+//        }
 
         try {
             accessoCatalogoControl.start(new Stage());
-        }    catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
 
 
     }
