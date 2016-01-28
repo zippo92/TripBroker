@@ -15,7 +15,6 @@ public enum Dipendenti {
     Designer("Mvc.Control.AccessoCatalogoDesignerControl","Mvc.View.DesignerSideBar"),
     Agente("Mvc.Control.AccessoCatalogoAgentControl","Mvc.View.AgentSideBar"),
     Admin("Mvc.Control.AccessoCatalogoAdminControl","Mvc.View.AdminSideBar");
-
     private final String accessoCatalogoControl;
     private final String sideBar;
     private Dipendenti(final String accessoCatalogoControl,final String sideBar) {

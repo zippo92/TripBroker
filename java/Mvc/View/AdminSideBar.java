@@ -13,7 +13,6 @@ public class AdminSideBar extends SideBar{
     public AdminSideBar(AccessoCatalogoControl accessoCatalogoControl)
     {
         super(accessoCatalogoControl);
-        instance = this;
     }
 
 

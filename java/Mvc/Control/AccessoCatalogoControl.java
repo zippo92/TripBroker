@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Created by Simone on 07/12/2015.
  */
-public class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
+public abstract class AccessoCatalogoControl extends Application implements OffObserver,CbColleague,PackObserver{
 
     protected User user;
     protected AccessoCatalogoView accessoCatalogoView;
@@ -312,8 +312,15 @@ public class AccessoCatalogoControl extends Application implements OffObserver,C
 
     }
 
+    public void logout()
+    {
+        instance = null;
+    }
+
     public void addLog(Object object,String other)
     {
+
+        if(user.getUsID().equals("test")) return ;
 
         Log log = new Log();
 

@@ -13,7 +13,6 @@ public class DesignerSideBar extends SideBar {
     public DesignerSideBar(AccessoCatalogoControl accessoCatalogoControl)
     {
         super(accessoCatalogoControl);
-        instance = this;
     }
 
     public void draw()

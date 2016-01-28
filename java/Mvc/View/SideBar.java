@@ -13,7 +13,6 @@ public abstract class SideBar{
 
     protected VBox buttonBox;
     protected AccessoCatalogoControl accessoCatalogoControl;
-    protected static SideBar instance ;
 
     public SideBar(AccessoCatalogoControl accessoCatalogoControl)
     {
@@ -33,10 +32,6 @@ public abstract class SideBar{
     public VBox getButtonBox()
     {
         return buttonBox;
-    }
-
-    public static SideBar getInstance() {
-        return instance;
     }
 
     public abstract void draw();

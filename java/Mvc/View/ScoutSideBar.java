@@ -14,7 +14,6 @@ public class ScoutSideBar extends SideBar {
     public ScoutSideBar(AccessoCatalogoControl accessoCatalogoControl)
     {
         super(accessoCatalogoControl);
-        instance = this;
     }
 
 

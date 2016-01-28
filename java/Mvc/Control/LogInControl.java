@@ -94,32 +94,6 @@ public class LogInControl  extends Application implements GpColleague{
             e.printStackTrace();
         }
 
-
-
-
-//        accessoCatalogoControl = classType.getClass().getInstance(users.get(0));
-
-
-//        switch (Dipendenti.valueOf(users.get(0).getRuolo())) {
-//
-//            case Scout:
-//                accessoCatalogoControl =  AccessoCatalogoScoutControl.getInstance(users.get(0));
-//                break;
-//
-//            case Designer:
-//                accessoCatalogoControl =  AccessoCatalogoDesignerControl.getInstance(users.get(0));
-//                break;
-//
-//            case Admin:
-//                accessoCatalogoControl =  AccessoCatalogoAdminControl.getInstance(users.get(0));
-//                break;
-//
-//            case Agent:
-//                accessoCatalogoControl =  AccessoCatalogoAgentControl.getInstance(users.get(0));
-//                break;
-//
-//        }
-
         try {
             accessoCatalogoControl.start(new Stage());
         } catch (Exception e) {

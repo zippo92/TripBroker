@@ -39,6 +39,19 @@ public class OffertaEventoDAO extends OffertaDAO {
 
     }
 
+    @Override
+    public Object findByCity(String city) {
+        Session s = DBResourcesManager.getSession();
+        String query = "from OffertaEvento offertaEvento where offertaEvento.città = '"+city+"'";
+        @SuppressWarnings("unchecked")
+        List<OffertaEvento> offerte = s.createQuery(query).list();
+        if(offerte.size()>0)
+            return offerte;
+        else
+            return null;
+
+    }
+
 
     @Override
     public void modPrice(int eveID, int percent)

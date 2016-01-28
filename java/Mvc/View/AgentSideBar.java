@@ -13,7 +13,6 @@ public class AgentSideBar extends SideBar {
     public AgentSideBar(AccessoCatalogoControl accessoCatalogoControl)
     {
         super(accessoCatalogoControl);
-        instance = this;
     }
 
 

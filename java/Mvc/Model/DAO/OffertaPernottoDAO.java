@@ -1,6 +1,7 @@
 package Mvc.Model.DAO;
 
 import Mvc.Model.DBResourcesManager;
+import Mvc.Model.entityPackage.OffertaEvento;
 import Mvc.Model.entityPackage.OffertaPernotto;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -42,6 +43,18 @@ public class OffertaPernottoDAO extends OffertaDAO {
 
     }
 
+    @Override
+    public Object findByCity(String city) {
+        Session s = DBResourcesManager.getSession();
+        String query = "from OffertaPernotto offertaPernotto where offertaPernotto.città = '"+city+"'";
+        @SuppressWarnings("unchecked")
+        List<OffertaEvento> offerte = s.createQuery(query).list();
+        if(offerte.size()>0)
+            return offerte;
+        else
+            return null;
+
+    }
 
 
     @Override

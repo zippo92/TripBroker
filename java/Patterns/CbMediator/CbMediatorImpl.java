@@ -15,7 +15,6 @@ public class CbMediatorImpl implements CbMediator{
         cbColleagues = new ArrayList<CbColleague>();
     }
     public void addColleague(CbColleague cbColleague) {
-        System.out.println("aggiunto collega");
         cbColleagues.add(cbColleague);
     }
     public void send(List<CheckBox> checkBoxes, CbColleague originator) {
