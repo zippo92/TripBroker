@@ -30,13 +30,13 @@ public class VisualizzaLogView implements GpColleague{
 
     Scene scene;
     BorderPane layout;
-    GpMediatorImpl gpMediator;
+    GpMediator gpMediator;
     VisualizzaLogControl visualizzaLogControl;
     GridPane gridPane;
 
 
 
-    public VisualizzaLogView(Stage stage,GpMediatorImpl mediator,VisualizzaLogControl control) {
+    public VisualizzaLogView(Stage stage,GpMediator mediator,VisualizzaLogControl control) {
 
         visualizzaLogControl = control;
         double percentageWidth = 0.40;

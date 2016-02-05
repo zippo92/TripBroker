@@ -27,7 +27,7 @@ public class PrenotaViaggioControl extends Application implements GpColleague{
 
     private static PrenotaViaggioControl instance;
     private PrenotaViaggioView prenotaViaggioView;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private GridPane gp;
     private PrenotaViaggioControl(){
         mediator = new GpMediatorImpl();

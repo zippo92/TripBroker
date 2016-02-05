@@ -29,7 +29,7 @@ public class LogInControl  extends Application implements GpColleague{
     private LogInView logInView;
     private AccessoCatalogoControl accessoCatalogoControl;
     private String utente;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private GridPane gridPane;
 
     @Override

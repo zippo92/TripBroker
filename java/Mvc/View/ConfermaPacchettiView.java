@@ -31,11 +31,11 @@ public class ConfermaPacchettiView implements GpColleague {
     private Image image;
     private ConfermaPacchettiControl confermaPacchettiControl;
     private GridPane gridPane;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
     private Stage dialog;
 
 
-    public ConfermaPacchettiView(ConfermaPacchettiControl control,GpMediatorImpl mediator)
+    public ConfermaPacchettiView(ConfermaPacchettiControl control,GpMediator mediator)
     {
 
         confermaPacchettiControl = control;

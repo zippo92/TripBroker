@@ -25,7 +25,7 @@ public class ViaggioGruppoControl extends Application implements GpColleague{
 
     private static ViaggioGruppoControl instance;
     private ViaggioGruppoView viaggioGruppoView;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private GridPane gp;
 
     private ViaggioGruppoControl(){

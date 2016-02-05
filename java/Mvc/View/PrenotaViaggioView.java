@@ -39,9 +39,9 @@ public class PrenotaViaggioView implements GpColleague{
     int gpPackRow;
     PrenotaViaggioControl prenotaViaggioControl;
     ToggleGroup tg;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
 
-    public PrenotaViaggioView(Stage stage, PrenotaViaggioControl prenotaViaggioControl, GpMediatorImpl gpimpl){
+    public PrenotaViaggioView(Stage stage, PrenotaViaggioControl prenotaViaggioControl, GpMediator gpimpl){
         this.prenotaViaggioControl = prenotaViaggioControl;
         this.gpMediator = gpimpl;
         gpimpl.addColleague(this);

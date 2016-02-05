@@ -7,5 +7,7 @@ import javafx.scene.layout.GridPane;
  */
 public interface GpMediator {
     void send(GridPane gp, GpColleague gpColleague);
+    public void addColleague(GpColleague gpColleague);
 
-}
+
+    }

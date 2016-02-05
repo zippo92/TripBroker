@@ -22,10 +22,10 @@ import javafx.stage.Stage;
  */
 public class AggiornaCostiView implements GpColleague{
     AggiornaCostiControl aggiornaCostiControl;
-    GpMediatorImpl gpMediator;
+    GpMediator gpMediator;
     private Stage dialog;
 
-    public AggiornaCostiView(Stage primaryStage, AggiornaCostiControl control, GpMediatorImpl gpMediator)
+    public AggiornaCostiView(Stage primaryStage, AggiornaCostiControl control, GpMediator gpMediator)
     {
         aggiornaCostiControl = control;
         dialog = new Stage();

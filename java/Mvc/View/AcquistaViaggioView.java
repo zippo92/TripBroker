@@ -40,9 +40,9 @@ public class AcquistaViaggioView implements GpColleague{
     int gpPackRow;
     AcquistaViaggioControl acquistaViaggioControl;
     ToggleGroup tg;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
 
-    public AcquistaViaggioView(Stage stage, AcquistaViaggioControl acquistaViaggioControl, GpMediatorImpl gpimpl){
+    public AcquistaViaggioView(Stage stage, AcquistaViaggioControl acquistaViaggioControl, GpMediator gpimpl){
         this.acquistaViaggioControl = acquistaViaggioControl;
         this.gpMediator = gpimpl;
         gpimpl.addColleague(this);

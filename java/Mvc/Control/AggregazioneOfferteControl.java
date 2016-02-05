@@ -33,7 +33,7 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
     private AggregazioneOfferteView aggregazioneOfferteView;
 //    private AggregazioneOfferteModel aggregazioneOfferteModel;
     private AccessoCatalogoControl accessoCatalogoControl;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private GridPane gridPane;
     private List<PackObserver> list = new ArrayList<PackObserver>();
 

@@ -51,7 +51,7 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     private   String tipo ;
     private   int stelle;
     private  String evento;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private Date data;
 
     private GridPane gpLeft;

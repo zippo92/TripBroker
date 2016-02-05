@@ -37,9 +37,9 @@ public class ViaggioGruppoView implements GpColleague{
     int gpPackRow;
     ViaggioGruppoControl viaggioGruppoControl;
     ToggleGroup tg;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
 
-    public ViaggioGruppoView(Stage stage, ViaggioGruppoControl viaggioGruppoControl,GpMediatorImpl gpimpl){
+    public ViaggioGruppoView(Stage stage, ViaggioGruppoControl viaggioGruppoControl,GpMediator gpimpl){
         this.viaggioGruppoControl = viaggioGruppoControl;
         this.gpMediator = gpimpl;
         gpimpl.addColleague(this);
@@ -66,7 +66,7 @@ public class ViaggioGruppoView implements GpColleague{
 
 
         layout.getItems().addAll(scrollPane, sp2);
-        layout.setDividerPositions(0.5f, 0.5f);
+        layout.setDividerPositions(0.6f, 0.9f);
 
         this.scene = new Scene(layout, percentageWidth, percentageHeight);
 
@@ -311,7 +311,8 @@ public class ViaggioGruppoView implements GpColleague{
 
         if(pacchetti!=null) {
             for (Pacchetto pack : pacchetti) {
-                this.addPack(pack);
+                if(pack.getStato())
+                    this.addPack(pack);
             }
 
         }

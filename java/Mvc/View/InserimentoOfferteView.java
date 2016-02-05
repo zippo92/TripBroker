@@ -35,7 +35,7 @@ public class InserimentoOfferteView implements GpColleague {
     private StackPane sp1;
     private StackPane sp2;
     private InserimentoOfferteControl inserimentoOfferteControl;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
 
 
     /*
@@ -43,7 +43,7 @@ public class InserimentoOfferteView implements GpColleague {
     * a destra invece quelle relative all'offerta selezionata nel radiogroup
     *
     * */
-    public InserimentoOfferteView(Stage stage, InserimentoOfferteControl control, GpMediatorImpl mediator) throws IOException {
+    public InserimentoOfferteView(Stage stage, InserimentoOfferteControl control, GpMediator mediator) throws IOException {
 
         gpMediator = mediator;
         gpMediator.addColleague(this);

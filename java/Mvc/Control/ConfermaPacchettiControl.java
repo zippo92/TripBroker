@@ -28,7 +28,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
 //    ConfermaPacchettiModel confermaPacchettiModel;
     ConfermaPacchettiView confermaPacchettiView;
     AccessoCatalogoControl accessoCatalogoControl;
-    GpMediatorImpl gpMediator;
+    GpMediator gpMediator;
     GridPane confGp;
     private List<PackObserver> list = new ArrayList<PackObserver>();
 

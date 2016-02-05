@@ -22,7 +22,7 @@ public class AggiornaCostiControl extends Application implements GpColleague {
     private AggiornaCostiModel aggiornaCostiModel;
     private AggiornaCostiView aggiornaCostiView;
     private GridPane gridPane;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
 
     private AggiornaCostiControl(){
 

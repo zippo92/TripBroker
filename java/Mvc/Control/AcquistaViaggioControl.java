@@ -28,7 +28,7 @@ public class AcquistaViaggioControl extends Application implements GpColleague {
 
     private static AcquistaViaggioControl instance;
     private AcquistaViaggioView acquistaViaggioView;
-    private GpMediatorImpl mediator;
+    private GpMediator mediator;
     private GridPane gp;
 
     private AcquistaViaggioControl(){

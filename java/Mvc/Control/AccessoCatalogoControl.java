@@ -37,7 +37,7 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
     protected ConfermaPacchettiControl confermaPacchettiControl;
 //    private AccessoCatalogoModel accessoCatalogoModel;
     protected AggregazioneOfferteControl aggregazioneOfferteControl;
-    protected CbMediatorImpl mediator;
+    protected CbMediator mediator;
     protected List<CheckBox> checkBoxes;
     protected List<OffertaEvento> offertaEvento;
     protected OffertaPernotto offertaPernotto;

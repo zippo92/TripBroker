@@ -37,7 +37,7 @@ public class AggregazioneOfferteView implements GpColleague {
     private List<OffertaEvento> offertaEvento;
     private OffertaPernotto offertaPernotto;
     private OffertaTrasporto offertaTrasporto;
-    private GpMediatorImpl gpMediator;
+    private GpMediator gpMediator;
     private AggregazioneOfferteControl aggregazioneOfferteControl;
 
 
@@ -45,7 +45,7 @@ public class AggregazioneOfferteView implements GpColleague {
     * è una split pane con linea orizzontale, sopra varie info del pacchetto ,sotto le offerte contenute
     *
     * */
-    public AggregazioneOfferteView(Stage stage ,List<OffertaEvento> offertaEvento,OffertaPernotto offertaPernotto,OffertaTrasporto offertaTrasporto,GpMediatorImpl mediator,
+    public AggregazioneOfferteView(Stage stage ,List<OffertaEvento> offertaEvento,OffertaPernotto offertaPernotto,OffertaTrasporto offertaTrasporto,GpMediator mediator,
                                    AggregazioneOfferteControl control)
     {
 

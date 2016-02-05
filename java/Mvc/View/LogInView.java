@@ -28,9 +28,9 @@ public class LogInView implements GpColleague{
 
     Stage stage;
     LogInControl logInControl;
-    GpMediatorImpl gpMediator;
+    GpMediator gpMediator;
 
-    public LogInView(Stage primaryStage, LogInControl control, GpMediatorImpl mediator) throws IOException {
+    public LogInView(Stage primaryStage, LogInControl control, GpMediator mediator) throws IOException {
         stage = primaryStage;
 
 

@@ -21,7 +21,7 @@ import java.util.List;
 public class VisualizzaLogControl extends Application implements GpColleague{
 
     VisualizzaLogView visualizzaLogView;
-    GpMediatorImpl mediator;
+    GpMediator mediator;
     GridPane filtro;
     GridPane gp;
 

@@ -54,7 +54,7 @@ public class AccessoCatalogoView implements CbColleague{
     private Image image;
     private Stage stage;
     private List<CheckBox> checkBoxes;
-    private CbMediatorImpl cbMediator;
+    private CbMediator cbMediator;
     private Boolean check;
     private List<List<Label>> packRow;
 
@@ -65,7 +65,7 @@ public class AccessoCatalogoView implements CbColleague{
     *
     * */
 
-    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediatorImpl mediator) throws IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public AccessoCatalogoView(Stage primaryStage, String utente, AccessoCatalogoControl control,CbMediator mediator) throws IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
 
 

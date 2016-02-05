@@ -10,4 +10,6 @@ import java.util.List;
 public interface CbMediator {
     void send(List<CheckBox> checkBoxes, CbColleague cbColleague);
 
-}
+    public void addColleague(CbColleague cbColleague);
+
+    }
