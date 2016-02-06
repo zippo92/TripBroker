@@ -16,6 +16,7 @@ public class AccessoCatalogoAdminControl extends AccessoCatalogoControl {
 
         addLog(null,"login");
 
+
     }
 
 

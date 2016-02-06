@@ -1,7 +1,11 @@
 package Mvc.Control;
 
-import Mvc.Model.AggiornaCostiModel;
+import Mvc.Model.entityPackage.OffertaEvento;
+import Mvc.Model.entityPackage.OffertaPernotto;
+import Mvc.Model.entityPackage.OffertaTrasporto;
+import Mvc.TipoOfferta;
 import Mvc.View.AggiornaCostiView;
+import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
 import Patterns.GpMediator.GpMediator;
 import Patterns.GpMediator.GpMediatorImpl;
@@ -13,13 +17,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 /**
  * Created by Simone on 29/12/2015.
  */
 public class AggiornaCostiControl extends Application implements GpColleague {
 
     private static AggiornaCostiControl instance;
-    private AggiornaCostiModel aggiornaCostiModel;
     private AggiornaCostiView aggiornaCostiView;
     private GridPane gridPane;
     private GpMediator gpMediator;
@@ -40,8 +45,6 @@ public class AggiornaCostiControl extends Application implements GpColleague {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        aggiornaCostiModel = new AggiornaCostiModel();
 
         gpMediator = new GpMediatorImpl();
         gpMediator.addColleague(this);
@@ -69,7 +72,7 @@ public class AggiornaCostiControl extends Application implements GpColleague {
 
 
 
-        aggiornaCostiModel.aggiornaCosti( val);
+        this.aggiornaCosti( val);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
 
@@ -95,6 +98,25 @@ public class AggiornaCostiControl extends Application implements GpColleague {
 
         ((TextField) gridPane.getChildren().get(1)).setText( Integer.toString(val));
 
+    }
+
+    public void aggiornaCosti(int val)
+    {
+
+        List<OffertaPernotto> offertaPernottos =(List<OffertaPernotto>) DAOFactory.getDAOFactory(TipoOfferta.OffertaPernotto).getOffertaDAO().getList();
+        for(OffertaPernotto offerta : offertaPernottos)
+            DAOFactory.getDAOFactory(TipoOfferta.OffertaPernotto).getOffertaDAO().modPrice(offerta.getPerID(),val);
+
+
+        List<OffertaTrasporto> offertaTrasportos =(List<OffertaTrasporto>) DAOFactory.getDAOFactory(TipoOfferta.OffertaTrasporto).getOffertaDAO().getList();
+        for(OffertaTrasporto offerta : offertaTrasportos)
+            DAOFactory.getDAOFactory(TipoOfferta.OffertaTrasporto).getOffertaDAO().modPrice(offerta.getTrasID(),val);
+
+
+
+        List<OffertaEvento> offertaEventos =(List<OffertaEvento>) DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().getList();
+        for(OffertaEvento offerta : offertaEventos)
+            DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().modPrice(offerta.getEveID(),val);
     }
 
 

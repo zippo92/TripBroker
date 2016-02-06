@@ -45,8 +45,7 @@ public class ConfermaPacchettiControl implements GpColleague,PackSubject{
         this.addPackObserver(accessoCatalogoControl);
 
 
-        confermaPacchettiView = new ConfermaPacchettiView(this,gpMediator);
-        confermaPacchettiView.adminPopup(primaryStage);
+        confermaPacchettiView = new ConfermaPacchettiView(this,gpMediator,primaryStage);
 
 
 

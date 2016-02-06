@@ -35,7 +35,6 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
     protected AccessoCatalogoView accessoCatalogoView;
     protected InserimentoOfferteControl inserimentoOfferteControl;
     protected ConfermaPacchettiControl confermaPacchettiControl;
-//    private AccessoCatalogoModel accessoCatalogoModel;
     protected AggregazioneOfferteControl aggregazioneOfferteControl;
     protected CbMediator mediator;
     protected List<CheckBox> checkBoxes;
@@ -57,7 +56,6 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
 
 
 
-//        accessoCatalogoModel = new AccessoCatalogoModel();
 
         mediator = new CbMediatorImpl();
         mediator.addColleague(this);
@@ -73,10 +71,6 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
 
         this.primaryStage = primaryStage;
 
-        if(user.getRuolo().equals("Admin")) {
-
-            confermaPacchettiControl = new ConfermaPacchettiControl(this,primaryStage);
-        }
 
     }
 

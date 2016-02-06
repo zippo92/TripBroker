@@ -35,7 +35,7 @@ public class ConfermaPacchettiView implements GpColleague {
     private Stage dialog;
 
 
-    public ConfermaPacchettiView(ConfermaPacchettiControl control,GpMediator mediator)
+    public ConfermaPacchettiView(ConfermaPacchettiControl control,GpMediator mediator,Stage primaryStage)
     {
 
         confermaPacchettiControl = control;
@@ -43,6 +43,9 @@ public class ConfermaPacchettiView implements GpColleague {
 
         gpMediator = mediator;
         gpMediator.addColleague(this);
+
+        this.adminPopup(primaryStage);
+
 
     }
 
@@ -57,7 +60,7 @@ public class ConfermaPacchettiView implements GpColleague {
     }
 
 
-    public void adminPopup(Stage stage)
+    private void adminPopup(Stage stage)
     {
 
         List<Pacchetto> daApprovare = confermaPacchettiControl.findNotApproved();
