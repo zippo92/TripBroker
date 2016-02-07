@@ -163,6 +163,7 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setCittàPartenza(this.cittaP);
         offerta.setTipologia(this.trasp);
         offerta.setDurata(this.durata);
+        offerta.setToBuy(true);
 
         return offerta;
     }
@@ -179,6 +180,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setNumeroNotti(this.notti);
         offerta.setStelle(this.stelle);
         offerta.setTipologia(tipo);
+        offerta.setToBuy(true);
+
 
         return offerta;
     }
@@ -192,6 +195,8 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
         offerta.setPrezzo(this.prezzo);
         offerta.setDataScadenza(this.data);
         offerta.setTipologia(evento);
+        offerta.setToBuy(true);
+
 
 
         return offerta;
