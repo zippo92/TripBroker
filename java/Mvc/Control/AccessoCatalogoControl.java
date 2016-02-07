@@ -113,6 +113,10 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
     public void addPack (Pacchetto pacchetto) {
         accessoCatalogoView.addPack(pacchetto);
 
+        accessoCatalogoView.buildOfferte();
+
+//        accessoCatalogoView.deleteOffFromList(pacchetto);
+
     }
 
     @Override
@@ -179,7 +183,6 @@ public abstract class AccessoCatalogoControl extends Application implements OffO
         accessoCatalogoView.setEffect(0,null);
         for(CheckBox checkBox : checkBoxes)
             if(checkBox.isSelected()) {
-//                offertaEvento.add((OffertaEvento) (accessoCatalogoModel.findOff(checkBox.getId(),TipoOfferta.OffertaEvento)));
                   offertaEvento.add((OffertaEvento) DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().findOff(checkBox.getId()));
             }
 

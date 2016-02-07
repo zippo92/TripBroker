@@ -4,6 +4,7 @@ import Mvc.Model.DBResourcesManager;
 import Mvc.Model.entityPackage.Offerta;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Created by Simone on 18/12/2015.
@@ -30,11 +31,15 @@ public abstract class OffertaDAO {
             s.close();
     }
 
+
+
     public abstract Object getList();
 
     public abstract Object findOff(String id);
 
     public abstract Object findByCity(String city);
+
+    public abstract boolean checkToBuy(int id);
 
 
     public abstract void modPrice(int id, int prezzo);

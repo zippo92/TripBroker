@@ -4,6 +4,7 @@ import Mvc.Model.entityPackage.OffertaEvento;
 import Mvc.Model.entityPackage.OffertaPernotto;
 import Mvc.Model.entityPackage.OffertaTrasporto;
 import Mvc.Model.entityPackage.Pacchetto;
+import Mvc.TipoOfferta;
 import Mvc.View.AggregazioneOfferteView;
 import Patterns.DAOFactory.DAOFactory;
 import Patterns.GpMediator.GpColleague;
@@ -109,6 +110,26 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
     *   Listener del pulsante "Conferma Pacchetto" che permette di inserire il pacchetto nel db e di fare la notifica all'observer
     * */
 
+    private boolean checkall()
+    {
+
+        if(!DAOFactory.getDAOFactory(TipoOfferta.OffertaPernotto).getOffertaDAO().checkToBuy(offertaPernotto.getPerID()))
+            return false;
+
+
+        if(!DAOFactory.getDAOFactory(TipoOfferta.OffertaTrasporto).getOffertaDAO().checkToBuy(offertaTrasporto.getTrasID()))
+            return false;
+
+        for(OffertaEvento eventi : offertaEvento)
+            if(!DAOFactory.getDAOFactory(TipoOfferta.OffertaEvento).getOffertaDAO().checkToBuy(eventi.getEveID()))
+                return false;
+
+
+        return true;
+
+
+    }
+
     public void creaPacchetto(ActionEvent event)
     {
         boolean red = false;
@@ -147,26 +168,30 @@ public class AggregazioneOfferteControl extends Application implements GpColleag
         if(!red) {
 
 
-            Pacchetto pacchetto = new Pacchetto();
+            if(checkall()) {
 
-            pacchetto.setOffertaPernotto(offertaPernotto);
-            pacchetto.setOffertaTrasporto(offertaTrasporto);
-            pacchetto.setOffertaEvento(offertaEvento);
-            pacchetto.setStato(false);
-
-            pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
-            pacchetto.setPrezzo(Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
-
-//        aggregazioneOfferteModel.creaPacchetto(pacchetto);
-
-            accessoCatalogoControl.addLog(pacchetto,"aggiunto");
-
-            DAOFactory.getPacchettoDAO().store(pacchetto);
+                Pacchetto pacchetto = new Pacchetto();
 
 
-            this.notifyPackObserver(false,pacchetto);
+                pacchetto.setOffertaPernotto(offertaPernotto);
+                pacchetto.setOffertaTrasporto(offertaTrasporto);
+                pacchetto.setOffertaEvento(offertaEvento);
+                pacchetto.setStato(false);
+                pacchetto.setToBuy(true);
 
-            ((Node) (event.getSource())).getScene().getWindow().hide();
+
+                pacchetto.setNome(((TextField) gridPane.getChildren().get(1)).getText());
+                pacchetto.setPrezzo(Integer.parseInt(((TextField) gridPane.getChildren().get(3)).getText()));
+
+                accessoCatalogoControl.addLog(pacchetto, "aggiunto");
+
+                DAOFactory.getPacchettoDAO().store(pacchetto);
+
+
+                this.notifyPackObserver(false, pacchetto);
+
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            }
         }
 
     }

@@ -20,7 +20,7 @@ public class LimitedTextField extends TextField {
                                 Number oldValue, Number newValue) {
                 if (newValue.intValue() > oldValue.intValue()) {
                     // Check if the new character is greater than LIMIT
-                    if (textField.getText().length() >= 10) {
+                    if (textField.getText().length() >= 15) {
                         // if it's 11th character then just setText to previous
                         // one
                         textField.setText(textField.getText().substring(0, 10));

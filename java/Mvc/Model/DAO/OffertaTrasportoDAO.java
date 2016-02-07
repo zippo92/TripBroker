@@ -77,4 +77,33 @@ public class OffertaTrasportoDAO extends OffertaDAO {
         }
 
     }
+
+    public boolean checkToBuy(int id){
+        Session s = DBResourcesManager.getSession();
+
+        Transaction tx = null;
+        try{
+            tx = s.beginTransaction();
+
+
+            Object res = (Object) s.get(OffertaTrasporto.class, id);
+
+            OffertaTrasporto p = (OffertaTrasporto) res;
+
+            if (!p.isToBuy()) {
+                s.close();
+                return false;
+            }
+            p.setToBuy(false);
+            s.update(p);
+            tx.commit();
+            s.close();
+            return true;
+
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

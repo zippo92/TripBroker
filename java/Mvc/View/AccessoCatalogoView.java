@@ -8,6 +8,7 @@ import Patterns.CbMediator.CbColleague;
 import Patterns.CbMediator.CbMediator;
 import Patterns.CbMediator.CbMediatorImpl;
 import javafx.geometry.*;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -57,6 +58,7 @@ public class AccessoCatalogoView implements CbColleague{
     private CbMediator cbMediator;
     private Boolean check;
     private List<List<Label>> packRow;
+    private Tab tabA;
 
 
     /*
@@ -212,11 +214,10 @@ public class AccessoCatalogoView implements CbColleague{
 
         tabPane = new TabPane();
 //        tabPane.setStyle("-fx-background-color: lightsteelblue;-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 1;");
-        Tab tabA = new Tab();
+        tabA = new Tab();
         tabA.setText("Offerte");
         tabA.setClosable(false);
-        splitOfferte = buildOfferte();
-        tabA.setContent(splitOfferte);
+        buildOfferte();
         tabPane.getTabs().add(tabA);
 
         Tab tabB = new Tab();
@@ -236,9 +237,9 @@ public class AccessoCatalogoView implements CbColleague{
 
     /*buildOfferte costruisce la tab relativa alle offerte, costituita da una splitpane divisa in 3 parti, in quanto
     * ci sono 3 tipi di offerte differenti */
-    private SplitPane buildOfferte(){
-        SplitPane sp = new SplitPane();
+    public void buildOfferte(){
 
+        splitOfferte = new SplitPane();
 
         of1 = BuildOffertePernotto();
 
@@ -255,11 +256,11 @@ public class AccessoCatalogoView implements CbColleague{
         of3.setPadding(new Insets(0,0,0,5.0));
 
 
-        sp.setDividerPositions(0.33f, 0.66f, 0.99f);
-        sp.getItems().addAll(of1,of2,of3);
+        splitOfferte.setDividerPositions(0.33f, 0.66f, 0.99f);
+        splitOfferte.getItems().addAll(of1,of2,of3);
 
+        tabA.setContent(splitOfferte);
 
-        return sp;
     }
 
 
@@ -309,7 +310,8 @@ public class AccessoCatalogoView implements CbColleague{
         int app;
         if(offerte!=null)
         for(OffertaEvento offertaEvento : offerte){
-            this.addOff(offertaEvento);
+            if(offertaEvento.isToBuy())
+                this.addOff(offertaEvento);
 
         }
 
@@ -372,7 +374,8 @@ public class AccessoCatalogoView implements CbColleague{
         int app;
         if(offerte!=null)
             for(OffertaTrasporto offertaTrasporto : offerte){
-                this.addOff(offertaTrasporto);
+                if(offertaTrasporto.isToBuy())
+                    this.addOff(offertaTrasporto);
             }
 
         sp.getChildren().add(gpTras);
@@ -438,7 +441,8 @@ public class AccessoCatalogoView implements CbColleague{
         int app;
         if(offerte!=null)
             for(OffertaPernotto offertaPernotto : offerte){
-                this.addOff(offertaPernotto);
+                if(offertaPernotto.isToBuy())
+                    this.addOff(offertaPernotto);
 
             }
 
@@ -927,7 +931,8 @@ public class AccessoCatalogoView implements CbColleague{
 
         if(pacchetti!=null) {
             for (Pacchetto pack : pacchetti) {
-                this.addPack(pack);
+                if(pack.isToBuy())
+                    this.addPack(pack);
             }
 
         }
@@ -1289,25 +1294,60 @@ public class AccessoCatalogoView implements CbColleague{
 
     }
 
+//    public void deleteOffFromList(Pacchetto pacchetto)
+//    {
+//        int from =0;
+//        int i=0;
+//        for(Node node : gpPern.getChildren()) {
+//            if (node instanceof ImageView)
+//                if (Integer.parseInt(((ImageView) node).getId()) == pacchetto.getOffertaPernotto().getPerID())
+//                    from = i;
+//
+//            i++;
+//        }
+//        gpPern.getChildren().remove(from-5,from+2);
+//        gpPernRow-=2;
+//
+//
+//
+//        for(Node node : gpPern.getChildren())
+//            System.out.println(node);
+
+
+//        from =0;
+//        i=0;
+//        for(Node node : gpTras.getChildren()) {
+//            if (node instanceof ImageView)
+//                if (Integer.parseInt(((ImageView) node).getId()) == pacchetto.getOffertaTrasporto().getTrasID())
+//                    from = i;
+//
+//            i++;
+//        }
+//        gpTras.getChildren().remove(from-5,from+2);
+//        gpTrasRow-=2;
+//
+//
+//
+//        for(OffertaEvento eventi : pacchetto.getOffertaEvento())
+//        {
+//
+//            from =0;
+//            i=0;
+//            for(Node node : gpEve.getChildren()) {
+//                if (node instanceof ImageView)
+//                    if (Integer.parseInt(((ImageView) node).getId()) == eventi.getEveID())
+//                        from = i;
+//
+//                i++;
+//            }
+//            gpEve.getChildren().remove(from-4,from+2);
+//            gpEveRow-=2;
+//
+//        }
+
+
+
+//    }
+
 
 }
-//
-//gpPack.add(new Label(pack.getNome()), 0, gpPackRow);
-//        gpPack.add(new Label(Integer.toString(pack.getPrezzo())), 1, gpPackRow);
-//        gpPack.add(new Label(pack.getOffertaPernotto().getCittà()), 2, gpPackRow);
-//        gpPack.add(new Label(pack.getOffertaPernotto().getTipologia()), 4, gpPackRow);
-//        gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getStelle())), 5, gpPackRow);
-//        gpPack.add(new Label(Integer.toString(pack.getOffertaPernotto().getNumeroNotti())), 6, gpPackRow);
-//        gpPack.add(new Label(pack.getOffertaTrasporto().getCittàPartenza()), 8, gpPackRow);
-//        gpPack.add(new Label(pack.getOffertaTrasporto().getTipologia()), 9, gpPackRow);
-//        gpPack.add(new Label(Integer.toString(pack.getOffertaTrasporto().getDurata())), 10, gpPackRow);
-//
-//
-//        int j=0;
-//        for (OffertaEvento events : pack.getOffertaEvento()) {
-//        gpPack.add(new Label(events.getNome()), 12, gpPackRow);
-//        gpPack.add(new Label(events.getTipologia()), 13, gpPackRow);
-//
-//        j+=2;
-//        gpPackRow++;
-//        }

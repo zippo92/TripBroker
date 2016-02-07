@@ -3,7 +3,6 @@ package Mvc.Control;
 import Mvc.Model.DAO.OffertaEventoDAO;
 import Mvc.Model.DAO.OffertaPernottoDAO;
 import Mvc.Model.DAO.OffertaTrasportoDAO;
-import Mvc.Model.InserimentoOfferteModel;
 import Mvc.Model.entityPackage.OffertaEvento;
 import Mvc.Model.entityPackage.OffertaPernotto;
 import Mvc.Model.entityPackage.OffertaTrasporto;
@@ -37,7 +36,6 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
 
     private static InserimentoOfferteControl instance;
     private InserimentoOfferteView inserimentoOfferteView;
-    private InserimentoOfferteModel inserimentoOfferteModel;
     private AccessoCatalogoControl accessoCatalogoControl;
 
     private String nome ;
@@ -68,8 +66,6 @@ public class InserimentoOfferteControl extends Application implements GpColleagu
     {
          mediator = new GpMediatorImpl();
          mediator.addColleague(this);
-
-        inserimentoOfferteModel = new InserimentoOfferteModel();
 
         accessoCatalogoControl = back;
 
